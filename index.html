@@ -509,7 +509,8 @@
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
         }
 
-        // --- 3. Hijri Date ---        function updateHijriDate() {
+        // --- 3. Hijri Date ---
+        function updateHijriDate() {
             try {
                 const today = new Date();
                 const hijri = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', { day: 'numeric', month: 'long', year: 'numeric' }).format(today);
@@ -572,7 +573,6 @@
         }
 
         // --- 5. Qibla Compass ---
-        let qiblaActive = false;
         function initQibla() {
             const status = document.getElementById('qiblaStatus');
             const arrow = document.getElementById('qiblaArrow');
@@ -582,11 +582,9 @@
                 const lat = position.coords.latitude;
                 const lng = position.coords.longitude;
                 
-                // Coordinates of Kaaba in Mecca
                 const kaabaLat = 21.4225;
                 const kaabaLng = 39.8262;
                 
-                // Calculate Qibla angle
                 const phiK = (kaabaLat * Math.PI) / 180.0;
                 const lambdaK = (kaabaLng * Math.PI) / 180.0;
                 const phi = (lat * Math.PI) / 180.0;
@@ -597,7 +595,6 @@
                 arrow.style.transform = `rotate(${qiblaAngle}deg)`;
                 status.textContent = `اتجاه القبلة تقريباً: ${Math.round(qiblaAngle)} درجة من الشمال.`;
 
-                // Handle device orientation if available
                 if (window.DeviceOrientationEvent) {
                     if (typeof DeviceOrientationEvent.requestPermission === 'function') {
                         DeviceOrientationEvent.requestPermission().then(permissionState => {
@@ -615,7 +612,6 @@
                 function handleOrientation(event) {
                     let compassHeading = event.webkitCompassHeading || event.alpha;
                     if (compassHeading !== null && compassHeading !== undefined) {
-                        // Adjust arrow rotation based on device heading
                         arrow.style.transform = `rotate(${qiblaAngle - compassHeading}deg)`;
                     }
                 }
