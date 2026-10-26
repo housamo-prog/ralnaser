@@ -136,23 +136,49 @@
         .prayer-card h4 { color: var(--primary-light); font-size: 1.1rem; margin-bottom: 0.5rem; }
         .prayer-card p { font-size: 1.3rem; font-weight: bold; }
 
-        /* --- تصميم القبلة فائق الدقة --- */
+        /* --- تصميم السهم الجديد والواضح للقبلة --- */
         .qibla-box { 
             text-align: center; background: #fff; padding: 2.5rem 1.5rem; 
             border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.08); 
             max-width: 450px; margin: 0 auto; border: 2px solid var(--gold);
         }
-        .qibla-radar {
+        .compass-circle {
             width: 240px; height: 240px; border-radius: 50%;
-            background: radial-gradient(circle, #f8f9fa 40%, #e2e8f0 100%);
-            border: 5px solid var(--primary); margin: 0 auto 1.5rem;
+            background: radial-gradient(circle, #ffffff 50%, #e2e8f0 100%);
+            border: 6px solid var(--primary); margin: 0 auto 1.5rem;
             position: relative; display: flex; align-items: center; justify-content: center;
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.1);
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.1);
         }
-        .kaaba-target {
-            font-size: 3.2rem; position: absolute;
+        .compass-circle::before {
+            content: 'N (الشمال)'; position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
+            font-weight: bold; color: #dc3545; font-size: 0.75rem;
+        }
+        /* تصميم السهم الموجه */
+        .qibla-arrow-container {
+            width: 100%; height: 100%;
+            position: absolute; top: 0; left: 0;
+            transform-origin: center center;
             transition: transform 0.3s ease-out;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+        }
+        .arrow-shape {
+            width: 0; height: 0;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-bottom: 90px solid #28a745;
+            position: absolute; top: 30px; left: 50%;
+            transform: translateX(-50%);
+            filter: drop-shadow(0 3px 5px rgba(0,0,0,0.3));
+        }
+        .arrow-shape::after {
+            content: '🕋';
+            position: absolute;
+            top: -35px; left: -14px;
+            font-size: 24px;
+        }
+        .compass-center-dot {
+            width: 16px; height: 16px; background: var(--gold); border: 2px solid #fff;
+            border-radius: 50%; position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%); z-index: 5; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
         .quran-controls { display: flex; gap: 10px; margin-bottom: 1.5rem; justify-content: center; }
@@ -240,17 +266,20 @@
         <div id="prayerResult" class="prayer-grid"></div>
     </section>
 
-    <!-- قسم اتجاه القبلة الفائق الدقة مع الخريطة المباشرة -->
+    <!-- قسم السهم المباشر للقبلة -->
     <section id="qibla" class="content-section">
         <h2 class="section-title">اتجاه القبلة</h2>
         <div class="qibla-box">
-            <div class="qibla-radar">
-                <div id="kaabaTarget" class="kaaba-target">🕋</div>
+            <div class="compass-circle">
+                <div class="compass-center-dot"></div>
+                <div id="qiblaArrow" class="qibla-arrow-container">
+                    <div class="arrow-shape"></div>
+                </div>
             </div>
-            <p id="qiblaStatus" style="font-weight: bold; margin-bottom: 1rem; color: var(--primary); font-size: 1.1rem;">اضغط الزر أدناه لحساب زاويتك وفتح خط اتجاه الكعبة بدقة</p>
+            <p id="qiblaStatus" style="font-weight: bold; margin-bottom: 1rem; color: var(--primary); font-size: 1.05rem;">اضغط الزر لتوجيه السهم نحو الكعبة المشرفة</p>
             <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-                <button onclick="initQibla()" style="padding:12px 20px; background:var(--primary); color:white; border:none; border-radius:30px; cursor:pointer; font-weight: bold; font-size: 0.95rem; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">🧭 تحديث اتجاه البوصلة</button>
-                <a id="mapLink" href="#" target="_blank" style="display: none; padding: 12px 20px; background: #1a73e8; color: white; text-decoration: none; border-radius: 30px; font-weight: bold; font-size: 0.95rem; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">🗺️ افتح خط القبلة على الخريطة</a>
+                <button onclick="initQibla()" style="padding:12px 22px; background:var(--primary); color:white; border:none; border-radius:30px; cursor:pointer; font-weight: bold; font-size: 0.95rem; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">🧭 تفعيل السهم والبوصلة</button>
+                <a id="mapLink" href="#" target="_blank" style="display: none; padding: 12px 22px; background: #1a73e8; color: white; text-decoration: none; border-radius: 30px; font-weight: bold; font-size: 0.95rem; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">🗺️ عرض على الخريطة</a>
             </div>
         </div>
     </section>
@@ -333,7 +362,7 @@
             }
         }
 
-        // --- 4. اتجاه القبلة الاحترافي المباشر ---
+        // --- 4. حساب وتوجيه السهم نحو القبلة بدقة ---
         let qiblaAngle = 0;
 
         function initQibla() {
@@ -342,7 +371,7 @@
                 return;
             }
             
-            document.getElementById('qiblaStatus').textContent = 'جاري تحديد موقعك وحساب زاوية القبلة...';
+            document.getElementById('qiblaStatus').textContent = 'جاري تحديد موقعك وحساب زاوية السهم...';
             
             navigator.geolocation.getCurrentPosition(pos => {
                 const lat = pos.coords.latitude;
@@ -358,10 +387,10 @@
                 let psi = Math.atan2(y, x) * 180 / Math.PI;
                 qiblaAngle = (psi + 360) % 360;
                 
-                document.getElementById('qiblaStatus').innerHTML = `زاوية اتجاه القبلة: <span style="color:#28a745; font-size:1.2rem;">${Math.round(qiblaAngle)}°</span> من الشمال الجغرافي`;
-                updateKaabaPosition(qiblaAngle);
+                document.getElementById('qiblaStatus').innerHTML = `زاوية القبلة: <span style="color:#28a745; font-size:1.15rem;">${Math.round(qiblaAngle)}°</span> من الشمال`;
+                document.getElementById('qiblaArrow').style.transform = `rotate(${qiblaAngle}deg)`;
 
-                // تفعيل رابط خريطة جوجل المباشر لضمان دقة 100%
+                // تفعيل رابط الخريطة كمرجع إضافي فائق الدقة
                 const mapBtn = document.getElementById('mapLink');
                 mapBtn.href = `https://www.google.com/maps/dir/?api=1&origin=${lat},${lng}&destination=21.4225,39.8262&travelmode=driving`;
                 mapBtn.style.display = 'inline-block';
@@ -382,15 +411,6 @@
             }, { enableHighAccuracy: true });
         }
 
-        function updateKaabaPosition(angle) {
-            const kaaba = document.getElementById('kaabaTarget');
-            const radius = 75;
-            const rad = (angle - 90) * (Math.PI / 180);
-            const x = Math.cos(rad) * radius;
-            const y = Math.sin(rad) * radius;
-            kaaba.style.transform = `translate(${x}px, ${y}px)`;
-        }
-
         function handleCompass(e) {
             let heading = e.alpha;
             if (e.webkitCompassHeading) {
@@ -398,7 +418,7 @@
             }
             if (heading !== null && heading !== undefined) {
                 let rotation = qiblaAngle - heading;
-                updateKaabaPosition(rotation);
+                document.getElementById('qiblaArrow').style.transform = `rotate(${rotation}deg)`;
             }
         }
 
