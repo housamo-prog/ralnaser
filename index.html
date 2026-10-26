@@ -100,9 +100,8 @@
         }
         .tab-btn.active { color: var(--primary); border-bottom-color: var(--gold); }
 
-        .content-section { display: none; max-width: 1200px; margin: 0 auto; padding: 1rem 1rem 4rem; animation: fadeIn 0.3s; }
+        .content-section { display: none; max-width: 1200px; margin: 0 auto; padding: 1rem 1rem 4rem; }
         .content-section.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
         
         .section-title {
             text-align: center; color: var(--primary); font-size: 1.8rem;
@@ -119,7 +118,6 @@
             background: var(--white); border-radius: 15px; padding: 1.5rem;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-top: 4px solid var(--gold);
         }
-        .card h3 { color: var(--primary); margin-bottom: 1rem; font-size: 1.3rem; }
 
         .qa-form { background: var(--white); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; }
         .qa-form input, .qa-form textarea, select {
@@ -142,37 +140,23 @@
             max-width: 450px; margin: 0 auto; border: 2px solid var(--gold);
         }
         .compass-circle {
-            width: 250px; height: 250px; border-radius: 50%;
+            width: 220px; height: 220px; border-radius: 50%;
             background: radial-gradient(circle, #ffffff 40%, #e2e8f0 100%);
             border: 6px solid var(--primary); margin: 0 auto 1.5rem;
             position: relative; display: flex; align-items: center; justify-content: center;
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.1);
         }
         .qibla-arrow-container {
-            width: 100%; height: 100%;
-            position: absolute; top: 0; left: 0;
-            transform-origin: center center;
-            transition: transform 0.1s ease-out;
+            width: 100%; height: 100%; position: absolute; top: 0; left: 0;
+            transform-origin: center center; transition: transform 0.1s;
         }
         .arrow-shape {
-            width: 0; height: 0;
-            border-left: 14px solid transparent;
-            border-right: 14px solid transparent;
-            border-bottom: 100px solid #28a745;
-            position: absolute; top: 25px; left: 50%;
-            transform: translateX(-50%);
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+            width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent;
+            border-bottom: 85px solid #28a745; position: absolute; top: 25px; left: 50%; transform: translateX(-50%);
         }
-        .arrow-shape::after {
-            content: '🕋';
-            position: absolute;
-            top: -38px; left: -15px;
-            font-size: 26px;
-        }
+        .arrow-shape::after { content: '🕋'; position: absolute; top: -35px; left: -14px; font-size: 24px; }
         .compass-center-dot {
-            width: 18px; height: 18px; background: var(--gold); border: 2px solid #fff;
-            border-radius: 50%; position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%); z-index: 5; box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            width: 16px; height: 16px; background: var(--gold); border: 2px solid #fff;
+            border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 5;
         }
 
         .moon-box {
@@ -180,62 +164,54 @@
             border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.08);
             max-width: 500px; margin: 0 auto; border: 2px solid var(--gold);
         }
-        .moon-icon-display {
-            font-size: 5rem; margin-bottom: 1rem;
-            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4));
-        }
+        .moon-icon-display { font-size: 4.5rem; margin-bottom: 1rem; }
 
         .quran-controls { display: flex; gap: 10px; margin-bottom: 1.5rem; justify-content: center; }
         .quran-controls select { max-width: 320px; margin-bottom: 0; font-weight: bold; font-size: 1.1rem; }
         .quran-text-area { 
             background: #fff; padding: 2.5rem 1.5rem; border-radius: 15px; 
-            border: 2px solid var(--gold); min-height: 350px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03); 
+            border: 2px solid var(--gold); min-height: 300px; 
         }
         .quran-nav { display: flex; justify-content: space-between; margin-top: 1rem; }
         .quran-nav button { padding: 10px 20px; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
         .quran-nav button:disabled { background: #ccc; cursor: not-allowed; }
 
-        .tasbih-container { text-align: center; background: var(--white); padding: 2rem 1rem; border-radius: 20px; margin-bottom: 2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .tasbih-container { text-align: center; background: var(--white); padding: 2rem 1rem; border-radius: 20px; margin-bottom: 2rem; }
         .tasbih-display { font-size: 4rem; font-weight: 900; color: var(--primary); }
-        .tasbih-btn { width: 130px; height: 130px; border-radius: 50%; background: var(--primary); color: white; font-size: 1.2rem; font-weight: bold; border: 6px solid var(--gold); margin: 1rem auto; display: block; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-        .dhikr-item { background: var(--white); padding: 1rem; border-radius: 12px; margin-bottom: 1rem; border-right: 5px solid var(--primary); display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+        .tasbih-btn { width: 120px; height: 120px; border-radius: 50%; background: var(--primary); color: white; font-size: 1.2rem; font-weight: bold; border: 5px solid var(--gold); margin: 1rem auto; display: block; cursor: pointer; }
+        .dhikr-item { background: var(--white); padding: 1rem; border-radius: 12px; margin-bottom: 1rem; border-right: 5px solid var(--primary); display: flex; justify-content: space-between; align-items: center; }
         .dhikr-text { font-size: 1.2rem; font-family: 'Amiri', serif; }
-        .dhikr-counter { background: var(--bg); padding: 8px 15px; border-radius: 20px; font-weight: bold; border: 1px solid var(--gold); cursor: pointer; }
+        .dhikr-counter { background: var(--bg); padding: 6px 14px; border-radius: 20px; font-weight: bold; border: 1px solid var(--gold); cursor: pointer; }
 
         footer { background: var(--primary); color: white; text-align: center; padding: 2rem; border-top: 5px solid var(--gold); margin-top: 2rem; }
-        .floating-wa { position: fixed; bottom: 20px; left: 20px; background: #25D366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 1000; text-decoration: none; }
+        .floating-wa { position: fixed; bottom: 20px; left: 20px; background: #25D366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 28px; z-index: 1000; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
 
-        @media (max-width: 768px) {
-            header h1 { font-size: 1.7rem; }
-            .tab-btn { padding: 0.8rem; font-size: 0.9rem; }
-            .quran-text { font-size: 1.7rem !important; line-height: 2.5 !important; }
-        }
+        @media (max-width: 768px) { header h1 { font-size: 1.6rem; } .tab-btn { padding: 0.7rem; font-size: 0.9rem; } }
     </style>
 </head>
 <body>
 
     <div class="prayer-marquee-container">
         <div class="prayer-marquee-content" id="marqueeContent">
-            <span>جاري جلب أوقات صلاة حلب...</span>
+            <span>🕌 جاري تحميل أوقات الصلاة...</span>
         </div>
     </div>
 
     <header>
         <h1>الشيخ محمد ربيع الناصر</h1>
         <p>الفتوى | الرقية الشرعية | أمور الدين الإسلامي</p>
-        <div class="hijri-date" id="hijriDate">جاري جلب التاريخ الهجري...</div>
+        <div class="hijri-date" id="hijriDate">التاريخ الهجري</div>
     </header>
 
     <div class="tabs-container">
         <div class="tabs">
             <button class="tab-btn active" onclick="openTab(event, 'home')">الرئيسية</button>
             <button class="tab-btn" onclick="openTab(event, 'qa')">سؤال وجواب</button>
-            <button class="tab-btn" onclick="openTab(event, 'prayer')">أوقات الصلاة</button>
+            <button class="tab-btn" onclick="openTab(event, 'prayer')">الصلاة</button>
             <button class="tab-btn" onclick="openTab(event, 'qibla')">القبلة</button>
-            <button class="tab-btn" onclick="openTab(event, 'moon')">🌙 أطوار القمر</button>
-            <button class="tab-btn" onclick="openTab(event, 'quran')">القرآن الكريم</button>
-            <button class="tab-btn" onclick="openTab(event, 'dua')">الأدعية والتسابيح</button>
+            <button class="tab-btn" onclick="openTab(event, 'moon')">🌙 القمر</button>
+            <button class="tab-btn" onclick="openTab(event, 'quran')">القرآن</button>
+            <button class="tab-btn" onclick="openTab(event, 'dua')">الأذكار</button>
             <button class="tab-btn" onclick="openTab(event, 'hadith')">الأحاديث</button>
             <button class="tab-btn" onclick="openTab(event, 'ruqyah')">الرقية</button>
         </div>
@@ -258,15 +234,15 @@
             <h3>أرسل سؤالك للشيخ</h3>
             <input type="text" id="qaName" placeholder="اسمك (اختياري)">
             <textarea id="qaQuestion" placeholder="اكتب سؤالك هنا..."></textarea>
-            <button onclick="sendQuestion()" class="btn-whatsapp" style="width:100%; justify-content:center;">إرسال السؤال عبر واتساب</button>
+            <button onclick="sendQuestion()" class="btn-whatsapp" style="width:100%; justify-content:center;">إرسال عبر واتساب</button>
         </div>
     </section>
 
     <section id="prayer" class="content-section">
         <h2 class="section-title">أوقات الصلاة</h2>
         <div class="prayer-search">
-            <input type="text" id="cityInput" placeholder="المدينة" value="حلب">
-            <button onclick="getPrayerTimes()" style="background:var(--primary); color:white; border:none; border-radius:8px; padding:0 20px; cursor:pointer;">تحديث</button>
+            <input type="text" id="cityInput" value="حلب">
+            <button onclick="getPrayerTimes()">تحديث</button>
         </div>
         <div id="prayerResult" class="prayer-grid"></div>
     </section>
@@ -280,22 +256,18 @@
                     <div class="arrow-shape"></div>
                 </div>
             </div>
-            <p id="qiblaStatus" style="font-weight: bold; margin-bottom: 1rem; color: var(--primary); font-size: 1.1rem;">اضغط الزر أدناه لتفعيل البوصلة الذكية</p>
-            <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-                <button onclick="initQiblaSensor()" style="padding:12px 25px; background:var(--primary); color:white; border:none; border-radius:30px; cursor:pointer; font-weight: bold; font-size: 1rem; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">🧭 تشغيل البوصلة الحية</button>
-            </div>
+            <p id="qiblaStatus" style="font-weight: bold; margin-bottom: 1rem; color: var(--primary);">اضغط لتفعيل البوصلة الذكية</p>
+            <button onclick="initQiblaSensor()" style="padding:10px 20px; background:var(--primary); color:white; border:none; border-radius:20px; cursor:pointer; font-weight: bold;">🧭 تشغيل البوصلة</button>
         </div>
     </section>
 
     <section id="moon" class="content-section">
-        <h2 class="section-title">أطوار القمر الهجرية</h2>
+        <h2 class="section-title">أطوار القمر</h2>
         <div class="moon-box">
             <div id="moonIcon" class="moon-icon-display">🌕</div>
-            <h3 id="moonPhaseName" style="color: var(--primary); font-size: 1.5rem; margin-bottom: 0.5rem;">جاري حساب طور القمر...</h3>
-            <p id="moonDesc" style="color: #555; font-size: 1.05rem; margin-bottom: 1.5rem;">يرجى الانتظار قليلاً لمعرفة تفاصيل الطور الحالي ومنازل القمر الشرعية.</p>
-            <div id="moonDetails" style="background: var(--bg); padding: 15px; border-radius: 12px; font-weight: bold; color: var(--text); border: 1px solid var(--gold);">
-                التاريخ الهجري: جاري الجلب...
-            </div>
+            <h3 id="moonPhaseName" style="color: var(--primary); font-size: 1.4rem; margin-bottom: 0.5rem;">البدر</h3>
+            <p id="moonDesc" style="color: #555; margin-bottom: 1rem;">اكتمال نور القمر وسطوعه في منتصف الشهر الهجري.</p>
+            <div id="moonDetails" style="background: var(--bg); padding: 10px; border-radius: 8px; font-weight: bold; font-size: 0.95rem;"></div>
         </div>
     </section>
 
@@ -303,15 +275,20 @@
         <h2 class="section-title">القرآن الكريم</h2>
         <div class="quran-controls">
             <select id="surahSelect" onchange="loadSurah()">
-                <option value="">اختر السورة...</option>
+                <option value="1">1. سورة الفاتحة</option>
+                <option value="2">2. سورة البقرة</option>
+                <option value="18">18. سورة الكهف</option>
+                <option value="36">36. سورة يس</option>
+                <option value="67">67. سورة الملك</option>
+                <option value="112">112. سورة الإخلاص</option>
             </select>
         </div>
         <div class="quran-text-area">
-            <div id="quranText" class="quran-text" style="text-align:center; color:#555;">الرجاء اختيار السورة من القائمة أعلاه.</div>
+            <div id="quranText" class="quran-text">بسم الله الرحمن الرحيم. الحمد لله رب العالمين... (اختر السورة من القائمة).</div>
         </div>
         <div class="quran-nav">
-            <button id="prevBtn" onclick="changeSurah(-1)" disabled>السورة السابقة</button>
-            <button id="nextBtn" onclick="changeSurah(1)" disabled>السورة التالية</button>
+            <button id="prevBtn" onclick="changeSurah(-1)">السابقة</button>
+            <button id="nextBtn" onclick="changeSurah(1)">التالية</button>
         </div>
     </section>
 
@@ -326,13 +303,13 @@
 
     <section id="hadith" class="content-section">
         <h2 class="section-title">أحاديث نبوية</h2>
-        <div class="card"><p class="quran-text" style="font-size: 1.4rem !important; text-align: center;">«إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى»</p></div>
+        <div class="card"><p class="quran-text" style="font-size: 1.3rem !important; text-align: center;">«إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى»</p></div>
     </section>
 
     <section id="ruqyah" class="content-section">
         <h2 class="section-title">الرقية الشرعية</h2>
         <div class="card">
-            <p class="quran-text">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ <span class="quran-ayah-num">﴿١﴾</span> الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ <span class="quran-ayah-num">﴿٢﴾</span> الرَّحْمَنِ الرَّحِيمِ <span class="quran-ayah-num">﴿٣﴾</span> مَالِكِ يَوْمِ الدِّينِ <span class="quran-ayah-num">﴿٤﴾</span> إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ <span class="quran-ayah-num">﴿٥﴾</span> اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ <span class="quran-ayah-num">﴿٦﴾</span> صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ <span class="quran-ayah-num">﴿٧﴾</span></p>
+            <p class="quran-text">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ <span class="quran-ayah-num">﴿١﴾</span> الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ <span class="quran-ayah-num">﴿٢﴾</span></p>
         </div>
     </section>
 
@@ -344,7 +321,6 @@
     <a href="https://wa.me/963944856486" target="_blank" class="floating-wa">💬</a>
 
     <script>
-        // --- 1. التبويبات الفعالة والخفيفة ---
         function openTab(evt, tabName) {
             document.querySelectorAll(".content-section").forEach(c => c.classList.remove("active"));
             document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
@@ -352,37 +328,11 @@
             evt.currentTarget.classList.add("active");
         }
 
-        // --- 2. التاريخ الهجري وأطوار القمر ---
         const hijriFormatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', { day: 'numeric', month: 'long', year: 'numeric', weekday: 'long' });
-        const hijriDayFormatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', { day: 'numeric' });
-        
         const hijriString = hijriFormatter.format(new Date());
         document.getElementById('hijriDate').textContent = hijriString;
+        document.getElementById('moonDetails').textContent = `التاريخ الهجري: ${hijriString}`;
 
-        function updateMoonPhase() {
-            try {
-                const dayNumStr = hijriDayFormatter.format(new Date()).replace(/[^0-9]/g, '');
-                let dayNum = parseInt(dayNumStr) || 15;
-                let icon = "🌕", name = "البدر", desc = "يكون القمر في أتم إشراقه ونوره، ويكون في منتصف الشهر الهجري.";
-                
-                if (dayNum >= 1 && dayNum <= 2) { icon = "🌑"; name = "محاق (اقتران)"; desc = "بداية الشهر الهجري، لا يرى القمر لبداية دورته الجديدة."; }
-                else if (dayNum >= 3 && dayNum <= 6) { icon = "🌒"; name = "هلال أول الشهر"; desc = "يظهر الهلال خفيفاً في جهة الغرب بعد غروب الشمس."; }
-                else if (dayNum >= 7 && dayNum <= 9) { icon = "🌓"; name = "تربيع أول"; desc = "يضاء نصف القمر الأيمن تماماً."; }
-                else if (dayNum >= 10 && dayNum <= 13) { icon = "🌔"; name = "أحدب متزايد"; desc = "يقترب القمر من مرحلة الاكتمال ويزداد نوره اتساعاً."; }
-                else if (dayNum >= 14 && dayNum <= 16) { icon = "🌕"; name = "البدر الكامل"; desc = "اكتمال نور القمر وسطوع بدري في الليلة الرابعة والخامسة عشرة."; }
-                else if (dayNum >= 17 && dayNum <= 21) { icon = "🌖"; name = "أحدب متناقص"; desc = "يبدأ النور بالانحسار تدريجياً من الجانب الأيمن."; }
-                else if (dayNum >= 22 && dayNum <= 25) { icon = "🌗"; name = "تربيع ثانٍ (أخير)"; desc = "يضاء النصف الأيسر من القمر فقط."; }
-                else { icon = "🌘"; name = "هلال آخر الشهر (متناقص)"; desc = "يظهر الهلال دقيقاً في الأفق قبل طلوع الفجر بقليل."; }
-
-                document.getElementById('moonIcon').textContent = icon;
-                document.getElementById('moonPhaseName').textContent = name;
-                document.getElementById('moonDesc').textContent = desc;
-                document.getElementById('moonDetails').innerHTML = `📅 التاريخ الهجري الحالي: ${hijriString}<br>📍 اليوم تقريباً: ${dayNum} من الشهر الهجري`;
-            } catch(e) {}
-        }
-        updateMoonPhase();
-
-        // --- 3. الصلاة (سريع وخفيف) ---
         async function getPrayerTimes() {
             const city = document.getElementById('cityInput').value || 'حلب';
             try {
@@ -400,129 +350,85 @@
                 document.getElementById('prayerResult').innerHTML = html;
                 document.getElementById('marqueeContent').innerHTML = marquee + marquee;
             } catch(e) {
-                document.getElementById('prayerResult').innerHTML = '<p>تعذر جلب بيانات الصلاة حالياً.</p>';
+                document.getElementById('prayerResult').innerHTML = '<p>تعذر جلب الأوقات.</p>';
             }
         }
 
-        // --- 4. اتجاه القبلة الذكي ---
-        let qiblaCalculatedAngle = 0;
+        let qiblaAngle = 0;
         function initQiblaSensor() {
-            if (!navigator.geolocation) {
-                alert('متصفحك لا يدعم تحديد الموقع');
-                return;
-            }
-            document.getElementById('qiblaStatus').textContent = 'جاري تحديد الإحداثيات...';
+            if (!navigator.geolocation) return alert('الـ GPS غير مدعوم');
+            document.getElementById('qiblaStatus').textContent = 'جاري الحساب...';
             navigator.geolocation.getCurrentPosition(pos => {
-                const lat = pos.coords.latitude;
-                const lng = pos.coords.longitude;
-                const phiK = 21.4225 * Math.PI / 180;
-                const lambdaK = 39.8262 * Math.PI / 180;
-                const phi = lat * Math.PI / 180;
-                const lambda = lng * Math.PI / 180;
+                const lat = pos.coords.latitude, lng = pos.coords.longitude;
+                const phiK = 21.4225 * Math.PI / 180, lambdaK = 39.8262 * Math.PI / 180;
+                const phi = lat * Math.PI / 180, lambda = lng * Math.PI / 180;
                 const y = Math.sin(lambdaK - lambda);
                 const x = Math.cos(phi) * Math.tan(phiK) - Math.sin(phi) * Math.cos(lambdaK - lambda);
-                qiblaCalculatedAngle = (Math.atan2(y, x) * 180 / Math.PI + 360) % 360;
-
-                document.getElementById('qiblaStatus').innerHTML = `زاوية القبلة: <span style="color:#28a745;">${Math.round(qiblaCalculatedAngle)}°</span><br><b>حرك هاتفك ليتطابق السهم مع الكعبة</b>`;
+                qiblaAngle = (Math.atan2(y, x) * 180 / Math.PI + 360) % 360;
+                document.getElementById('qiblaStatus').innerHTML = `زاوية القبلة: <span style="color:#28a745;">${Math.round(qiblaAngle)}°</span>`;
 
                 if (window.DeviceOrientationEvent) {
                     if (typeof DeviceOrientationEvent.requestPermission === 'function') {
                         DeviceOrientationEvent.requestPermission().then(state => {
-                            if (state === 'granted') window.addEventListener('deviceorientation', handleLiveCompass, true);
+                            if (state === 'granted') window.addEventListener('deviceorientation', handleCompass, true);
                         }).catch(() => {});
                     } else {
-                        window.addEventListener('deviceorientation', handleLiveCompass, true);
+                        window.addEventListener('deviceorientation', handleCompass, true);
                     }
                 } else {
-                    document.getElementById('qiblaArrow').style.transform = `rotate(${qiblaCalculatedAngle}deg)`;
+                    document.getElementById('qiblaArrow').style.transform = `rotate(${qiblaAngle}deg)`;
                 }
-            }, () => {
-                document.getElementById('qiblaStatus').textContent = 'يرجى تفعيل خدمة الموقع (GPS).';
-            }, { enableHighAccuracy: true });
+            }, () => { document.getElementById('qiblaStatus').textContent = 'يرجى تفعيل الـ GPS.'; }, { enableHighAccuracy: false });
         }
 
-        function handleLiveCompass(e) {
+        function handleCompass(e) {
             let heading = e.alpha || e.webkitCompassHeading;
             if (heading !== null && heading !== undefined) {
-                document.getElementById('qiblaArrow').style.transform = `rotate(${qiblaCalculatedAngle - heading}deg)`;
+                document.getElementById('qiblaArrow').style.transform = `rotate(${qiblaAngle - heading}deg)`;
             }
         }
 
-        // --- 5. القرآن الكريم (تحميل خفيف ومباشر عند الطلب) ---
         let currentSurah = 1;
-        let surahListLoaded = false;
-        
-        async function fetchSurahList() {
-            if (surahListLoaded) return;
-            try {
-                const res = await fetch('https://api.alquran.cloud/v1/surah');
-                const data = await res.json();
-                const select = document.getElementById('surahSelect');
-                data.data.forEach(s => select.innerHTML += `<option value="${s.number}">${s.number}. سورة ${s.name}</option>`);
-                surahListLoaded = true;
-            } catch(e) {}
-        }
-
         async function loadSurah() {
             currentSurah = document.getElementById('surahSelect').value;
-            if(!currentSurah) return;
             const textBox = document.getElementById('quranText');
-            textBox.innerHTML = '<p style="text-align:center;">جاري التحميل...</p>';
+            textBox.innerHTML = 'جاري التحميل...';
             try {
                 const res = await fetch(`https://api.alquran.cloud/v1/surah/${currentSurah}/quran-simple`);
                 const data = await res.json();
-                let html = `<h3 style="text-align:center; color:var(--primary); margin-bottom: 2rem; font-size: 2.3rem; font-family: 'Amiri', serif;">سورة ${data.data.name}</h3>`;
-                
-                if (currentSurah != 1 && currentSurah != 9) {
-                    html += `<div style="text-align:center; font-size:2rem; margin-bottom:1.5rem; color:var(--gold);" class="quran-text">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>`;
-                }
-
+                let html = `<h3 style="text-align:center; color:var(--primary); margin-bottom: 1rem;">سورة ${data.data.name}</h3>`;
                 data.data.ayahs.forEach(a => {
-                    let text = a.text;
-                    if (a.numberInSurah === 1 && currentSurah != 1 && currentSurah != 9) {
-                        text = text.replace('بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ', '').trim();
-                    }
-                    html += `<span>${text}</span> <span class="quran-ayah-num">﴿${a.numberInSurah}﴾</span> `;
+                    html += `<span>${a.text}</span> <span class="quran-ayah-num">﴿${a.numberInSurah}﴾</span> `;
                 });
                 textBox.innerHTML = html;
-                document.getElementById('prevBtn').disabled = (currentSurah == 1);
-                document.getElementById('nextBtn').disabled = (currentSurah == 114);
-            } catch(e) {
-                textBox.innerHTML = '<p style="text-align:center; color:red;">تعذر تحميل السورة.</p>';
-            }
+            } catch(e) { textBox.innerHTML = 'خطأ في التحميل.'; }
         }
 
         function changeSurah(dir) {
             currentSurah = parseInt(currentSurah) + dir;
+            if(currentSurah < 1) currentSurah = 1;
+            if(currentSurah > 114) currentSurah = 114;
             document.getElementById('surahSelect').value = currentSurah;
             loadSurah();
         }
 
-        // --- 6. المسبحة والأذكار ---
         let count = 0;
         function incrementTasbih() {
             count++;
             document.getElementById('tasbihCount').textContent = count;
-            if(navigator.vibrate) navigator.vibrate(30);
         }
 
-        // --- 7. إرسال السؤال للشيخ ---
         function sendQuestion() {
             const name = document.getElementById('qaName').value.trim();
             const question = document.getElementById('qaQuestion').value.trim();
-            if(!question) {
-                alert('الرجاء كتابة السؤال أولاً.');
-                return;
-            }
-            const msg = `السلام عليكم ورحمة الله وبركاته، شيخنا الفاضل.%0aالاسم: ${name || 'فاعل خير'}%0aالسؤال: ${question}`;
-            window.open(`https://wa.me/963944856486?text=${msg}`, '_blank');
+            if(!question) return alert('اكتب السؤال أولاً.');
+            window.open(`https://wa.me/963944856486?text=الاسم: ${name || 'فاعل خير'}%0aالسؤال: ${question}`, '_blank');
         }
 
-        // تشغيل المهام الأساسية بسلاسة فورية
         window.onload = () => {
-            getPrayerTimes(); 
-            fetchSurahList(); 
-            const adhkar = ["سبحان الله وبحمده", "أستغفر الله وأتوب إليه", "لا حول ولا قوة إلا بالله", "لا إله إلا الله وحده لا شريك له"];
+            getPrayerTimes();
+            loadSurah();
+            const adhkar = ["سبحان الله وبحمده", "أستغفر الله وأتوب إليه", "لا حول ولا قوة إلا بالله"];
             document.getElementById('adhkarList').innerHTML = adhkar.map(a => `<div class="dhikr-item"><div class="dhikr-text">${a}</div><div class="dhikr-counter" onclick="this.textContent = parseInt(this.textContent) + 1">+</div></div>`).join('');
         };
     </script>
