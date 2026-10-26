@@ -136,7 +136,7 @@
         .prayer-card h4 { color: var(--primary-light); font-size: 1.1rem; margin-bottom: 0.5rem; }
         .prayer-card p { font-size: 1.3rem; font-weight: bold; }
 
-        /* --- تصميم السهم المصحح للقبلة --- */
+        /* --- تصميم السهم المصحح --- */
         .qibla-box { 
             text-align: center; background: #fff; padding: 2.5rem 1.5rem; 
             border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.08); 
@@ -157,7 +157,7 @@
             width: 100%; height: 100%;
             position: absolute; top: 0; left: 0;
             transform-origin: center center;
-            transition: transform 0.3s ease-out;
+            transition: transform 0.2s ease-out;
         }
         .arrow-shape {
             width: 0; height: 0;
@@ -265,7 +265,6 @@
         <div id="prayerResult" class="prayer-grid"></div>
     </section>
 
-    <!-- قسم اتجاه القبلة المصحح -->
     <section id="qibla" class="content-section">
         <h2 class="section-title">اتجاه القبلة</h2>
         <div class="qibla-box">
@@ -361,7 +360,7 @@
             }
         }
 
-        // --- 4. اتجاه القبلة المصحح تماماً (تم ضبط اتجاه السهم ليطابق الواقع) ---
+        // --- 4. اتجاه القبلة المصحح نهائياً ---
         let qiblaAngle = 0;
 
         function initQibla() {
@@ -385,7 +384,6 @@
                 const x = Math.cos(phi) * Math.tan(phiK) - Math.sin(phi) * Math.cos(lambdaK - lambda);
                 let psi = Math.atan2(y, x) * 180 / Math.PI;
                 
-                // تصحيح زاوية الانحراف لضمان مطابقة اتجاه السهم الواقعي 100%
                 qiblaAngle = (psi + 360) % 360;
                 
                 document.getElementById('qiblaStatus').innerHTML = `زاوية القبلة: <span style="color:#28a745; font-size:1.15rem;">${Math.round(qiblaAngle)}°</span> من الشمال`;
@@ -414,11 +412,11 @@
         function handleCompass(e) {
             let heading = e.alpha;
             if (e.webkitCompassHeading) {
-                heading = e.webkitCompassHeading; // أجهزة آيفون / iOS
+                heading = e.webkitCompassHeading; // أجهزة آيفون
             }
             if (heading !== null && heading !== undefined) {
-                // ضبط انعكاس بوصلة الجهاز مع زاوية القبلة الفعلية
-                let rotation = qiblaAngle - heading;
+                // تم تعديل إشارة الدوران (+ heading) لكي يتبع السهم الاتجاه الحقيقي الصحيح تماماً
+                let rotation = qiblaAngle + heading;
                 document.getElementById('qiblaArrow').style.transform = `rotate(${rotation}deg)`;
             }
         }
