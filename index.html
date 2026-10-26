@@ -100,8 +100,9 @@
         }
         .tab-btn.active { color: var(--primary); border-bottom-color: var(--gold); }
 
-        .content-section { display: none; max-width: 1200px; margin: 0 auto; padding: 1rem 1rem 4rem; animation: fadeIn 0.3s; }
+        .content-section { display: none; max-width: 1200px; margin: 0 auto; padding: 1rem 1rem 4rem; animation: fadeIn 0.5s; }
         .content-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
         .section-title {
             text-align: center; color: var(--primary); font-size: 1.8rem;
@@ -118,6 +119,7 @@
             background: var(--white); border-radius: 15px; padding: 1.5rem;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-top: 4px solid var(--gold);
         }
+        .card h3 { color: var(--primary); margin-bottom: 1rem; font-size: 1.3rem; }
 
         .qa-form { background: var(--white); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; }
         .qa-form input, .qa-form textarea, select {
@@ -134,6 +136,7 @@
         .prayer-card h4 { color: var(--primary-light); font-size: 1.1rem; margin-bottom: 0.5rem; }
         .prayer-card p { font-size: 1.3rem; font-weight: bold; }
 
+        /* --- تصميم القبلة --- */
         .qibla-box { 
             text-align: center; background: #fff; padding: 2.5rem 1.5rem; 
             border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.08); 
@@ -147,48 +150,69 @@
             box-shadow: inset 0 0 15px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.1);
         }
         .qibla-arrow-container {
-            width: 100%; height: 100%; position: absolute; top: 0; left: 0;
-            transform-origin: center center; transition: transform 0.1s ease-out;
+            width: 100%; height: 100%;
+            position: absolute; top: 0; left: 0;
+            transform-origin: center center;
+            transition: transform 0.1s ease-out;
         }
         .arrow-shape {
-            width: 0; height: 0; border-left: 14px solid transparent; border-right: 14px solid transparent;
-            border-bottom: 100px solid #28a745; position: absolute; top: 25px; left: 50%; transform: translateX(-50%);
+            width: 0; height: 0;
+            border-left: 14px solid transparent;
+            border-right: 14px solid transparent;
+            border-bottom: 100px solid #28a745;
+            position: absolute; top: 25px; left: 50%;
+            transform: translateX(-50%);
             filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
         }
-        .arrow-shape::after { content: '🕋'; position: absolute; top: -38px; left: -15px; font-size: 26px; }
+        .arrow-shape::after {
+            content: '🕋';
+            position: absolute;
+            top: -38px; left: -15px;
+            font-size: 26px;
+        }
         .compass-center-dot {
             width: 18px; height: 18px; background: var(--gold); border: 2px solid #fff;
-            border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 5;
+            border-radius: 50%; position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%); z-index: 5; box-shadow: 0 2px 5px rgba(0,0,0,0.3);
         }
 
+        /* --- تصميم تبويب أطوار القمر --- */
         .moon-box {
             text-align: center; background: #fff; padding: 2.5rem 1.5rem;
             border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.08);
             max-width: 500px; margin: 0 auto; border: 2px solid var(--gold);
         }
-        .moon-icon-display { font-size: 5rem; margin-bottom: 1rem; }
+        .moon-icon-display {
+            font-size: 5rem; margin-bottom: 1rem;
+            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4));
+        }
 
         .quran-controls { display: flex; gap: 10px; margin-bottom: 1.5rem; justify-content: center; }
         .quran-controls select { max-width: 320px; margin-bottom: 0; font-weight: bold; font-size: 1.1rem; }
         .quran-text-area { 
             background: #fff; padding: 2.5rem 1.5rem; border-radius: 15px; 
             border: 2px solid var(--gold); min-height: 350px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03); 
         }
         .quran-nav { display: flex; justify-content: space-between; margin-top: 1rem; }
         .quran-nav button { padding: 10px 20px; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
         .quran-nav button:disabled { background: #ccc; cursor: not-allowed; }
 
-        .tasbih-container { text-align: center; background: var(--white); padding: 2rem 1rem; border-radius: 20px; margin-bottom: 2rem; }
+        .tasbih-container { text-align: center; background: var(--white); padding: 2rem 1rem; border-radius: 20px; margin-bottom: 2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         .tasbih-display { font-size: 4rem; font-weight: 900; color: var(--primary); }
-        .tasbih-btn { width: 130px; height: 130px; border-radius: 50%; background: var(--primary); color: white; font-size: 1.2rem; font-weight: bold; border: 6px solid var(--gold); margin: 1rem auto; display: block; cursor: pointer; }
-        .dhikr-item { background: var(--white); padding: 1rem; border-radius: 12px; margin-bottom: 1rem; border-right: 5px solid var(--primary); display: flex; justify-content: space-between; align-items: center; }
+        .tasbih-btn { width: 130px; height: 130px; border-radius: 50%; background: var(--primary); color: white; font-size: 1.2rem; font-weight: bold; border: 6px solid var(--gold); margin: 1rem auto; display: block; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .dhikr-item { background: var(--white); padding: 1rem; border-radius: 12px; margin-bottom: 1rem; border-right: 5px solid var(--primary); display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
         .dhikr-text { font-size: 1.2rem; font-family: 'Amiri', serif; }
         .dhikr-counter { background: var(--bg); padding: 8px 15px; border-radius: 20px; font-weight: bold; border: 1px solid var(--gold); cursor: pointer; }
 
         footer { background: var(--primary); color: white; text-align: center; padding: 2rem; border-top: 5px solid var(--gold); margin-top: 2rem; }
-        .floating-wa { position: fixed; bottom: 20px; left: 20px; background: #25D366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 30px; z-index: 1000; text-decoration: none; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .floating-wa { position: fixed; bottom: 20px; left: 20px; background: #25D366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 1000; text-decoration: none; }
 
-        @media (max-width: 768px) { header h1 { font-size: 1.7rem; } .tab-btn { padding: 0.8rem; font-size: 0.9rem; } }
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.7rem; }
+            .tab-btn { padding: 0.8rem; font-size: 0.9rem; }
+            .quran-text { font-size: 1.7rem !important; line-height: 2.5 !important; }
+        }
     </style>
 </head>
 <body>
@@ -265,6 +289,7 @@
         </div>
     </section>
 
+    <!-- تبويب أطوار القمر الجديد -->
     <section id="moon" class="content-section">
         <h2 class="section-title">أطوار القمر الهجرية</h2>
         <div class="moon-box">
@@ -310,7 +335,7 @@
     <section id="ruqyah" class="content-section">
         <h2 class="section-title">الرقية الشرعية</h2>
         <div class="card">
-            <p class="quran-text">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ <span class="quran-ayah-num">﴿١﴾</span> الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ <span class="quran-ayah-num">﴿٢﴾</span> الرَّحْمَنِ الرَّحِيمِ <span class="quran-ayah-num">﴿٣﴾</span> مَالِكِ يَوْمِ الدِّينِ <span class="quran-ayah-num">﴿٤﴾</span> إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ <span class="quran-ayah-num">﴿٥﴾</span> اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ <span class="quran-ayah-num">﴿٦﴾</span> صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ <span class="quran-ayah-num">﴿٧﴾</span></p>
+            <p class="quran-text">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ <span class="quran-ayah-num">﴿١﴾</span> الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ <span class="quran-ayah-num">﴿٢﴾</span> الرَّحْمَنِ الرَّحِيمِ <span class="quran-ayah-num>﴿٣﴾</span> مَالِكِ يَوْمِ الدِّينِ <span class="quran-ayah-num">﴿٤﴾</span> إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ <span class="quran-ayah-num">﴿٥﴾</span> اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ <span class="quran-ayah-num">﴿٦﴾</span> صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ <span class="quran-ayah-num">﴿٧﴾</span></p>
         </div>
     </section>
 
@@ -322,6 +347,7 @@
     <a href="https://wa.me/963944856486" target="_blank" class="floating-wa">💬</a>
 
     <script>
+        // --- 1. التبويبات ---
         function openTab(evt, tabName) {
             document.querySelectorAll(".content-section").forEach(c => c.classList.remove("active"));
             document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
@@ -329,35 +355,52 @@
             evt.currentTarget.classList.add("active");
         }
 
+        // --- 2. التاريخ الهجري وأطوار القمر ---
         const hijriFormatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', { day: 'numeric', month: 'long', year: 'numeric', weekday: 'long' });
         const hijriDayFormatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', { day: 'numeric' });
         
         const hijriString = hijriFormatter.format(new Date());
         document.getElementById('hijriDate').textContent = hijriString;
 
+        // حساب طور القمر بناءً على التقويم الهجري التقريبي (عدد أيام الشهر تقريباً 29.5 يوم)
         function updateMoonPhase() {
             try {
+                // استخراج رقم اليوم من الشهر الهجري
                 const dayNumStr = hijriDayFormatter.format(new Date()).replace(/[^0-9]/g, '');
                 let dayNum = parseInt(dayNumStr) || 15;
+                
                 let icon = "🌕", name = "البدر", desc = "يكون القمر في أتم إشراقه ونوره، ويكون في منتصف الشهر الهجري.";
                 
-                if (dayNum >= 1 && dayNum <= 2) { icon = "🌑"; name = "محاق (اقتران)"; desc = "بداية الشهر الهجري، لا يرى القمر لبداية دورته الجديدة."; }
-                else if (dayNum >= 3 && dayNum <= 6) { icon = "🌒"; name = "هلال أول الشهر"; desc = "يظهر الهلال خفيفاً في جهة الغرب بعد غروب الشمس."; }
-                else if (dayNum >= 7 && dayNum <= 9) { icon = "🌓"; name = "تربيع أول"; desc = "يضاء نصف القمر الأيمن تماماً."; }
-                else if (dayNum >= 10 && dayNum <= 13) { icon = "🌔"; name = "أحدب متزايد"; desc = "يقترب القمر من مرحلة الاكتمال ويزداد نوره اتساعاً."; }
-                else if (dayNum >= 14 && dayNum <= 16) { icon = "🌕"; name = "البدر الكامل"; desc = "اكتمال نور القمر وسطوع بدري في الليلة الرابعة والخامسة عشرة."; }
-                else if (dayNum >= 17 && dayNum <= 21) { icon = "🌖"; name = "أحدب متناقص"; desc = "يبدأ النور بالانحسار تدريجياً من الجانب الأيمن."; }
-                else if (dayNum >= 22 && dayNum <= 25) { icon = "🌗"; name = "تربيع ثانٍ (أخير)"; desc = "يضاء النصف الأيسر من القمر فقط."; }
-                else { icon = "🌘"; name = "هلال آخر الشهر (متناقص)"; desc = "يظهر الهلال دقيقاً في الأفق قبل طلوع الفجر بقليل."; }
+                if (dayNum >= 1 && dayNum <= 2) {
+                    icon = "🌑"; name = "محاق (اقتران)"; desc = "بداية الشهر الهجري، لا يرى القمر لبداية دورته الجديدة.";
+                } else if (dayNum >= 3 && dayNum <= 6) {
+                    icon = "🌒"; name = "هلال أول الشهر"; desc = "يظهر الهلال خفيفاً في جهة الغرب بعد غروب الشمس.";
+                } else if (dayNum >= 7 && dayNum <= 9) {
+                    icon = "🌓"; name = "تربيع أول"; desc = "يضاء نصف القمر الأيمن تماماً.";
+                } else if (dayNum >= 10 && dayNum <= 13) {
+                    icon = "🌔"; name = "أحدب متزايد"; desc = "يقترب القمر من مرحلة الاكتمال ويزداد نوره اتساعاً.";
+                } else if (dayNum >= 14 && dayNum <= 16) {
+                    icon = "🌕"; name = "البدر الكامل"; desc = "اكتمال نور القمر وسطوع بدري في الليلة الرابعة والخامسة عشرة.";
+                } else if (dayNum >= 17 && dayNum <= 21) {
+                    icon = "🌖"; name = "أحدب متناقص"; desc = "يبدأ النور بالانحسار تدريجياً من الجانب الأيمن.";
+                } else if (dayNum >= 22 && dayNum <= 25) {
+                    icon = "🌗"; name = "تربيع ثانٍ (أخير)"; desc = "يضاء النصف الأيسر من القمر فقط.";
+                } else {
+                    icon = "🌘"; name = "هلال آخر الشهر (متناقص)"; desc = "يظهر الهلال دقيقاً في الأفق قبل طلوع الفجر بقليل.";
+                }
 
                 document.getElementById('moonIcon').textContent = icon;
                 document.getElementById('moonPhaseName').textContent = name;
                 document.getElementById('moonDesc').textContent = desc;
                 document.getElementById('moonDetails').innerHTML = `📅 التاريخ الهجري الحالي: ${hijriString}<br>📍 اليوم تقريباً: ${dayNum} من الشهر الهجري`;
-            } catch(e) {}
+            } catch(e) {
+                document.getElementById('moonPhaseName').textContent = "البدر الكامل";
+                document.getElementById('moonDesc').textContent = "حالة القمر الطبيعية وفق التقويم الشهري.";
+            }
         }
         updateMoonPhase();
 
+        // --- 3. الصلاة ---
         async function getPrayerTimes() {
             const city = document.getElementById('cityInput').value || 'حلب';
             try {
@@ -379,6 +422,7 @@
             }
         }
 
+        // --- 4. اتجاه القبلة ---
         let qiblaCalculatedAngle = 0;
 
         function initQiblaSensor() {
@@ -436,13 +480,13 @@
             }
         }
 
+        // --- 5. القرآن الكريم ---
         let currentSurah = 1;
         async function fetchSurahList() {
             try {
                 const res = await fetch('https://api.alquran.cloud/v1/surah');
                 const data = await res.json();
                 const select = document.getElementById('surahSelect');
-                select.innerHTML = '<option value="">اختر السورة...</option>';
                 data.data.forEach(s => select.innerHTML += `<option value="${s.number}">${s.number}. سورة ${s.name}</option>`);
             } catch(e) { console.log('خطأ في جلب الفهرس'); }
         }
@@ -484,6 +528,7 @@
             loadSurah();
         }
 
+        // --- 6. المسبحة والأذكار ---
         let count = 0;
         function incrementTasbih() {
             count++;
@@ -491,6 +536,7 @@
             if(navigator.vibrate) navigator.vibrate(30);
         }
 
+        // --- 7. إرسال السؤال للشيخ ---
         function sendQuestion() {
             const name = document.getElementById('qaName').value.trim();
             const question = document.getElementById('qaQuestion').value.trim();
