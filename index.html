@@ -136,7 +136,7 @@
         .prayer-card h4 { color: var(--primary-light); font-size: 1.1rem; margin-bottom: 0.5rem; }
         .prayer-card p { font-size: 1.3rem; font-weight: bold; }
 
-        /* --- بوصلة القبلة المتطورة والمباشرة --- */
+        /* --- تصميم القبلة --- */
         .qibla-box { 
             text-align: center; background: #fff; padding: 2.5rem 1.5rem; 
             border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.08); 
@@ -174,6 +174,17 @@
             width: 18px; height: 18px; background: var(--gold); border: 2px solid #fff;
             border-radius: 50%; position: absolute; top: 50%; left: 50%;
             transform: translate(-50%, -50%); z-index: 5; box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        /* --- تصميم تبويب أطوار القمر --- */
+        .moon-box {
+            text-align: center; background: #fff; padding: 2.5rem 1.5rem;
+            border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            max-width: 500px; margin: 0 auto; border: 2px solid var(--gold);
+        }
+        .moon-icon-display {
+            font-size: 5rem; margin-bottom: 1rem;
+            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4));
         }
 
         .quran-controls { display: flex; gap: 10px; margin-bottom: 1.5rem; justify-content: center; }
@@ -224,6 +235,7 @@
             <button class="tab-btn" onclick="openTab(event, 'qa')">سؤال وجواب</button>
             <button class="tab-btn" onclick="openTab(event, 'prayer')">أوقات الصلاة</button>
             <button class="tab-btn" onclick="openTab(event, 'qibla')">القبلة</button>
+            <button class="tab-btn" onclick="openTab(event, 'moon')">🌙 أطوار القمر</button>
             <button class="tab-btn" onclick="openTab(event, 'quran')">القرآن الكريم</button>
             <button class="tab-btn" onclick="openTab(event, 'dua')">الأدعية والتسابيح</button>
             <button class="tab-btn" onclick="openTab(event, 'hadith')">الأحاديث</button>
@@ -261,7 +273,6 @@
         <div id="prayerResult" class="prayer-grid"></div>
     </section>
 
-    <!-- قسم القبلة المباشر والذكي -->
     <section id="qibla" class="content-section">
         <h2 class="section-title">اتجاه القبلة</h2>
         <div class="qibla-box">
@@ -274,6 +285,19 @@
             <p id="qiblaStatus" style="font-weight: bold; margin-bottom: 1rem; color: var(--primary); font-size: 1.1rem;">اضغط الزر أدناه لتفعيل البوصلة الذكية</p>
             <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
                 <button onclick="initQiblaSensor()" style="padding:12px 25px; background:var(--primary); color:white; border:none; border-radius:30px; cursor:pointer; font-weight: bold; font-size: 1rem; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">🧭 تشغيل البوصلة الحية</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- تبويب أطوار القمر الجديد -->
+    <section id="moon" class="content-section">
+        <h2 class="section-title">أطوار القمر الهجرية</h2>
+        <div class="moon-box">
+            <div id="moonIcon" class="moon-icon-display">🌕</div>
+            <h3 id="moonPhaseName" style="color: var(--primary); font-size: 1.5rem; margin-bottom: 0.5rem;">جاري حساب طور القمر...</h3>
+            <p id="moonDesc" style="color: #555; font-size: 1.05rem; margin-bottom: 1.5rem;">يرجى الانتظار قليلاً لمعرفة تفاصيل الطور الحالي ومنازل القمر الشرعية.</p>
+            <div id="moonDetails" style="background: var(--bg); padding: 15px; border-radius: 12px; font-weight: bold; color: var(--text); border: 1px solid var(--gold);">
+                التاريخ الهجري: جاري الجلب...
             </div>
         </div>
     </section>
@@ -311,7 +335,7 @@
     <section id="ruqyah" class="content-section">
         <h2 class="section-title">الرقية الشرعية</h2>
         <div class="card">
-            <p class="quran-text">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ <span class="quran-ayah-num">﴿١﴾</span> الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ <span class="quran-ayah-num">﴿٢﴾</span> الرَّحْمَنِ الرَّحِيمِ <span class="quran-ayah-num">﴿٣﴾</span> مَالِكِ يَوْمِ الدِّينِ <span class="quran-ayah-num">﴿٤﴾</span> إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ <span class="quran-ayah-num">﴿٥﴾</span> اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ <span class="quran-ayah-num">﴿٦﴾</span> صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ <span class="quran-ayah-num">﴿٧﴾</span></p>
+            <p class="quran-text">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ <span class="quran-ayah-num">﴿١﴾</span> الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ <span class="quran-ayah-num">﴿٢﴾</span> الرَّحْمَنِ الرَّحِيمِ <span class="quran-ayah-num>﴿٣﴾</span> مَالِكِ يَوْمِ الدِّينِ <span class="quran-ayah-num">﴿٤﴾</span> إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ <span class="quran-ayah-num">﴿٥﴾</span> اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ <span class="quran-ayah-num">﴿٦﴾</span> صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ <span class="quran-ayah-num">﴿٧﴾</span></p>
         </div>
     </section>
 
@@ -331,8 +355,50 @@
             evt.currentTarget.classList.add("active");
         }
 
-        // --- 2. التاريخ الهجري ---
-        document.getElementById('hijriDate').textContent = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date());
+        // --- 2. التاريخ الهجري وأطوار القمر ---
+        const hijriFormatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', { day: 'numeric', month: 'long', year: 'numeric', weekday: 'long' });
+        const hijriDayFormatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', { day: 'numeric' });
+        
+        const hijriString = hijriFormatter.format(new Date());
+        document.getElementById('hijriDate').textContent = hijriString;
+
+        // حساب طور القمر بناءً على التقويم الهجري التقريبي (عدد أيام الشهر تقريباً 29.5 يوم)
+        function updateMoonPhase() {
+            try {
+                // استخراج رقم اليوم من الشهر الهجري
+                const dayNumStr = hijriDayFormatter.format(new Date()).replace(/[^0-9]/g, '');
+                let dayNum = parseInt(dayNumStr) || 15;
+                
+                let icon = "🌕", name = "البدر", desc = "يكون القمر في أتم إشراقه ونوره، ويكون في منتصف الشهر الهجري.";
+                
+                if (dayNum >= 1 && dayNum <= 2) {
+                    icon = "🌑"; name = "محاق (اقتران)"; desc = "بداية الشهر الهجري، لا يرى القمر لبداية دورته الجديدة.";
+                } else if (dayNum >= 3 && dayNum <= 6) {
+                    icon = "🌒"; name = "هلال أول الشهر"; desc = "يظهر الهلال خفيفاً في جهة الغرب بعد غروب الشمس.";
+                } else if (dayNum >= 7 && dayNum <= 9) {
+                    icon = "🌓"; name = "تربيع أول"; desc = "يضاء نصف القمر الأيمن تماماً.";
+                } else if (dayNum >= 10 && dayNum <= 13) {
+                    icon = "🌔"; name = "أحدب متزايد"; desc = "يقترب القمر من مرحلة الاكتمال ويزداد نوره اتساعاً.";
+                } else if (dayNum >= 14 && dayNum <= 16) {
+                    icon = "🌕"; name = "البدر الكامل"; desc = "اكتمال نور القمر وسطوع بدري في الليلة الرابعة والخامسة عشرة.";
+                } else if (dayNum >= 17 && dayNum <= 21) {
+                    icon = "🌖"; name = "أحدب متناقص"; desc = "يبدأ النور بالانحسار تدريجياً من الجانب الأيمن.";
+                } else if (dayNum >= 22 && dayNum <= 25) {
+                    icon = "🌗"; name = "تربيع ثانٍ (أخير)"; desc = "يضاء النصف الأيسر من القمر فقط.";
+                } else {
+                    icon = "🌘"; name = "هلال آخر الشهر (متناقص)"; desc = "يظهر الهلال دقيقاً في الأفق قبل طلوع الفجر بقليل.";
+                }
+
+                document.getElementById('moonIcon').textContent = icon;
+                document.getElementById('moonPhaseName').textContent = name;
+                document.getElementById('moonDesc').textContent = desc;
+                document.getElementById('moonDetails').innerHTML = `📅 التاريخ الهجري الحالي: ${hijriString}<br>📍 اليوم تقريباً: ${dayNum} من الشهر الهجري`;
+            } catch(e) {
+                document.getElementById('moonPhaseName').textContent = "البدر الكامل";
+                document.getElementById('moonDesc').textContent = "حالة القمر الطبيعية وفق التقويم الشهري.";
+            }
+        }
+        updateMoonPhase();
 
         // --- 3. الصلاة ---
         async function getPrayerTimes() {
@@ -356,7 +422,7 @@
             }
         }
 
-        // --- 4. البوصلة الحية التفاعلية المباشرة ---
+        // --- 4. اتجاه القبلة ---
         let qiblaCalculatedAngle = 0;
 
         function initQiblaSensor() {
@@ -371,7 +437,6 @@
                 const lat = pos.coords.latitude;
                 const lng = pos.coords.longitude;
 
-                // حساب زاوية الكعبة بالنسبة لخطوط الطول والعرض
                 const phiK = 21.4225 * Math.PI / 180;
                 const lambdaK = 39.8262 * Math.PI / 180;
                 const phi = lat * Math.PI / 180;
@@ -382,9 +447,8 @@
                 let psi = Math.atan2(y, x) * 180 / Math.PI;
                 qiblaCalculatedAngle = (psi + 360) % 360;
 
-                document.getElementById('qiblaStatus').innerHTML = `تم تحديد موقعك! زاوية القبلة: <span style="color:#28a745;">${Math.round(qiblaCalculatedAngle)}°</span><br><b>قم بتحريك هاتفك ليتوافق السهم مع الكعبة</b>`;
+                document.getElementById('qiblaStatus').innerHTML = `زاوية القبلة: <span style="color:#28a745;">${Math.round(qiblaCalculatedAngle)}°</span><br><b>حرك هاتفك ليتوافق السهم مع الكعبة</b>`;
 
-                // تفعيل مستشعر اتجاه الجهاز الحي (Live Compass)
                 if (window.DeviceOrientationEvent) {
                     if (typeof DeviceOrientationEvent.requestPermission === 'function') {
                         DeviceOrientationEvent.requestPermission().then(permissionState => {
@@ -396,7 +460,6 @@
                         window.addEventListener('deviceorientation', handleLiveCompass, true);
                     }
                 } else {
-                    // إذا لم يدعم الهاتف المستشعر، يظهر السهم باتجاه الزاوية الثابتة فوراً
                     document.getElementById('qiblaArrow').style.transform = `rotate(${qiblaCalculatedAngle}deg)`;
                 }
 
@@ -406,13 +469,12 @@
         }
 
         function handleLiveCompass(e) {
-            let compassHeading = e.alpha; // اتجاه بوصلة الجهاز بالنسبة للشمال
+            let compassHeading = e.alpha;
             if (e.webkitCompassHeading) {
-                compassHeading = e.webkitCompassHeading; // خاصة بأجهزة أبل (iOS)
+                compassHeading = e.webkitCompassHeading;
             }
 
             if (compassHeading !== null && compassHeading !== undefined) {
-                // المعادلة المباشرة لضبط السهم ليدل على القبلة أثناء تدوير الهاتف في اليد
                 let finalRotation = qiblaCalculatedAngle - compassHeading;
                 document.getElementById('qiblaArrow').style.transform = `rotate(${finalRotation}deg)`;
             }
