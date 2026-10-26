@@ -6,9 +6,19 @@
     <title>الشيخ محمد ربيع الناصر - التطبيق الإسلامي الشامل</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0f5132">
-    <!-- تمت إضافة خط أميري للقرآن -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Amiri+Quran&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- خط Cairo للواجهة، وخط Amiri Quran كاحتياط، وخط KFGQPC العثماني للقرآن -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Amiri+Quran&display=swap" rel="stylesheet">
     <style>
+        /* استدعاء الخط العثماني الرسمي (مجمع الملك فهد) */
+        @font-face {
+            font-family: 'Uthmanic';
+            src: url('https://fonts.qurancdn.com/fonts/uthmanic/KFGQPC_Uthmanic_Script_Hafs.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
         :root {
             --primary: #0f5132;
             --primary-light: #198754;
@@ -22,17 +32,18 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
         body { background-color: var(--bg); color: var(--text); line-height: 1.6; }
         
-        /* تنسيق مخصص للآيات القرآنية بالخط العثماني */
+        /* تنسيق مخصص للآيات القرآنية بالخط العثماني ولون داكن */
         .quran-text {
-            font-family: 'Amiri Quran', serif;
-            font-size: 1.7rem;
-            color: var(--primary);
-            line-height: 2.8;
+            font-family: 'Uthmanic', 'Amiri Quran', serif;
+            font-size: 1.6rem;
+            color: #1a1a1a; /* لون داكن جداً */
+            line-height: 2.6;
             text-align: justify;
             word-spacing: 2px;
+            font-weight: 500;
         }
 
-        /* --- Prayer Marquee Bar (إصلاح الحركة لتكون عربية ومستمرة) --- */
+        /* --- Prayer Marquee Bar --- */
         .prayer-marquee-container {
             background: var(--primary);
             color: var(--gold-light);
@@ -45,13 +56,13 @@
             display: flex;
             align-items: center;
             position: relative;
-            direction: ltr; /* لجعل الحاوية تتحرك من اليسار لليمين */
+            direction: ltr; 
         }
         .prayer-marquee-content {
             display: inline-block;
-            animation: marquee-rtl 30s linear infinite;
+            animation: marquee-rtl 40s linear infinite;
             white-space: nowrap;
-            padding-left: 100%; /* يبدأ من خارج الشاشة */
+            padding-left: 100%; 
         }
         .prayer-marquee-content span { margin: 0 20px; }
         
@@ -81,6 +92,38 @@
             font-size: 0.9rem;
             color: var(--gold-light);
             border: 1px solid var(--gold);
+        }
+
+        /* --- زر التثبيت اليدوي الثابت --- */
+        .manual-install-bar {
+            background: #fff;
+            text-align: center;
+            padding: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        .btn-install-manual {
+            background: var(--gold);
+            color: var(--primary);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+        .btn-install-manual:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
         }
 
         /* --- Hero Section --- */
@@ -298,13 +341,13 @@
             .tab-btn { padding: 0.8rem 1rem; font-size: 0.9rem; }
             .compass { width: 180px; height: 180px; }
             .compass-arrow { border-bottom-width: 100px; }
-            .quran-text { font-size: 1.5rem; line-height: 2.4; }
+            .quran-text { font-size: 1.4rem; line-height: 2.4; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 1. شريط أوقات الصلاة المتحرك (معدل) -->
+    <!-- 1. شريط أوقات الصلاة المتحرك -->
     <div class="prayer-marquee-container">
         <div class="prayer-marquee-content" id="marqueeContent">
             <span>جاري جلب أوقات صلاة حلب...</span>
@@ -317,6 +360,13 @@
         <p>الفتوى | الرقية الشرعية | أمور الدين الإسلامي</p>
         <div class="hijri-date" id="hijriDate">جاري جلب التاريخ الهجري...</div>
     </header>
+
+    <!-- زر التثبيت اليدوي -->
+    <div class="manual-install-bar" id="manualInstallBar" style="display: none;">
+        <button class="btn-install-manual" id="manualInstallBtn">
+            <span style="font-size: 1.2rem;">📲</span> تثبيت التطبيق على جهازك
+        </button>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -565,7 +615,6 @@
                     `الظهر: ${formatTime(timings.Dhuhr)}`, `العصر: ${formatTime(timings.Asr)}`,
                     `المغرب: ${formatTime(timings.Maghrib)}`, `العشاء: ${formatTime(timings.Isha)}`
                 ];
-                // نكرر النص مرتين لضمان استمرارية الحركة بدون انقطاع
                 const marqueeText = times.map(t => `<span>🕌 ${t}</span>`).join('');
                 marquee.innerHTML = marqueeText + marqueeText;
 
@@ -578,7 +627,6 @@
                 }
                 resultDiv.innerHTML = html;
 
-                // Save to localStorage if user searched
                 if(!isAuto) localStorage.setItem('savedCity', city);
 
             } catch (error) {
@@ -655,7 +703,7 @@
             }
         }
 
-        // --- 6. Quran (باستخدام API تعيد الخط العثماني) ---
+        // --- 6. Quran ---
         let surahListLoaded = false;
         async function loadSurahList() {
             if (surahListLoaded) return;
@@ -680,10 +728,9 @@
             
             textArea.innerHTML = "جاري تحميل السورة...";
             try {
-                // استخدام طبعة المدينة (quran-uthmani) لضمان الدقة والخط العثماني
                 const res = await fetch(`https://api.alquran.cloud/v1/surah/${surahNum}/quran-uthmani`);
                 const data = await res.json();
-                let html = `<h3 style="text-align:center; color: var(--gold); margin-bottom: 1.5rem;">سورة ${data.data.name.replace('سُورَةُ ', '')}</h3>`;
+                let html = `<h3 style="text-align:center; color: var(--gold); margin-bottom: 1.5rem; font-family: 'Cairo';">سورة ${data.data.name.replace('سُورَةُ ', '')}</h3>`;
                 
                 data.data.ayahs.forEach(ayah => {
                     html += `<span>${ayah.text} ﴿${ayah.numberInSurah}﴾ </span>`;
@@ -745,31 +792,68 @@
             }
         }
 
-        // --- 8. PWA Install Logic ---
+        // --- 8. PWA Install Logic (محسن ليعمل فوراً) ---
         let deferredPrompt;
         const installBanner = document.getElementById('installBanner');
+        const manualInstallBar = document.getElementById('manualInstallBar');
+        const manualInstallBtn = document.getElementById('manualInstallBtn');
+        
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            setTimeout(() => { installBanner.classList.add('show'); }, 2000);
+            
+            // إظهار شريط التثبيت السفلي تلقائياً بعد ثانيتين
+            setTimeout(() => { 
+                if(!window.matchMedia('(display-mode: standalone)').matches) {
+                    installBanner.classList.add('show'); 
+                    manualInstallBar.style.display = 'flex'; // إظهار الزر اليدوي
+                }
+            }, 2000);
         });
+
+        // زر التثبيت في الشريط السفلي
         document.getElementById('installBtn').addEventListener('click', async () => {
             if (deferredPrompt) {
                 deferredPrompt.prompt();
                 const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    installBanner.classList.remove('show');
+                    manualInstallBar.style.display = 'none';
+                }
                 deferredPrompt = null;
-                installBanner.classList.remove('show');
+            } else {
+                alert("لتثبيت التطبيق: اضغط على خيارات المتصفح (الثلاث نقاط) واختر 'تثبيت التطبيق' أو 'إضافة إلى الشاشة الرئيسية'.");
             }
         });
+
+        // زر التثبيت اليدوي (في حال لم يظهر الشريط السفلي)
+        manualInstallBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    installBanner.classList.remove('show');
+                    manualInstallBar.style.display = 'none';
+                }
+                deferredPrompt = null;
+            } else {
+                alert("لتثبيت التطبيق على جهازك:\n1. إذا كنت تستخدم أندرويد (كروم): اضغط على النقاط الثلاث أعلى المتصفح واختر 'تثبيت التطبيق'.\n2. إذا كنت تستخدم آيفون (سفاري): اضغط على زر المشاركة (المربع مع السهم) ثم اختر 'إضافة إلى الشاشة الرئيسية'.");
+            }
+        });
+
         document.getElementById('closeBanner').addEventListener('click', () => {
             installBanner.classList.remove('show');
         });
+
+        // إخفاء أزرار التثبيت إذا كان التطبيق مثبتاً بالفعل
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+            manualInstallBar.style.display = 'none';
+        }
 
         // --- Initialize App ---
         window.onload = function() {
             updateHijriDate();
             
-            // Auto Prayer Times
             const savedCity = localStorage.getItem('savedCity') || 'حلب';
             document.getElementById('cityInput').value = savedCity;
             updatePrayerUI(savedCity, true);
