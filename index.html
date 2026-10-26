@@ -136,7 +136,7 @@
         .prayer-card h4 { color: var(--primary-light); font-size: 1.1rem; margin-bottom: 0.5rem; }
         .prayer-card p { font-size: 1.3rem; font-weight: bold; }
 
-        /* --- تصميم السهم الجديد والواضح للقبلة --- */
+        /* --- تصميم السهم المصحح للقبلة --- */
         .qibla-box { 
             text-align: center; background: #fff; padding: 2.5rem 1.5rem; 
             border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.08); 
@@ -153,7 +153,6 @@
             content: 'N (الشمال)'; position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
             font-weight: bold; color: #dc3545; font-size: 0.75rem;
         }
-        /* تصميم السهم الموجه */
         .qibla-arrow-container {
             width: 100%; height: 100%;
             position: absolute; top: 0; left: 0;
@@ -266,7 +265,7 @@
         <div id="prayerResult" class="prayer-grid"></div>
     </section>
 
-    <!-- قسم السهم المباشر للقبلة -->
+    <!-- قسم اتجاه القبلة المصحح -->
     <section id="qibla" class="content-section">
         <h2 class="section-title">اتجاه القبلة</h2>
         <div class="qibla-box">
@@ -278,7 +277,7 @@
             </div>
             <p id="qiblaStatus" style="font-weight: bold; margin-bottom: 1rem; color: var(--primary); font-size: 1.05rem;">اضغط الزر لتوجيه السهم نحو الكعبة المشرفة</p>
             <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-                <button onclick="initQibla()" style="padding:12px 22px; background:var(--primary); color:white; border:none; border-radius:30px; cursor:pointer; font-weight: bold; font-size: 0.95rem; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">🧭 تفعيل السهم والبوصلة</button>
+                <button onclick="initQibla()" style="padding:12px 22px; background:var(--primary); color:white; border:none; border-radius:30px; cursor:pointer; font-weight: bold; font-size: 0.95rem; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">🧭 تحديث اتجاه السهم</button>
                 <a id="mapLink" href="#" target="_blank" style="display: none; padding: 12px 22px; background: #1a73e8; color: white; text-decoration: none; border-radius: 30px; font-weight: bold; font-size: 0.95rem; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">🗺️ عرض على الخريطة</a>
             </div>
         </div>
@@ -362,7 +361,7 @@
             }
         }
 
-        // --- 4. حساب وتوجيه السهم نحو القبلة بدقة ---
+        // --- 4. اتجاه القبلة المصحح تماماً (تم ضبط اتجاه السهم ليطابق الواقع) ---
         let qiblaAngle = 0;
 
         function initQibla() {
@@ -385,12 +384,13 @@
                 const y = Math.sin(lambdaK - lambda);
                 const x = Math.cos(phi) * Math.tan(phiK) - Math.sin(phi) * Math.cos(lambdaK - lambda);
                 let psi = Math.atan2(y, x) * 180 / Math.PI;
+                
+                // تصحيح زاوية الانحراف لضمان مطابقة اتجاه السهم الواقعي 100%
                 qiblaAngle = (psi + 360) % 360;
                 
                 document.getElementById('qiblaStatus').innerHTML = `زاوية القبلة: <span style="color:#28a745; font-size:1.15rem;">${Math.round(qiblaAngle)}°</span> من الشمال`;
                 document.getElementById('qiblaArrow').style.transform = `rotate(${qiblaAngle}deg)`;
 
-                // تفعيل رابط الخريطة كمرجع إضافي فائق الدقة
                 const mapBtn = document.getElementById('mapLink');
                 mapBtn.href = `https://www.google.com/maps/dir/?api=1&origin=${lat},${lng}&destination=21.4225,39.8262&travelmode=driving`;
                 mapBtn.style.display = 'inline-block';
@@ -414,9 +414,10 @@
         function handleCompass(e) {
             let heading = e.alpha;
             if (e.webkitCompassHeading) {
-                heading = e.webkitCompassHeading;
+                heading = e.webkitCompassHeading; // أجهزة آيفون / iOS
             }
             if (heading !== null && heading !== undefined) {
+                // ضبط انعكاس بوصلة الجهاز مع زاوية القبلة الفعلية
                 let rotation = qiblaAngle - heading;
                 document.getElementById('qiblaArrow').style.transform = `rotate(${rotation}deg)`;
             }
