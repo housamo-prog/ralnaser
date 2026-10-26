@@ -6,7 +6,7 @@
     <title>الشيخ محمد ربيع الناصر - التطبيق الإسلامي الشامل</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0f5132">
-    <!-- تمت إضافة خط Amiri Quran لعرض الآيات بشكل صحيح -->
+    <!-- تمت إضافة خط أميري للقرآن -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Amiri+Quran&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -22,21 +22,21 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
         body { background-color: var(--bg); color: var(--text); line-height: 1.6; }
         
-        /* تنسيق مخصص للآيات القرآنية */
+        /* تنسيق مخصص للآيات القرآنية بالخط العثماني */
         .quran-text {
             font-family: 'Amiri Quran', serif;
-            font-size: 1.6rem;
+            font-size: 1.7rem;
             color: var(--primary);
-            line-height: 2.5;
+            line-height: 2.8;
             text-align: justify;
             word-spacing: 2px;
         }
 
-        /* --- Prayer Marquee Bar --- */
+        /* --- Prayer Marquee Bar (إصلاح الحركة لتكون عربية ومستمرة) --- */
         .prayer-marquee-container {
             background: var(--primary);
             color: var(--gold-light);
-            padding: 8px 0;
+            padding: 10px 0;
             overflow: hidden;
             white-space: nowrap;
             font-weight: bold;
@@ -44,14 +44,18 @@
             border-bottom: 2px solid var(--gold);
             display: flex;
             align-items: center;
+            position: relative;
+            direction: ltr; /* لجعل الحاوية تتحرك من اليسار لليمين */
         }
         .prayer-marquee-content {
             display: inline-block;
-            animation: marquee 35s linear infinite;
-            padding-left: 100%;
+            animation: marquee-rtl 30s linear infinite;
+            white-space: nowrap;
+            padding-left: 100%; /* يبدأ من خارج الشاشة */
         }
-        .prayer-marquee-content span { margin: 0 15px; }
-        @keyframes marquee {
+        .prayer-marquee-content span { margin: 0 20px; }
+        
+        @keyframes marquee-rtl {
             0% { transform: translateX(0); }
             100% { transform: translateX(-100%); }
         }
@@ -294,13 +298,13 @@
             .tab-btn { padding: 0.8rem 1rem; font-size: 0.9rem; }
             .compass { width: 180px; height: 180px; }
             .compass-arrow { border-bottom-width: 100px; }
-            .quran-text { font-size: 1.4rem; }
+            .quran-text { font-size: 1.5rem; line-height: 2.4; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 1. شريط أوقات الصلاة المتحرك -->
+    <!-- 1. شريط أوقات الصلاة المتحرك (معدل) -->
     <div class="prayer-marquee-container">
         <div class="prayer-marquee-content" id="marqueeContent">
             <span>جاري جلب أوقات صلاة حلب...</span>
@@ -561,6 +565,7 @@
                     `الظهر: ${formatTime(timings.Dhuhr)}`, `العصر: ${formatTime(timings.Asr)}`,
                     `المغرب: ${formatTime(timings.Maghrib)}`, `العشاء: ${formatTime(timings.Isha)}`
                 ];
+                // نكرر النص مرتين لضمان استمرارية الحركة بدون انقطاع
                 const marqueeText = times.map(t => `<span>🕌 ${t}</span>`).join('');
                 marquee.innerHTML = marqueeText + marqueeText;
 
@@ -586,7 +591,7 @@
             if (city) updatePrayerUI(city, false);
         }
 
-        // --- 5. Qibla Compass (Improved) ---
+        // --- 5. Qibla Compass ---
         let qiblaAngle = 0;
         
         function initQibla() {
@@ -604,11 +609,9 @@
                 const lat = position.coords.latitude;
                 const lng = position.coords.longitude;
                 
-                // Kaaba Coordinates
                 const kaabaLat = 21.4225;
                 const kaabaLng = 39.8262;
                 
-                // Math to find Qibla angle
                 const phiK = (kaabaLat * Math.PI) / 180.0;
                 const lambdaK = (kaabaLng * Math.PI) / 180.0;
                 const phi = (lat * Math.PI) / 180.0;
@@ -617,14 +620,11 @@
                 
                 qiblaAngle = (psi + 360) % 360;
                 
-                // Set initial static rotation
                 arrow.style.transform = `rotate(${qiblaAngle}deg)`;
                 status.textContent = `اتجاه القبلة: ${Math.round(qiblaAngle)}° من الشمال.`;
 
-                // Try to activate compass (DeviceOrientation)
                 if (window.DeviceOrientationEvent) {
                     if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-                        // iOS 13+ requires permission
                         DeviceOrientationEvent.requestPermission().then(permissionState => {
                             if (permissionState === 'granted') {
                                 window.addEventListener('deviceorientation', handleOrientation);
@@ -636,7 +636,6 @@
                             status.textContent += " (لا يمكن تفعيل البوصلة الحية).";
                         });
                     } else {
-                        // Android and others
                         window.addEventListener('deviceorientationabsolute', handleOrientation);
                         window.addEventListener('deviceorientation', handleOrientation);
                     }
@@ -649,15 +648,14 @@
         }
 
         function handleOrientation(event) {
-            let compassHeading = event.webkitCompassHeading || event.alpha; // webkit for iOS, alpha for Android
+            let compassHeading = event.webkitCompassHeading || event.alpha;
             if (compassHeading !== null && compassHeading !== undefined) {
                 const arrow = document.getElementById('qiblaArrow');
-                // The arrow rotates relative to the phone's heading
                 arrow.style.transform = `rotate(${qiblaAngle - compassHeading}deg)`;
             }
         }
 
-        // --- 6. Quran ---
+        // --- 6. Quran (باستخدام API تعيد الخط العثماني) ---
         let surahListLoaded = false;
         async function loadSurahList() {
             if (surahListLoaded) return;
@@ -682,9 +680,11 @@
             
             textArea.innerHTML = "جاري تحميل السورة...";
             try {
+                // استخدام طبعة المدينة (quran-uthmani) لضمان الدقة والخط العثماني
                 const res = await fetch(`https://api.alquran.cloud/v1/surah/${surahNum}/quran-uthmani`);
                 const data = await res.json();
                 let html = `<h3 style="text-align:center; color: var(--gold); margin-bottom: 1.5rem;">سورة ${data.data.name.replace('سُورَةُ ', '')}</h3>`;
+                
                 data.data.ayahs.forEach(ayah => {
                     html += `<span>${ayah.text} ﴿${ayah.numberInSurah}﴾ </span>`;
                 });
@@ -769,15 +769,12 @@
         window.onload = function() {
             updateHijriDate();
             
-            // Auto Prayer Times (Default: Aleppo, or saved city)
+            // Auto Prayer Times
             const savedCity = localStorage.getItem('savedCity') || 'حلب';
             document.getElementById('cityInput').value = savedCity;
             updatePrayerUI(savedCity, true);
             
-            // Load Quran list
             loadSurahList();
-            
-            // Render Adhkar
             renderAdhkar();
         };
     </script>
