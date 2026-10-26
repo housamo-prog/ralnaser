@@ -7,8 +7,7 @@
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0f5132">
     
-    <!-- خطوط عربية مخصصة ومضمنة لدعم كافة التشكيلات والرموز القرآنية بدون مربعات -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Amiri:wght@400;700&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -24,9 +23,8 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
         body { background-color: var(--bg); color: var(--text); line-height: 1.6; }
         
-        /* --- الخط القرآني الواضح والعريض بدون مربعات --- */
         .quran-text {
-            font-family: 'Scheherazade New', 'Amiri', 'Traditional Arabic', serif !important;
+            font-family: 'Scheherazade New', 'Amiri', serif !important;
             font-size: 2.1rem !important;
             color: #000000 !important;
             line-height: 2.8 !important;
@@ -34,7 +32,6 @@
             direction: rtl;
             word-spacing: 2px;
             font-weight: 700 !important;
-            -webkit-font-smoothing: antialiased;
         }
         .quran-ayah-num {
             color: var(--primary);
@@ -45,7 +42,6 @@
             display: inline-block;
         }
 
-        /* --- شريط أوقات الصلاة --- */
         .prayer-marquee-container {
             background: var(--primary); color: var(--gold-light);
             padding: 10px 0; overflow: hidden; white-space: nowrap;
@@ -62,7 +58,6 @@
             100% { transform: translateX(-100%); }
         }
 
-        /* --- الترويسة --- */
         header {
             background: linear-gradient(135deg, var(--primary-light), var(--primary));
             color: var(--white); text-align: center; padding: 2rem 1rem;
@@ -76,7 +71,6 @@
             font-size: 0.9rem; color: var(--gold-light); border: 1px solid var(--gold);
         }
 
-        /* --- زر التثبيت --- */
         .manual-install-bar {
             background: #fff; text-align: center; padding: 12px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1); display: flex;
@@ -89,7 +83,6 @@
             align-items: center; gap: 10px; transition: 0.3s;
         }
 
-        /* --- الواجهة الرئيسية --- */
         .hero {
             display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
             gap: 3rem; padding: 2rem 1rem; background: var(--white); max-width: 1200px;
@@ -107,7 +100,6 @@
             align-items: center; gap: 10px; font-size: 1rem; transition: 0.3s; border: none; cursor: pointer;
         }
 
-        /* --- التبويبات --- */
         .tabs-container {
             background: var(--white); position: sticky; top: 0; z-index: 100;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-bottom: 2rem;
@@ -120,7 +112,6 @@
         }
         .tab-btn.active { color: var(--primary); border-bottom-color: var(--gold); }
 
-        /* --- الأقسام --- */
         .content-section { display: none; max-width: 1200px; margin: 0 auto; padding: 1rem 1rem 4rem; animation: fadeIn 0.5s; }
         .content-section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -135,7 +126,6 @@
             background: var(--gold); border-radius: 2px;
         }
 
-        /* --- الكروت --- */
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
         .card {
             background: var(--white); border-radius: 15px; padding: 1.5rem;
@@ -143,7 +133,6 @@
         }
         .card h3 { color: var(--primary); margin-bottom: 1rem; font-size: 1.3rem; }
 
-        /* --- النماذج --- */
         .qa-form { background: var(--white); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; }
         .qa-form input, .qa-form textarea, select {
             width: 100%; padding: 12px; margin-bottom: 1rem; border: 1px solid #ddd;
@@ -151,7 +140,6 @@
         }
         .qa-form textarea { height: 100px; resize: vertical; }
 
-        /* --- أوقات الصلاة --- */
         .prayer-search { display: flex; gap: 10px; margin-bottom: 2rem; justify-content: center; }
         .prayer-search input { padding: 12px; border: 1px solid #ddd; border-radius: 8px; width: 250px; }
         .prayer-search button { padding: 12px 25px; background: var(--primary); color: white; border: none; border-radius: 8px; cursor: pointer; }
@@ -160,10 +148,9 @@
         .prayer-card h4 { color: var(--primary-light); font-size: 1.1rem; margin-bottom: 0.5rem; }
         .prayer-card p { font-size: 1.3rem; font-weight: bold; }
 
-        /* --- تصميم القبلة المتطور والمزود بالسي دي والكعبة --- */
+        /* --- تصميم بوصلة القبلة المصحح تماماً --- */
         .qibla-box { text-align: center; background: #fff; padding: 2rem; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); max-width: 420px; margin: 0 auto; }
-        .kaaba-icon { font-size: 3rem; margin-bottom: 10px; display: block; animation: bounce 2s infinite; }
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+        .kaaba-icon { font-size: 3rem; margin-bottom: 10px; display: block; }
         
         .compass-circle { 
             width: 250px; height: 250px; 
@@ -174,30 +161,30 @@
             box-shadow: inset 0 0 15px rgba(0,0,0,0.1), 0 8px 25px rgba(0,0,0,0.1);
         }
         .compass-circle::before {
-            content: 'N'; position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
-            font-weight: bold; color: #dc3545; font-size: 0.9rem;
+            content: 'N (الشمال)'; position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
+            font-weight: bold; color: #dc3545; font-size: 0.8rem;
         }
         
-        /* مؤشر القبلة مع صورة الكعبة في أعلى السهم */
         .qibla-pointer {
             width: 100%; height: 100%;
             position: absolute; top: 0; left: 0;
-            transition: transform 0.2s cubic-bezier(0.1, 0.3, 0.1, 1);
+            transform-origin: center center;
+            transition: transform 0.1s ease-out;
         }
         .qibla-pointer-arrow {
             width: 0; height: 0;
-            border-left: 14px solid transparent;
-            border-right: 14px solid transparent;
-            border-bottom: 100px solid #28a745;
-            position: absolute; top: 20px; left: 50%;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-bottom: 90px solid #28a745;
+            position: absolute; top: 25px; left: 50%;
             transform: translateX(-50%);
             filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
         }
         .qibla-pointer-arrow::after {
             content: '🕋';
             position: absolute;
-            top: -30px; left: -14px;
-            font-size: 22px;
+            top: -35px; left: -14px;
+            font-size: 24px;
         }
         .compass-center { 
             width: 20px; height: 20px; 
@@ -207,7 +194,6 @@
             z-index: 10; box-shadow: 0 2px 5px rgba(0,0,0,0.3);
         }
 
-        /* --- القرآن --- */
         .quran-controls { display: flex; gap: 10px; margin-bottom: 1.5rem; justify-content: center; }
         .quran-controls select { max-width: 320px; margin-bottom: 0; font-weight: bold; font-size: 1.1rem; }
         .quran-text-area { 
@@ -219,7 +205,6 @@
         .quran-nav button { padding: 10px 20px; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
         .quran-nav button:disabled { background: #ccc; cursor: not-allowed; }
 
-        /* --- المسبحة والأذكار --- */
         .tasbih-container { text-align: center; background: var(--white); padding: 2rem 1rem; border-radius: 20px; margin-bottom: 2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         .tasbih-display { font-size: 4rem; font-weight: 900; color: var(--primary); }
         .tasbih-btn { width: 130px; height: 130px; border-radius: 50%; background: var(--primary); color: white; font-size: 1.2rem; font-weight: bold; border: 6px solid var(--gold); margin: 1rem auto; display: block; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
@@ -227,7 +212,6 @@
         .dhikr-text { font-size: 1.2rem; font-family: 'Amiri', serif; }
         .dhikr-counter { background: var(--bg); padding: 8px 15px; border-radius: 20px; font-weight: bold; border: 1px solid var(--gold); cursor: pointer; }
 
-        /* --- الفوتر --- */
         footer { background: var(--primary); color: white; text-align: center; padding: 2rem; border-top: 5px solid var(--gold); margin-top: 2rem; }
         .floating-wa { position: fixed; bottom: 20px; left: 20px; background: #25D366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 1000; text-decoration: none; }
 
@@ -301,7 +285,6 @@
         <div id="prayerResult" class="prayer-grid"></div>
     </section>
 
-    <!-- قسم اتجاه القبلة المطور -->
     <section id="qibla" class="content-section">
         <h2 class="section-title">اتجاه القبلة</h2>
         <div class="qibla-box">
@@ -312,12 +295,11 @@
                     <div class="qibla-pointer-arrow"></div>
                 </div>
             </div>
-            <p id="qiblaStatus" style="font-weight: bold; margin-bottom: 1rem; color: var(--primary);">اضغط على الزر لتوجيه القبلة بموقعك الحالي</p>
-            <button onclick="initQibla()" style="padding:12px 28px; background:var(--primary); color:white; border:none; border-radius:30px; cursor:pointer; font-weight: bold; font-size: 1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">📍 تحديد القبلة الآن</button>
+            <p id="qiblaStatus" style="font-weight: bold; margin-bottom: 1rem; color: var(--primary);">اضغط على الزر لتفعيل بوصلة القبلة بدقة</p>
+            <button onclick="initQibla()" style="padding:12px 28px; background:var(--primary); color:white; border:none; border-radius:30px; cursor:pointer; font-weight: bold; font-size: 1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">📍 تحديد اتجاه القبلة</button>
         </div>
     </section>
 
-    <!-- قسم القرآن الكريم المحدث بدون أي مربعات -->
     <section id="quran" class="content-section">
         <h2 class="section-title">القرآن الكريم</h2>
         <div class="quran-controls">
@@ -368,15 +350,20 @@
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
+            // إظهار شريط التثبيت اليدوي في حال توفر الحدث
+            document.getElementById('installBar').style.display = 'flex';
         });
+
         document.getElementById('installBtn').addEventListener('click', async () => {
             if (deferredPrompt) {
                 deferredPrompt.prompt();
                 const { outcome } = await deferredPrompt.userChoice;
-                if (outcome === 'accepted') document.getElementById('installBar').style.display = 'none';
+                if (outcome === 'accepted') {
+                    document.getElementById('installBar').style.display = 'none';
+                }
                 deferredPrompt = null;
             } else {
-                alert('لتثبيت التطبيق: اضغط على خيارات المتصفح (الثلاث نقاط) واختر "تثبيت التطبيق".');
+                alert('لتثبيت التطبيق على جهازك:\n- أجهزة أندرويد: اضغط على خيارات المتصفح (الثلاث نقاط بالأعلى) ثم اختر "تثبيت التطبيق" أو "إضافة إلى الشاشة الرئيسية".\n- أجهزة آيفون: اضغط على زر المشاركة (Share) ثم اختر "إضافة إلى الصفحة الرئيسية (Add to Home Screen)".');
             }
         });
 
@@ -391,7 +378,7 @@
         // --- 3. التاريخ الهجري ---
         document.getElementById('hijriDate').textContent = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date());
 
-        // --- 4. الصلاة (تلقائي لحلب أو المدينة المدخلة) ---
+        // --- 4. الصلاة ---
         async function getPrayerTimes() {
             const city = document.getElementById('cityInput').value || 'حلب';
             try {
@@ -413,7 +400,7 @@
             }
         }
 
-        // --- 5. القبلة الدقيقة والمتحركة مع البوصلة والصورة ---
+        // --- 5. اتجاه القبلة المصحح تماماً ---
         let qiblaAngle = 0;
 
         function initQibla() {
@@ -428,7 +415,7 @@
                 const lat = pos.coords.latitude;
                 const lng = pos.coords.longitude;
                 
-                // حساب زاوية الكعبة بالنسبة لموقع الجهاز (الكعبة: lat 21.4225, lng 39.8262)
+                // إحداثيات الكعبة المشرفة
                 const phiK = 21.4225 * Math.PI / 180;
                 const lambdaK = 39.8262 * Math.PI / 180;
                 const phi = lat * Math.PI / 180;
@@ -439,38 +426,38 @@
                 let psi = Math.atan2(y, x) * 180 / Math.PI;
                 qiblaAngle = (psi + 360) % 360;
                 
-                document.getElementById('qiblaStatus').innerHTML = `اتجاه القبلة: <span style="color:#28a745; font-size:1.2rem;">${Math.round(qiblaAngle)}°</span> بالنسبة للشمال`;
+                document.getElementById('qiblaStatus').innerHTML = `اتجاه القبلة: <span style="color:#28a745; font-size:1.2rem;">${Math.round(qiblaAngle)}°</span>`;
                 document.getElementById('qiblaPointer').style.transform = `rotate(${qiblaAngle}deg)`;
                 
-                // الاستماع لحركة بوصلة الجهاز الحقيقية
                 if (window.DeviceOrientationEvent) {
                     if (typeof DeviceOrientationEvent.requestPermission === 'function') {
                         DeviceOrientationEvent.requestPermission().then(state => {
                             if (state === 'granted') {
                                 window.addEventListener('deviceorientation', handleCompass, true);
                             }
-                        });
+                        }).catch(() => {});
                     } else {
                         window.addEventListener('deviceorientation', handleCompass, true);
                     }
                 }
-            }, (err) => {
-                document.getElementById('qiblaStatus').textContent = 'يرجى تفعيل خيار الموقع (GPS) في الهاتف للتحديد.';
+            }, () => {
+                document.getElementById('qiblaStatus').textContent = 'يرجى تفعيل خيار الموقع (GPS) في إعدادات الهاتف.';
             }, { enableHighAccuracy: true });
         }
 
         function handleCompass(e) {
             let heading = e.alpha;
             if (e.webkitCompassHeading) {
-                heading = e.webkitCompassHeading; // أجهزة آيفون / iOS
+                heading = e.webkitCompassHeading; // أجهزة آيفون
             }
             if (heading !== null && heading !== undefined) {
-                let currentRot = qiblaAngle - heading;
-                document.getElementById('qiblaPointer').style.transform = `rotate(${currentRot}deg)`;
+                // التصحيح المباشر لاتجاه السهم مع دوران الهاتف الحقيقي
+                let rotation = qiblaAngle - heading;
+                document.getElementById('qiblaPointer').style.transform = `rotate(${rotation}deg)`;
             }
         }
 
-        // --- 6. القرآن الكريم (بدون أي مربعات نهائياً) ---
+        // --- 6. القرآن الكريم ---
         let currentSurah = 1;
         async function fetchSurahList() {
             try {
@@ -487,7 +474,6 @@
             const textBox = document.getElementById('quranText');
             textBox.innerHTML = '<p style="text-align:center;">جاري تحميل السورة الكريمة...</p>';
             try {
-                // تم التغيير إلى quran-simple لضمان خلو النصوص من الرموز المسببة للمربعات
                 const res = await fetch(`https://api.alquran.cloud/v1/surah/${currentSurah}/quran-simple`);
                 const data = await res.json();
                 
@@ -499,7 +485,6 @@
 
                 data.data.ayahs.forEach(a => {
                     let text = a.text;
-                    // إزالة البسملة المكررة من بداية السور ما عدا الفاتحة والتوبة
                     if (a.numberInSurah === 1 && currentSurah != 1 && currentSurah != 9) {
                         text = text.replace('بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ', '').trim();
                     }
@@ -510,7 +495,7 @@
                 document.getElementById('prevBtn').disabled = (currentSurah == 1);
                 document.getElementById('nextBtn').disabled = (currentSurah == 114);
             } catch(e) {
-                textBox.innerHTML = '<p style="text-align:center; color:red;">حدث خطأ في تحميل السورة. يرجى التأكد من اتصال الإنترنت.</p>';
+                textBox.innerHTML = '<p style="text-align:center; color:red;">حدث خطأ في تحميل السورة.</p>';
             }
         }
 
@@ -540,7 +525,6 @@
             window.open(`https://wa.me/963944856486?text=${msg}`, '_blank');
         }
 
-        // --- التشغيل التلقائي عند التحميل ---
         window.onload = () => {
             getPrayerTimes(); 
             fetchSurahList(); 
