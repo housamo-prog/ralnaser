@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الشيخ محمد ربيع الناصر - الفتوى والرقية الشرعية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0f5132;
+            --primary-light: #198754;
+            --gold: #d4af37;
+            --gold-light: #f3d56b;
+            --bg: #f8f9fa;
+            --text: #2c3e50;
+            --white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
+        body { background-color: var(--bg); color: var(--text); line-height: 1.6; }
+        .quran { font-family: 'Amiri', serif; font-size: 1.3rem; color: var(--primary); }
+
+        /* --- Header --- */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: var(--white);
+            text-align: center;
+            padding: 2rem 1rem;
+            border-bottom: 5px solid var(--gold);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--gold-light); }
+        header p { font-size: 1.2rem; opacity: 0.9; }
+
+        /* --- Hero Section --- */
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+            padding: 3rem 1rem;
+            background: var(--white);
+            max-width: 1200px;
+            margin: 0 auto;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        .hero-img {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--gold);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        .hero-text { max-width: 600px; text-align: center; }
+        .hero-text h2 { color: var(--primary); font-size: 2rem; margin-bottom: 1rem; }
+        .hero-text p { font-size: 1.1rem; margin-bottom: 1.5rem; }
+        
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-whatsapp:hover { background: #128C7E; transform: translateY(-3px); }
+
+        /* --- Navigation Tabs --- */
+        .tabs-container {
+            background: var(--white);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        .tabs {
+            display: flex;
+            overflow-x: auto;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        .tab-btn {
+            padding: 1rem 1.5rem;
+            border: none;
+            background: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text);
+            cursor: pointer;
+            white-space: nowrap;
+            border-bottom: 3px solid transparent;
+            transition: 0.3s;
+        }
+        .tab-btn:hover { color: var(--primary); background: #f1f8f5; }
+        .tab-btn.active { color: var(--primary); border-bottom-color: var(--gold); }
+
+        /* --- Content Sections --- */
+        .content-section { display: none; max-width: 1200px; margin: 0 auto; padding: 1rem 1rem 4rem; animation: fadeIn 0.5s; }
+        .content-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .section-title {
+            text-align: center;
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 2px;
+        }
+
+        /* --- Cards Grid --- */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--gold);
+            transition: 0.3s;
+        }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .card h3 { color: var(--primary); margin-bottom: 1rem; font-size: 1.4rem; }
+        
+        /* --- Q&A --- */
+        .qa-form { background: var(--white); padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 2rem; }
+        .qa-form input, .qa-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 1rem;
+        }
+        .qa-form textarea { height: 120px; resize: vertical; }
+        .qa-form button { width: 100%; padding: 15px; font-size: 1.2rem; }
+
+        /* --- Prayer Times --- */
+        .prayer-search { display: flex; gap: 10px; margin-bottom: 2rem; flex-wrap: wrap; justify-content: center; }
+        .prayer-search input { padding: 12px; border: 1px solid #ddd; border-radius: 8px; width: 250px; font-size: 1rem; }
+        .prayer-search button { padding: 12px 25px; background: var(--primary); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .prayer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; }
+        .prayer-card { background: var(--white); text-align: center; padding: 1.5rem; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-bottom: 4px solid var(--primary); }
+        .prayer-card h4 { color: var(--primary-light); font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .prayer-card p { font-size: 1.5rem; font-weight: bold; color: var(--text); }
+
+        /* --- Tasbih --- */
+        .tasbih-container { text-align: center; background: var(--white); padding: 3rem 1rem; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        .tasbih-display { font-size: 5rem; font-weight: 900; color: var(--primary); margin-bottom: 1rem; }
+        .tasbih-btn {
+            width: 150px; height: 150px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white; font-size: 1.5rem; font-weight: bold;
+            border: 8px solid var(--gold); cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: 0.1s; margin: 0 auto; display: block;
+        }
+        .tasbih-btn:active { transform: scale(0.95); }
+        .tasbih-reset { margin-top: 1.5rem; background: none; border: 2px solid #dc3545; color: #dc3545; padding: 10px 20px; border-radius: 50px; cursor: pointer; font-weight: bold; }
+
+        /* --- Hadith & Dua --- */
+        .hadith-item, .dua-item { background: var(--white); padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem; border-right: 5px solid var(--gold); box-shadow: 0 3px 10px rgba(0,0,0,0.05); }
+        .hadith-item p, .dua-item p { font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .hadith-item span, .dua-item span { display: block; color: var(--primary-light); font-size: 0.9rem; font-weight: bold; text-align: left; }
+
+        /* --- Footer --- */
+        footer { background: var(--primary); color: white; text-align: center; padding: 2rem 1rem; border-top: 5px solid var(--gold); margin-top: 2rem; }
+        footer p { opacity: 0.8; }
+        .footer-contact { margin-top: 1rem; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .footer-contact a { color: var(--gold-light); text-decoration: none; font-size: 1.2rem; }
+
+        /* Floating WhatsApp */
+        .floating-wa {
+            position: fixed; bottom: 30px; left: 30px;
+            background: #25D366; color: white;
+            width: 60px; height: 60px; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            z-index: 1000; text-decoration: none; transition: 0.3s;
+        }
+        .floating-wa:hover { transform: scale(1.1); }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8rem; }
+            .hero { flex-direction: column; text-align: center; gap: 1.5rem; }
+            .hero-img { width: 200px; height: 200px; }
+            .tab-btn { padding: 0.8rem 1rem; font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>الشيخ محمد ربيع الناصر</h1>
+        <p>الفتوى | الرقية الشرعية | أمور الدين الإسلامي</p>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <!-- ضع هنا رابط الصورة أو اسم الملف إذا حفظتها بجانب الصفحة -->
+        <img src="https://files.oaiusercontent.com/file-3b6JqZ8xXwJ6rW5cV4bY2a?se=2024-05-20T10%3A00%3A00Z&sp=r&sv=2023-11-03&sr=b&rscc=max-age%3D604800%2C%20immutable&rscd=attachment%3B%20filename%3Dsheikh.jpg&sig=YOUR_SIGNATURE" alt="الشيخ محمد ربيع الناصر" class="hero-img" id="sheikhImg">
+        <div class="hero-text">
+            <h2>أهلاً بكم في الموقع الرسمي</h2>
+            <p>نسعى لتقديم الفتاوى الشرعية، والرقية الشرعية، والإجابة على استفساراتكم في أمور الدين الإسلامي، وفقاً للكتاب والسنة.</p>
+            <a href="https://wa.me/963944856486" target="_blank" class="btn-whatsapp">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.043.072.043.419-.101.824z"/></svg>
+                تواصل مع الشيخ عبر واتساب
+            </a>
+        </div>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <div class="tabs-container">
+        <div class="tabs">
+            <button class="tab-btn active" onclick="openTab(event, 'home')">الرئيسية</button>
+            <button class="tab-btn" onclick="openTab(event, 'qa')">سؤال وجواب</button>
+            <button class="tab-btn" onclick="openTab(event, 'prayer')">أوقات الصلاة</button>
+            <button class="tab-btn" onclick="openTab(event, 'dua')">الأدعية والتسابيح</button>
+            <button class="tab-btn" onclick="openTab(event, 'hadith')">الأحاديث</button>
+            <button class="tab-btn" onclick="openTab(event, 'ruqyah')">الرقية الشرعية</button>
+        </div>
+    </div>
+
+    <!-- 1. Home Section -->
+    <section id="home" class="content-section active">
+        <h2 class="section-title">مرحباً بكم</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>🕌 الفتوى الشرعية</h3>
+                <p>إجابة على استفساراتكم وأسئلتكم في العبادات والمعاملات والأحوال الشخصية بناءً على الأدلة الشرعية.</p>
+            </div>
+            <div class="card">
+                <h3>📖 الرقية الشرعية</h3>
+                <p>تقديم الرقية الشرعية الثابتة من الكتاب والسنة، وإرشادكم للطرق الصحيحة للتحصين.</p>
+            </div>
+            <div class="card">
+                <h3>📞 تواصل مباشر</h3>
+                <p>يمكنك التواصل مع الشيخ مباشرة عبر الواتساب للاستفسار أو طلب خدمة.</p>
+                <br>
+                <a href="https://wa.me/963944856486" target="_blank" class="btn-whatsapp" style="padding: 8px 20px; font-size: 1rem;">اضغط هنا للتواصل</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Q&A Section -->
+    <section id="qa" class="content-section">
+        <h2 class="section-title">سؤال وجواب</h2>
+        <div class="qa-form">
+            <h3 style="margin-bottom: 1rem; color: var(--primary);">أرسل سؤالك للشيخ</h3>
+            <input type="text" id="qaName" placeholder="اسمك (اختياري)">
+            <textarea id="qaQuestion" placeholder="اكتب سؤالك هنا بالتفصيل..."></textarea>
+            <button onclick="sendQuestion()" class="btn-whatsapp" style="justify-content: center; width: 100%;">إرسال السؤال عبر واتساب</button>
+        </div>
+        <div class="grid">
+            <div class="card">
+                <h3>س: ما حكم قراءة القرآن للميت؟</h3>
+                <p><strong>ج:</strong> قراءة القرآن للميت جائزة عند جمهور الفقهاء، ويصل ثوابها بإذن الله، وقد استحسنها كثير من العلماء.</p>
+            </div>
+            <div class="card">
+                <h3>س: كيف أقي نفسي من العين والحسد؟</h3>
+                <p><strong>ج:</strong> التحصين بالأذكار الشرعية (أذكار الصباح والمساء)، وقراءة المعوذتين وآية الكرسي، والالتزام بالرقية الشرعية الثابتة.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Prayer Times Section -->
+    <section id="prayer" class="content-section">
+        <h2 class="section-title">أوقات الصلاة</h2>
+        <div class="prayer-search">
+            <input type="text" id="cityInput" placeholder="أدخل اسم المدينة (مثال: عمان)" value="عمان">
+            <button onclick="getPrayerTimes()">بحث</button>
+        </div>
+        <div id="prayerResult" class="prayer-grid">
+            <!-- Data will be injected here -->
+        </div>
+    </section>
+
+    <!-- 4. Dua & Tasbih Section -->
+    <section id="dua" class="content-section">
+        <h2 class="section-title">الأدعية والتسابيح</h2>
+        
+        <!-- Tasbih -->
+        <div class="tasbih-container" style="margin-bottom: 2rem;">
+            <h3 style="color: var(--primary); margin-bottom: 1rem;">المسبحة الإلكترونية</h3>
+            <div class="tasbih-display" id="tasbihCount">0</div>
+            <button class="tasbih-btn" onclick="incrementTasbih()">سبحان الله</button>
+            <br>
+            <button class="tasbih-reset" onclick="resetTasbih()">تصفير العداد</button>
+        </div>
+
+        <div class="grid">
+            <div class="dua-item">
+                <p class="quran">رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ</p>
+                <span>دعاء</span>
+            </div>
+            <div class="dua-item">
+                <p class="quran">اللَّهُمَّ إِنِّي أَسْأَلُكَ الْهُدَى وَالتُّقَى وَالْعَفَافَ وَالْغِنَى</p>
+                <span>دعاء</span>
+            </div>
+            <div class="dua-item">
+                <p class="quran">سُبْحَانَ اللَّهِ وَبِحَمْدِهِ، سُبْحَانَ اللَّهِ الْعَظِيمِ</p>
+                <span>تسبيح</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Hadith Section -->
+    <section id="hadith" class="content-section">
+        <h2 class="section-title">أحاديث نبوية شريفة</h2>
+        <div class="hadith-item">
+            <p>«إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى»</p>
+            <span>رواه البخاري ومسلم</span>
+        </div>
+        <div class="hadith-item">
+            <p>«مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ»</p>
+            <span>رواه البخاري</span>
+        </div>
+        <div class="hadith-item">
+            <p>«الدِّينُ النَّصِيحَةُ»</p>
+            <span>رواه مسلم</span>
+        </div>
+    </section>
+
+    <!-- 6. Ruqyah Section -->
+    <section id="ruqyah" class="content-section">
+        <h2 class="section-title">الرقية الشرعية</h2>
+        <div class="card">
+            <h3>ما هي الرقية الشرعية؟</h3>
+            <p>هي القراءة على المريض من القرآن الكريم والأدعية النبوية الثابتة، بنية الشفاء والتحصين من العين والحسد والمس والسحر. وهي مشروعة بالكتاب والسنة.</p>
+            <br>
+            <h3>آيات الرقية:</h3>
+            <p class="quran" style="margin-top: 1rem;">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ<br>
+            الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ * الرَّحْمَنِ الرَّحِيمِ * مَالِكِ يَوْمِ الدِّينِ * إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ * اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ * صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ</p>
+            <br>
+            <p style="color: #dc3545; font-weight: bold; margin-top: 1rem;">* للتواصل مع الشيخ لطلب الرقية الشرعية، يرجى الضغط على زر الواتساب العائم أو التواصل عبر الرقم.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <h3>الشيخ محمد ربيع الناصر</h3>
+        <p>جميع الحقوق محفوظة &copy; 2024</p>
+        <div class="footer-contact">
+            <a href="https://wa.me/963944856486" target="_blank">📞 واتساب: 00963944856486</a>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/963944856486" target="_blank" class="floating-wa" title="تواصل عبر واتساب">
+        <svg width="35" height="35" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.043.072.043.419-.101.824z"/></svg>
+    </a>
+
+    <!-- Scripts -->
+    <script>
+        // --- Tab Switching Logic ---
+        function openTab(evt, tabName) {
+            let i, content, tabBtn;
+            content = document.getElementsByClassName("content-section");
+            for (i = 0; i < content.length; i++) {
+                content[i].className = content[i].className.replace(" active", "");
+            }
+            tabBtn = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tabBtn.length; i++) {
+                tabBtn[i].className = tabBtn[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).className += " active";
+            evt.currentTarget.className += " active";
+        }
+
+        // --- Send Question via WhatsApp ---
+        function sendQuestion() {
+            const name = document.getElementById('qaName').value || 'زائر';
+            const question = document.getElementById('qaQuestion').value;
+            if (!question.trim()) {
+                alert('الرجاء كتابة السؤال أولاً.');
+                return;
+            }
+            const phone = '963944856486';
+            const text = `السلام عليكم ورحمة الله وبركاته،\nأنا: ${name}\n\nسؤالي للشيخ:\n${question}`;
+            const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+        }
+
+        // --- Prayer Times API (Using Aladhan API) ---
+        async function getPrayerTimes() {
+            const city = document.getElementById('cityInput').value.trim();
+            const resultDiv = document.getElementById('prayerResult');
+            if (!city) { alert('الرجاء إدخال اسم المدينة'); return; }
+
+            resultDiv.innerHTML = '<p style="text-align:center; width:100%;">جاري التحميل...</p>';
+
+            try {
+                // Fetch city data to get coordinates
+                const geoRes = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=&method=4`);
+                const geoData = await geoRes.json();
+
+                if (geoData.code !== 200) {
+                    throw new Error('لم يتم العثور على المدينة');
+                }
+
+                const timings = geoData.data.timings;
+                
+                // Format data
+                const prayerNames = {
+                    Fajr: 'الفجر',
+                    Sunrise: 'الشروق',
+                    Dhuhr: 'الظهر',
+                    Asr: 'العصر',
+                    Maghrib: 'المغرب',
+                    Isha: 'العشاء'
+                };
+
+                let html = '';
+                for (const [key, name] of Object.entries(prayerNames)) {
+                    if (timings[key]) {
+                        // Convert to 12h format
+                        let time = timings[key];
+                        let [hours, minutes] = time.split(':');
+                        hours = parseInt(hours);
+                        const ampm = hours >= 12 ? 'م' : 'ص';
+                        hours = hours % 12 || 12;
+                        html += `
+                            <div class="prayer-card">
+                                <h4>${name}</h4>
+                                <p>${hours}:${minutes} ${ampm}</p>
+                            </div>
+                        `;
+                    }
+                }
+                resultDiv.innerHTML = html;
+            } catch (error) {
+                resultDiv.innerHTML = `<p style="text-align:center; width:100%; color:#dc3545;">حدث خطأ في جلب البيانات. تأكد من اسم المدينة أو اتصالك بالإنترنت.</p>`;
+            }
+        }
+
+        // Load default city on page load
+        window.onload = function() {
+            getPrayerTimes();
+        };
+
+        // --- Tasbih Logic ---
+        let tasbihCount = 0;
+        const tasbihDisplay = document.getElementById('tasbihCount');
+
+        function incrementTasbih() {
+            tasbihCount++;
+            tasbihDisplay.textContent = tasbihCount;
+            if (navigator.vibrate) navigator.vibrate(50); // Haptic feedback on mobile
+        }
+
+        function resetTasbih() {
+            if(confirm('هل أنت متأكد من تصفير العداد؟')) {
+                tasbihCount = 0;
+                tasbihDisplay.textContent = tasbihCount;
+            }
+        }
+    </script>
+</body>
+</html>
