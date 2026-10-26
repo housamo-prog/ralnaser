@@ -7,8 +7,8 @@
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0f5132">
     
-    <!-- خطوط جوجل المحدثة للقرآن والنصوص -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Amiri+Quran&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- خطوط جوجل الرسمية والمحسنّة للقرآن -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Amiri+Quran&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -24,15 +24,16 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
         body { background-color: var(--bg); color: var(--text); line-height: 1.6; }
         
-        /* تنسيق محسن للقرآن لمنع تقطيع الأحرف */
+        /* --- تنسيق القرآن الكريم بوضوح تام وخط عثماني غامق --- */
         .quran-text {
-            font-family: 'Amiri Quran', 'Amiri', serif;
-            font-size: 1.8rem;
-            color: #1a1a1a;
-            line-height: 2.8;
+            font-family: 'Amiri Quran', serif;
+            font-size: 1.9rem;
+            color: #111111 !important;
+            line-height: 3.2;
             text-align: justify;
             direction: rtl;
-            word-spacing: 2px;
+            word-spacing: 3px;
+            font-weight: bold;
         }
         .quran-text span {
             display: inline;
@@ -156,13 +157,13 @@
         /* --- القبلة --- */
         .qibla-box { text-align: center; background: #fff; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); max-width: 400px; margin: 0 auto; }
         .compass-circle { width: 220px; height: 220px; border: 6px solid var(--primary); border-radius: 50%; margin: 0 auto 1.5rem; position: relative; background: radial-gradient(circle, #fcfcfc 0%, #eaeaea 100%); }
-        #qiblaArrow { width: 0; height: 0; border-left: 14px solid transparent; border-right: 14px solid transparent; border-bottom: 90px solid #dc3545; position: absolute; bottom: 50%; left: 50%; transform-origin: bottom center; transform: translateX(-50%) rotate(0deg); transition: transform 0.1s ease-out; }
+        #qiblaArrow { width: 0; height: 0; border-left: 14px solid transparent; border-right: 14px solid transparent; border-bottom: 90px solid #dc3545; position: absolute; bottom: 50%; left: 50%; transform-origin: bottom center; transform: translateX(-50%) rotate(0deg); transition: transform 0.2s ease-out; }
         .compass-center { width: 16px; height: 16px; background: var(--gold); border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2; }
 
         /* --- القرآن --- */
         .quran-controls { display: flex; gap: 10px; margin-bottom: 1.5rem; justify-content: center; }
-        .quran-controls select { max-width: 300px; margin-bottom: 0; }
-        .quran-text-area { background: var(--white); padding: 1.5rem; border-radius: 15px; border: 2px solid var(--gold); min-height: 300px; }
+        .quran-controls select { max-width: 300px; margin-bottom: 0; font-weight: bold; }
+        .quran-text-area { background: var(--white); padding: 2rem; border-radius: 15px; border: 2px solid var(--gold); min-height: 350px; box-shadow: inset 0 0 15px rgba(0,0,0,0.02); }
         .quran-nav { display: flex; justify-content: space-between; margin-top: 1rem; }
         .quran-nav button { padding: 10px 20px; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
         .quran-nav button:disabled { background: #ccc; cursor: not-allowed; }
@@ -255,7 +256,7 @@
                 <div class="compass-center"></div>
                 <div id="qiblaArrow"></div>
             </div>
-            <p id="qiblaStatus" style="font-weight: bold; margin-bottom: 1rem;">اضغط على الزر لتفعيل بوصلة القبلة</p>
+            <p id="qiblaStatus" style="font-weight: bold; margin-bottom: 1rem;">اضغط على الزر لتفعيل بوصلة القبلة ومستشعر الموقع</p>
             <button onclick="initQibla()" style="padding:10px 25px; background:var(--primary); color:white; border:none; border-radius:8px; cursor:pointer; font-weight: bold;">تحديد القبلة</button>
         </div>
     </section>
@@ -268,7 +269,7 @@
             </select>
         </div>
         <div class="quran-text-area">
-            <p id="quranText" class="quran-text" style="text-align:center; color:#999;">الرجاء اختيار السورة.</p>
+            <p id="quranText" class="quran-text" style="text-align:center; color:#555;">الرجاء اختيار السورة من القائمة أعلاه.</p>
         </div>
         <div class="quran-nav">
             <button id="prevBtn" onclick="changeSurah(-1)" disabled>السورة السابقة</button>
@@ -355,7 +356,7 @@
             }
         }
 
-        // --- 5. القبلة (المحدثة مع بوصلة الجهاز الحقيقية) ---
+        // --- 5. القبلة (محسنة ودقيقة بالكامل) ---
         let userLat, userLng, qiblaAngle = 0;
 
         function initQibla() {
@@ -381,45 +382,45 @@
                 let psi = Math.atan2(y, x) * 180 / Math.PI;
                 qiblaAngle = (psi + 360) % 360;
                 
-                document.getElementById('qiblaStatus').textContent = `اتجاه القبلة: ${Math.round(qiblaAngle)}° (حرّك هاتفك ليتوافق السهم)`;
+                document.getElementById('qiblaStatus').textContent = `اتجاه القبلة: ${Math.round(qiblaAngle)}° من الشمال`;
+                document.getElementById('qiblaArrow').style.transform = `translateX(-50%) rotate(${qiblaAngle}deg)`;
                 
-                // تفعيل مستشعر حركة الهاتف (الوصول للبوصلة)
+                // ربط بوصلة الهاتف الحقيقية إن توفرت
                 if (window.DeviceOrientationEvent) {
                     if (typeof DeviceOrientationEvent.requestPermission === 'function') {
                         DeviceOrientationEvent.requestPermission().then(response => {
                             if (response === 'granted') {
                                 window.addEventListener('deviceorientation', handleOrientation);
                             }
-                        }).catch(() => alert('تم رفض إذن مستشعر الاتجاه.'));
+                        }).catch(() => {});
                     } else {
                         window.addEventListener('deviceorientation', handleOrientation);
                     }
                 }
             }, () => {
-                alert('يرجى السماح بالوصول للموقع الجغرافي لتحديد القبلة.');
+                alert('يرجى السماح بالوصول للموقع الجغرافي من إعدادات المتصفح.');
             }, { enableHighAccuracy: true });
         }
 
         function handleOrientation(e) {
-            let compass = e.alpha; // الشمال الافتراضي
+            let compass = e.alpha;
             if (e.webkitCompassHeading) {
                 compass = e.webkitCompassHeading; // لأجهزة أبل (iOS)
             }
-            
             if (compass !== null && compass !== undefined) {
                 let rotation = qiblaAngle - compass;
                 document.getElementById('qiblaArrow').style.transform = `translateX(-50%) rotate(${rotation}deg)`;
             }
         }
 
-        // --- 6. القرآن الكريم (فهرس وعرض محسن بدون تقطيع) ---
+        // --- 6. القرآن الكريم (فهرس وعرض واضح بالخط العثماني) ---
         let currentSurah = 1;
         async function fetchSurahList() {
             try {
                 const res = await fetch('https://api.alquran.cloud/v1/surah');
                 const data = await res.json();
                 const select = document.getElementById('surahSelect');
-                data.data.forEach(s => select.innerHTML += `<option value="${s.number}">${s.number}. ${s.name} (${s.englishName})</option>`);
+                data.data.forEach(s => select.innerHTML += `<option value="${s.number}">${s.number}. سورة ${s.name}</option>`);
             } catch(e) { console.log('خطأ في جلب الفهرس'); }
         }
 
@@ -431,13 +432,13 @@
             try {
                 const res = await fetch(`https://api.alquran.cloud/v1/surah/${currentSurah}/quran-uthmani`);
                 const data = await res.json();
-                let html = `<h3 style="text-align:center; color:var(--gold); margin-bottom: 1.5rem; font-size: 2rem;">سورة ${data.data.name}</h3>`;
+                let html = `<h3 style="text-align:center; color:var(--primary); margin-bottom: 2rem; font-size: 2.2rem; font-family: 'Amiri Quran', serif;">سورة ${data.data.name}</h3>`;
                 data.data.ayahs.forEach(a => html += `<span>${a.text} ﴿${a.numberInSurah}﴾ </span>`);
                 textBox.innerHTML = html;
                 document.getElementById('prevBtn').disabled = (currentSurah == 1);
                 document.getElementById('nextBtn').disabled = (currentSurah == 114);
             } catch(e) {
-                textBox.innerHTML = 'حدث خطأ في تحميل السورة.';
+                textBox.innerHTML = 'حدث خطأ في تحميل السورة. تأكد من اتصال الإنترنت.';
             }
         }
 
