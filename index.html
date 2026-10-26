@@ -7,13 +7,11 @@
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0f5132">
     
-    <!-- خط Cairo للواجهة، وخط Amiri Quran كاحتياط، وخط KFGQPC العثماني للقرآن -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Amiri+Quran&display=swap" rel="stylesheet">
+    <!-- استدعاء الخط العثماني الرسمي من مجمع الملك فهد (إصدار 18) -->
     <style>
-        /* استدعاء الخط العثماني الرسمي (مجمع الملك فهد) */
         @font-face {
-            font-family: 'Uthmanic';
-            src: url('https://fonts.qurancdn.com/fonts/uthmanic/KFGQPC_Uthmanic_Script_Hafs.woff2') format('woff2');
+            font-family: 'KFGQPC Hafs';
+            src: url('https://cdn.jsdelivr.net/gh/thetruetruth/quran-data-kfgqpc@main/hafs/font/hafs.18.woff2') format('woff2');
             font-weight: normal;
             font-style: normal;
             font-display: swap;
@@ -32,15 +30,14 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
         body { background-color: var(--bg); color: var(--text); line-height: 1.6; }
         
-        /* تنسيق مخصص للآيات القرآنية بالخط العثماني ولون داكن */
+        /* تنسيق الآيات بالخط العثماني الرسمي ولون داكن جداً */
         .quran-text {
-            font-family: 'Uthmanic', 'Amiri Quran', serif;
-            font-size: 1.6rem;
-            color: #1a1a1a; /* لون داكن جداً */
-            line-height: 2.6;
+            font-family: 'KFGQPC Hafs', serif;
+            font-size: 1.8rem; /* تكبير الخط قليلاً */
+            color: #1a1a1a; /* لون داكن جداً للوضوح */
+            line-height: 3; /* مسافة واسعة بين السطور */
             text-align: justify;
             word-spacing: 2px;
-            font-weight: 500;
         }
 
         /* --- Prayer Marquee Bar --- */
@@ -341,7 +338,7 @@
             .tab-btn { padding: 0.8rem 1rem; font-size: 0.9rem; }
             .compass { width: 180px; height: 180px; }
             .compass-arrow { border-bottom-width: 100px; }
-            .quran-text { font-size: 1.4rem; line-height: 2.4; }
+            .quran-text { font-size: 1.5rem; line-height: 2.6; }
         }
     </style>
 </head>
@@ -557,6 +554,15 @@
 
     <!-- Scripts -->
     <script>
+        // --- تسجيل Service Worker (ضروري لتفعيل التثبيت) ---
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').then(function(registration) {
+                console.log('ServiceWorker registration successful');
+            }).catch(function(err) {
+                console.log('ServiceWorker registration failed: ', err);
+            });
+        }
+
         // --- 1. Tab Switching ---
         function openTab(evt, tabName) {
             let content = document.getElementsByClassName("content-section");
@@ -608,7 +614,6 @@
             try {
                 const timings = await fetchPrayerData(city);
                 
-                // Update Marquee
                 const marquee = document.getElementById('marqueeContent');
                 const times = [
                     `الفجر: ${formatTime(timings.Fajr)}`, `الشروق: ${formatTime(timings.Sunrise)}`,
@@ -618,7 +623,6 @@
                 const marqueeText = times.map(t => `<span>🕌 ${t}</span>`).join('');
                 marquee.innerHTML = marqueeText + marqueeText;
 
-                // Update Grid
                 const resultDiv = document.getElementById('prayerResult');
                 const prayerNames = { Fajr: 'الفجر', Sunrise: 'الشروق', Dhuhr: 'الظهر', Asr: 'العصر', Maghrib: 'المغرب', Isha: 'العشاء' };
                 let html = '';
@@ -792,7 +796,7 @@
             }
         }
 
-        // --- 8. PWA Install Logic (محسن ليعمل فوراً) ---
+        // --- 8. PWA Install Logic ---
         let deferredPrompt;
         const installBanner = document.getElementById('installBanner');
         const manualInstallBar = document.getElementById('manualInstallBar');
@@ -802,16 +806,14 @@
             e.preventDefault();
             deferredPrompt = e;
             
-            // إظهار شريط التثبيت السفلي تلقائياً بعد ثانيتين
             setTimeout(() => { 
                 if(!window.matchMedia('(display-mode: standalone)').matches) {
                     installBanner.classList.add('show'); 
-                    manualInstallBar.style.display = 'flex'; // إظهار الزر اليدوي
+                    manualInstallBar.style.display = 'flex'; 
                 }
             }, 2000);
         });
 
-        // زر التثبيت في الشريط السفلي
         document.getElementById('installBtn').addEventListener('click', async () => {
             if (deferredPrompt) {
                 deferredPrompt.prompt();
@@ -826,7 +828,6 @@
             }
         });
 
-        // زر التثبيت اليدوي (في حال لم يظهر الشريط السفلي)
         manualInstallBtn.addEventListener('click', async () => {
             if (deferredPrompt) {
                 deferredPrompt.prompt();
@@ -845,7 +846,6 @@
             installBanner.classList.remove('show');
         });
 
-        // إخفاء أزرار التثبيت إذا كان التطبيق مثبتاً بالفعل
         if (window.matchMedia('(display-mode: standalone)').matches) {
             manualInstallBar.style.display = 'none';
         }
