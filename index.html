@@ -7,10 +7,9 @@
     <meta name="theme-color" content="#0f5132">
     <title>الشيخ محمد ربيع الناصر - التطبيق الشامل</title>
     
-    <!-- Open Graph -->
     <meta property="og:title" content="الشيخ محمد ربيع الناصر">
     <meta property="og:description" content="الفتوى | الرقية الشرعية | أمور الدين الإسلامي">
-    <meta property="og:image" content="https://raw.githubusercontent.com/housamo-prog/ralnaser/refs/heads/main/IMG-20260329-WA0079.jpg">
+    <meta property="og:image" content="https://raw.githubusercontent.com/housamo-prog/ralnaser/main/IMG-20260329-WA0079.jpg">
     <meta property="og:type" content="website">
     
     <link rel="manifest" href="manifest.json">
@@ -32,7 +31,6 @@
             --shadow: rgba(0,0,0,0.05);
         }
 
-        /* الوضع الليلي */
         body.dark-mode {
             --bg: #1a1f2e;
             --text: #e8eaf0;
@@ -70,11 +68,12 @@
         }
         body.dark-mode .quran-ayah-num { color: var(--gold-light); }
 
-        /* الشريط المتحرك - مصحّح */
+        /* الشريط المتحرك */
         .prayer-marquee-container {
             background: var(--primary); color: var(--gold-light);
             padding: 10px 0; overflow: hidden; white-space: nowrap;
             font-weight: bold; font-size: 1rem; border-bottom: 2px solid var(--gold);
+            min-height: 42px;
         }
         .prayer-marquee-content {
             display: inline-block; 
@@ -122,6 +121,7 @@
         .hero-img {
             width: 220px; height: 220px; border-radius: 50%; object-fit: cover;
             border: 5px solid var(--gold); box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            background: var(--bg); display: block;
         }
         .hero-text { max-width: 600px; text-align: center; }
         .hero-text h2 { color: var(--primary-light); font-size: 1.8rem; margin-bottom: 1rem; }
@@ -254,7 +254,7 @@
         }
         .compass-label {
             position: absolute; font-weight: bold; color: var(--primary-light);
-            font-size: 1rem;
+            font-size: 1rem; z-index: 3;
         }
         body.dark-mode .compass-label { color: var(--gold-light); }
         .compass-n { top: 10px; left: 50%; transform: translateX(-50%); }
@@ -353,7 +353,15 @@
         }
 
         .loading { text-align: center; padding: 2rem; color: var(--primary-light); }
-        .error-msg { text-align: center; padding: 1rem; color: #dc3545; background: rgba(220,53,69,0.1); border-radius: 10px; }
+        .error-msg { 
+            text-align: center; padding: 1rem; color: #dc3545; 
+            background: rgba(220,53,69,0.1); border-radius: 10px; margin-bottom: 1rem;
+        }
+        .notice-msg {
+            text-align: center; padding: 0.7rem; color: #856404;
+            background: rgba(255,193,7,0.15); border-radius: 10px; 
+            margin-bottom: 1rem; font-size: 0.9rem;
+        }
 
         .status-badge {
             display: inline-block; padding: 4px 12px; border-radius: 12px;
@@ -376,7 +384,8 @@
 
     <div class="prayer-marquee-container">
         <div class="prayer-marquee-content" id="marqueeContent">
-            <span>جاري جلب أوقات صلاة حلب...</span>
+            <span>⏳ جاري جلب أوقات الصلاة...</span>
+            <span>⏳ جاري جلب أوقات الصلاة...</span>
         </div>
     </div>
 
@@ -403,7 +412,11 @@
 
     <section id="home" class="content-section active">
         <div class="hero">
-            <img src="https://raw.githubusercontent.com/housamo-prog/ralnaser/refs/heads/main/IMG-20260329-WA0079.jpg" alt="الشيخ محمد ربيع الناصر" class="hero-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22%3E%3Ccircle cx=%22100%22 cy=%22100%22 r=%22100%22 fill=%22%230f5132%22/%3E%3Ctext x=%22100%22 y=%22110%22 font-size=%2260%22 text-anchor=%22middle%22 fill=%22%23d4af37%22%3E🕌%3C/text%3E%3C/svg%3E'">
+            <img 
+                src="https://raw.githubusercontent.com/housamo-prog/ralnaser/main/IMG-20260329-WA0079.jpg" 
+                alt="الشيخ محمد ربيع الناصر" 
+                class="hero-img"
+                onerror="this.onerror=null; this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22%3E%3Crect width=%22200%22 height=%22200%22 fill=%22%230f5132%22/%3E%3Ccircle cx=%22100%22 cy=%22100%22 r=%2275%22 fill=%22%23198754%22 stroke=%22%23d4af37%22 stroke-width=%224%22/%3E%3Ctext x=%22100%22 y=%22130%22 font-size=%2270%22 text-anchor=%22middle%22 fill=%22%23f3d56b%22%3E%F0%9F%95%8C%3C/text%3E%3C/svg%3E';">
             <div class="hero-text">
                 <h2>أهلاً بكم في التطبيق الرسمي</h2>
                 <p>نسعى لتقديم الفتاوى الشرعية، والرقية الشرعية، والإجابة على استفساراتكم، مع مجموعة من الخدمات الإسلامية المتكاملة.</p>
@@ -453,7 +466,7 @@
                 </button>
             </div>
             <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--text); opacity: 0.7;">
-                ⚠️ ملاحظة: البوصلة تعمل فقط على HTTPS وعلى الأجهزة التي تدعم مستشعر الاتجاه
+                ⚠️ البوصلة تعمل فقط على HTTPS وعلى الأجهزة التي تدعم مستشعر الاتجاه
             </p>
         </div>
     </section>
@@ -546,25 +559,41 @@
     <a href="https://wa.me/963944856486" target="_blank" class="floating-wa" title="تواصل واتساب">💬</a>
 
     <script>
+        // ========== قائمة السور المحلية (بدون الحاجة للإنترنت) ==========
+        const SURAH_NAMES = [
+            "الفاتحة","البقرة","آل عمران","النساء","المائدة","الأنعام","الأعراف","الأنفال","التوبة","يونس",
+            "هود","يوسف","الرعد","إبراهيم","الحجر","النحل","الإسراء","الكهف","مريم","طه",
+            "الأنبياء","الحج","المؤمنون","النور","الفرقان","الشعراء","النمل","القصص","العنكبوت","الروم",
+            "لقمان","السجدة","الأحزاب","سبأ","فاطر","يس","الصافات","ص","الزمر","غافر",
+            "فصلت","الشورى","الزخرف","الدخان","الجاثية","الأحقاف","محمد","الفتح","الحجرات","ق",
+            "الذاريات","الطور","النجم","القمر","الرحمن","الواقعة","الحديد","المجادلة","الحشر","الممتحنة",
+            "الصف","الجمعة","المنافقون","التغابن","الطلاق","التحريم","الملك","القلم","الحاقة","المعارج",
+            "نوح","الجن","المزمل","المدثر","القيامة","الإنسان","المرسلات","النبأ","النازعات","عبس",
+            "التكوير","الانفطار","المطففين","الانشقاق","البروج","الطارق","الأعلى","الغاشية","الفجر","البلد",
+            "الشمس","الليل","الضحى","الشرح","التين","العلق","القدر","البينة","الزلزلة","العاديات",
+            "القارعة","التكاثر","العصر","الهمزة","الفيل","قريش","الماعون","الكوثر","الكافرون","النصر",
+            "المسد","الإخلاص","الفلق","الناس"
+        ];
+
         // ========== 1. التبويبات ==========
         function openTab(evt, tabName) {
             document.querySelectorAll(".content-section").forEach(c => c.classList.remove("active"));
             document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
             document.getElementById(tabName).classList.add("active");
             evt.currentTarget.classList.add("active");
-            
-            // حفظ التبويب الحالي
             localStorage.setItem('activeTab', tabName);
         }
 
         // استعادة التبويب الأخير
-        const savedTab = localStorage.getItem('activeTab');
-        if (savedTab) {
-            const tabBtn = [...document.querySelectorAll('.tab-btn')].find(b => 
-                b.getAttribute('onclick').includes(`'${savedTab}'`)
-            );
-            if (tabBtn) tabBtn.click();
-        }
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTab = localStorage.getItem('activeTab');
+            if (savedTab && savedTab !== 'home') {
+                const tabBtn = [...document.querySelectorAll('.tab-btn')].find(b => 
+                    b.getAttribute('onclick') && b.getAttribute('onclick').includes(`'${savedTab}'`)
+                );
+                if (tabBtn) tabBtn.click();
+            }
+        });
 
         // ========== 2. الوضع الليلي ==========
         function toggleTheme() {
@@ -576,10 +605,12 @@
 
         if (localStorage.getItem('darkMode') === 'true') {
             document.body.classList.add('dark-mode');
-            document.querySelector('.theme-toggle').textContent = '☀️';
+            document.addEventListener('DOMContentLoaded', () => {
+                document.querySelector('.theme-toggle').textContent = '☀️';
+            });
         }
 
-        // ========== 3. تحويل الأرقام العربية إلى إنجليزية ==========
+        // ========== 3. تحويل الأرقام العربية ==========
         function toEnglishDigits(str) {
             const arabicDigits = '٠١٢٣٤٥٦٧٨٩';
             const persianDigits = '۰۱۲۳۴۵۶۷۸۹';
@@ -589,21 +620,24 @@
         }
 
         // ========== 4. التاريخ الهجري ==========
-        const hijriFormatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', { 
-            day: 'numeric', month: 'long', year: 'numeric', weekday: 'long' 
-        });
-        const hijriDayFormatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', { day: 'numeric' });
-        
-        const hijriString = hijriFormatter.format(new Date());
+        let hijriString = '—';
+        try {
+            const hijriFormatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', { 
+                day: 'numeric', month: 'long', year: 'numeric', weekday: 'long' 
+            });
+            hijriString = hijriFormatter.format(new Date());
+        } catch(e) {
+            hijriString = new Date().toLocaleDateString('ar-SA');
+        }
         document.getElementById('hijriDate').textContent = hijriString;
 
         // ========== 5. أطوار القمر ==========
         function updateMoonPhase() {
             try {
+                const hijriDayFormatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', { day: 'numeric' });
                 const dayNumStr = hijriDayFormatter.format(new Date());
                 const dayNumEn = toEnglishDigits(dayNumStr).replace(/[^0-9]/g, '');
                 let dayNum = parseInt(dayNumEn) || 15;
-                // تصحيح: ضمان البقاء بين 1 و 30
                 dayNum = Math.max(1, Math.min(30, dayNum));
                 
                 let icon = "🌕", name = "البدر", desc = "يكون القمر في أتم إشراقه ونوره، في منتصف الشهر الهجري.";
@@ -642,30 +676,51 @@
             } catch(e) {
                 console.error('خطأ في حساب طور القمر:', e);
                 document.getElementById('moonPhaseName').textContent = "تعذر حساب الطور";
-                document.getElementById('moonDesc').textContent = "يرجى التحقق من إعدادات الجهاز.";
             }
         }
         updateMoonPhase();
 
-        // ========== 6. أوقات الصلاة ==========
+        // ========== 6. أوقات الصلاة - نسخة محسّنة مع Fallback ==========
         async function getPrayerTimes() {
             const city = document.getElementById('cityInput').value.trim() || 'حلب';
             const resultDiv = document.getElementById('prayerResult');
-            resultDiv.innerHTML = '<div class="loading">⏳ جاري جلب أوقات الصلاة...</div>';
+            const marqueeEl = document.getElementById('marqueeContent');
+            
+            resultDiv.innerHTML = '<div class="loading" style="grid-column:1/-1;">⏳ جاري جلب أوقات الصلاة...</div>';
+            
+            // دالة عرض البيانات الاحتياطية (في حال فشل الإنترنت)
+            const showFallback = () => {
+                const times = [
+                    { name: 'الفجر', time: '05:00 ص' },
+                    { name: 'الشروق', time: '06:20 ص' },
+                    { name: 'الظهر', time: '12:30 م' },
+                    { name: 'العصر', time: '03:45 م' },
+                    { name: 'المغرب', time: '06:00 م' },
+                    { name: 'العشاء', time: '07:30 م' }
+                ];
+                resultDiv.innerHTML = times.map(t => 
+                    `<div class="prayer-card"><h4>${t.name}</h4><p>${t.time}</p></div>`
+                ).join('');
+                const marqueeHTML = times.map(t => `<span>🕌 ${t.name}: ${t.time}</span>`).join('');
+                marqueeEl.innerHTML = marqueeHTML + marqueeHTML;
+            };
             
             try {
-                const res = await fetch(
-                    `https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=&method=4`
-                );
-                if (!res.ok) throw new Error('فشل الاتصال بالخادم');
+                const url = `https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=SY&method=4`;
+                const res = await fetch(url, { method: 'GET', cache: 'no-cache' });
+                
+                if (!res.ok) throw new Error('HTTP ' + res.status);
                 const data = await res.json();
+                
+                if (!data.data || !data.data.timings) throw new Error('بيانات غير صالحة');
+                
                 const t = data.data.timings;
                 const names = { 
                     Fajr: 'الفجر', Sunrise: 'الشروق', Dhuhr: 'الظهر', 
                     Asr: 'العصر', Maghrib: 'المغرب', Isha: 'العشاء' 
                 };
                 
-                let html = '', marquee = '';
+                let html = '', marqueeHTML = '';
                 for (let k in names) {
                     let [h, m] = t[k].split(':');
                     h = parseInt(h);
@@ -673,15 +728,20 @@
                     h = h % 12 || 12;
                     const timeStr = `${h}:${m} ${ampm}`;
                     html += `<div class="prayer-card"><h4>${names[k]}</h4><p>${timeStr}</p></div>`;
-                    marquee += `<span>🕌 ${names[k]}: ${timeStr}</span>`;
+                    marqueeHTML += `<span>🕌 ${names[k]}: ${timeStr}</span>`;
                 }
                 resultDiv.innerHTML = html;
-                document.getElementById('marqueeContent').innerHTML = marquee + marquee;
+                marqueeEl.innerHTML = marqueeHTML + marqueeHTML;
                 
                 localStorage.setItem('lastCity', city);
             } catch(e) {
                 console.error('خطأ في جلب الصلاة:', e);
-                resultDiv.innerHTML = '<div class="error-msg">⚠️ تعذر جلب بيانات الصلاة. تحقق من اتصالك بالإنترنت.</div>';
+                resultDiv.innerHTML = `
+                    <div class="error-msg" style="grid-column: 1/-1;">
+                        ⚠️ تعذر الاتصال بالخادم — يتم عرض أوقات تقريبية
+                    </div>
+                `;
+                showFallback();
             }
         }
 
@@ -704,7 +764,6 @@
                     const lat = pos.coords.latitude;
                     const lng = pos.coords.longitude;
                     
-                    // حساب زاوية القبلة
                     const phiK = 21.4225 * Math.PI / 180;
                     const lambdaK = 39.8262 * Math.PI / 180;
                     const phi = lat * Math.PI / 180;
@@ -718,20 +777,15 @@
                     statusEl.innerHTML = `
                         ✅ <span class="status-badge status-granted">تم تحديد الموقع</span><br>
                         زاوية القبلة: <strong style="color:#28a745;">${Math.round(qiblaCalculatedAngle)}°</strong> من الشمال<br>
-                        <small>حرّك هاتفك حتى يشير السهم الأخضر نحو الكعبة</small>
+                        <small>حرّك هاتفك حتى يشير السهم نحو الكعبة</small>
                     `;
                     
-                    // تفعيل مستشعر الاتجاه
                     if (window.DeviceOrientationEvent) {
                         if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-                            // iOS 13+
                             DeviceOrientationEvent.requestPermission()
-                                .then(permissionState => {
-                                    if (permissionState === 'granted') {
-                                        attachOrientationListener();
-                                    } else {
-                                        statusEl.innerHTML += '<br><span class="status-badge status-denied">✗</span> تم رفض إذن البوصلة';
-                                    }
+                                .then(state => {
+                                    if (state === 'granted') attachOrientationListener();
+                                    else statusEl.innerHTML += '<br><span class="status-badge status-denied">✗</span> رفض إذن البوصلة';
                                 })
                                 .catch(err => {
                                     console.error(err);
@@ -741,14 +795,13 @@
                             attachOrientationListener();
                         }
                     } else {
-                        // fallback: عرض اتجاه القبلة فقط بالنسبة للشمال
                         document.getElementById('qiblaArrow').style.transform = `rotate(${qiblaCalculatedAngle}deg)`;
-                        statusEl.innerHTML += '<br><small>⚠️ جهازك لا يدعم البوصلة الحية، السهم يشير للشمال</small>';
+                        statusEl.innerHTML += '<br><small>⚠️ جهازك لا يدعم البوصلة الحية</small>';
                     }
                 },
                 err => {
                     let msg = 'تعذر تحديد موقعك';
-                    if (err.code === 1) msg = 'تم رفض إذن الموقع. يرجى السماح للمتصفح بالوصول للموقع';
+                    if (err.code === 1) msg = 'تم رفض إذن الموقع. يرجى السماح للمتصفح';
                     else if (err.code === 2) msg = 'معلومات الموقع غير متاحة';
                     else if (err.code === 3) msg = 'انتهت مدة الانتظار';
                     statusEl.innerHTML = `<span class="status-badge status-denied">✗</span> ${msg}`;
@@ -766,16 +819,11 @@
             orientationListener = function(e) {
                 let compassHeading = null;
                 
-                // iOS
                 if (e.webkitCompassHeading !== undefined && e.webkitCompassHeading !== null) {
                     compassHeading = e.webkitCompassHeading;
-                }
-                // Android: absolute orientation
-                else if (e.absolute === true && e.alpha !== null) {
+                } else if (e.absolute === true && e.alpha !== null) {
                     compassHeading = 360 - e.alpha;
-                }
-                // fallback
-                else if (e.alpha !== null) {
+                } else if (e.alpha !== null) {
                     compassHeading = 360 - e.alpha;
                 }
                 
@@ -785,7 +833,6 @@
                 }
             };
             
-            // استخدام event الأفضل حسب المنصة
             if ('ondeviceorientationabsolute' in window) {
                 window.addEventListener('deviceorientationabsolute', orientationListener, true);
             } else {
@@ -797,29 +844,26 @@
         let currentSurah = 1;
         let surahListLoaded = false;
 
-        async function fetchSurahList() {
+        function fetchSurahList() {
             if (surahListLoaded) return;
-            try {
-                const res = await fetch('https://api.alquran.cloud/v1/surah');
-                if (!res.ok) throw new Error('فشل جلب الفهرس');
-                const data = await res.json();
-                const select = document.getElementById('surahSelect');
-                data.data.forEach(s => {
-                    const opt = document.createElement('option');
-                    opt.value = s.number;
-                    opt.textContent = `${s.number}. سورة ${s.name.replace('سُورَةُ ', '')}`;
-                    select.appendChild(opt);
-                });
-                surahListLoaded = true;
-                
-                // استعادة آخر سورة
-                const lastSurah = localStorage.getItem('lastSurah');
-                if (lastSurah) {
-                    select.value = lastSurah;
-                    loadSurah();
-                }
-            } catch(e) {
-                console.error('خطأ في جلب قائمة السور:', e);
+            
+            const select = document.getElementById('surahSelect');
+            select.innerHTML = '<option value="">اختر السورة...</option>';
+            
+            // ملء القائمة محلياً فوراً (بدون انتظار API)
+            SURAH_NAMES.forEach((name, i) => {
+                const opt = document.createElement('option');
+                opt.value = i + 1;
+                opt.textContent = `${i + 1}. سورة ${name}`;
+                select.appendChild(opt);
+            });
+            surahListLoaded = true;
+            
+            // استعادة آخر سورة
+            const lastSurah = localStorage.getItem('lastSurah');
+            if (lastSurah && parseInt(lastSurah) >= 1 && parseInt(lastSurah) <= 114) {
+                select.value = lastSurah;
+                loadSurah();
             }
         }
 
@@ -828,41 +872,61 @@
             if (!currentSurah) return;
             
             const textBox = document.getElementById('quranText');
-            textBox.innerHTML = '<p style="text-align:center;">⏳ جاري تحميل السورة الكريمة...</p>';
+            textBox.innerHTML = '<p style="text-align:center; padding: 2rem;">⏳ جاري تحميل السورة الكريمة...</p>';
             
-            try {
-                const res = await fetch(`https://api.alquran.cloud/v1/surah/${currentSurah}/quran-simple`);
-                if (!res.ok) throw new Error('فشل تحميل السورة');
-                const data = await res.json();
-                
-                let html = `<h3 style="text-align:center; color:var(--primary-light); margin-bottom: 2rem; font-size: 2.3rem; font-family: 'Amiri', serif;">سورة ${data.data.name.replace('سُورَةُ ', '')}</h3>`;
-                
-                // البسملة (ما عدا الفاتحة والتوبة)
-                if (currentSurah !== 1 && currentSurah !== 9) {
-                    html += `<div style="text-align:center; font-size:2rem; margin-bottom:1.5rem; color:var(--gold);" class="quran-text">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>`;
-                }
-                
-                data.data.ayahs.forEach(a => {
-                    let text = a.text;
-                    // إزالة البسملة من الآية الأولى إن وُجدت (منع التكرار)
-                    if (a.numberInSurah === 1 && currentSurah !== 1 && currentSurah !== 9) {
-                        text = text.replace(/^بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ\s*/, '').trim();
+            // مصدران بديلان في حال فشل الأول
+            const sources = [
+                `https://api.alquran.cloud/v1/surah/${currentSurah}/quran-simple`,
+                `https://api.alquran.cloud/v1/surah/${currentSurah}`
+            ];
+            
+            let success = false;
+            
+            for (const url of sources) {
+                try {
+                    const res = await fetch(url, { cache: 'no-cache' });
+                    if (!res.ok) continue;
+                    const data = await res.json();
+                    
+                    if (!data.data || !data.data.ayahs) continue;
+                    
+                    let html = `<h3 style="text-align:center; color:var(--primary-light); margin-bottom: 2rem; font-size: 2.3rem; font-family: 'Amiri', serif;">سورة ${SURAH_NAMES[currentSurah - 1]}</h3>`;
+                    
+                    if (currentSurah !== 1 && currentSurah !== 9) {
+                        html += `<div style="text-align:center; font-size:2rem; margin-bottom:1.5rem; color:var(--gold);" class="quran-text">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>`;
                     }
-                    html += `<span>${text}</span> <span class="quran-ayah-num">﴿${a.numberInSurah}﴾</span> `;
-                });
-                
-                textBox.innerHTML = html;
-                document.getElementById('prevBtn').disabled = (currentSurah <= 1);
-                document.getElementById('nextBtn').disabled = (currentSurah >= 114);
-                
-                // حفظ آخر سورة
-                localStorage.setItem('lastSurah', currentSurah);
-                
-                // التمرير لأعلى منطقة القرآن
-                textBox.parentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            } catch(e) {
-                console.error('خطأ في التحميل:', e);
-                textBox.innerHTML = '<p style="text-align:center; color:#dc3545;">⚠️ حدث خطأ في تحميل السورة. تحقق من اتصالك بالإنترنت.</p>';
+                    
+                    data.data.ayahs.forEach(a => {
+                        let text = a.text || '';
+                        // إزالة البسملة من الآية الأولى إذا كانت مكررة
+                        if (a.numberInSurah === 1 && currentSurah !== 1 && currentSurah !== 9) {
+                            text = text.replace(/^بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ\s*/u, '').trim();
+                        }
+                        html += `<span>${text}</span> <span class="quran-ayah-num">﴿${a.numberInSurah}﴾</span> `;
+                    });
+                    
+                    textBox.innerHTML = html;
+                    document.getElementById('prevBtn').disabled = (currentSurah <= 1);
+                    document.getElementById('nextBtn').disabled = (currentSurah >= 114);
+                    localStorage.setItem('lastSurah', currentSurah);
+                    success = true;
+                    break;
+                } catch(e) {
+                    console.warn('فشل المصدر:', url, e);
+                }
+            }
+            
+            if (!success) {
+                textBox.innerHTML = `
+                    <div class="error-msg">
+                        ⚠️ تعذر تحميل السورة. تأكد من اتصالك بالإنترنت وحاول مرة أخرى.
+                    </div>
+                    <p style="text-align:center; margin-top: 1rem;">
+                        <a href="https://quran.com/${currentSurah}" target="_blank" style="color: var(--primary-light); text-decoration: underline;">
+                            اقرأ السورة على موقع Quran.com
+                        </a>
+                    </p>
+                `;
             }
         }
 
@@ -874,7 +938,7 @@
             loadSurah();
         }
 
-        // ========== 9. المسبحة والأذكار ==========
+        // ========== 9. المسبحة ==========
         let count = parseInt(localStorage.getItem('tasbihCount')) || 0;
         document.getElementById('tasbihCount').textContent = count;
 
@@ -910,16 +974,23 @@
             window.open(`https://wa.me/963944856486?text=${msg}`, '_blank');
         }
 
-        // ========== 11. التهيئة عند التحميل ==========
+        // ========== 11. عدادات الأذكار ==========
+        function incrementDhikr(index, el) {
+            const dhikrCounts = JSON.parse(localStorage.getItem('dhikrCounts') || '{}');
+            dhikrCounts[index] = (dhikrCounts[index] || 0) + 1;
+            el.textContent = dhikrCounts[index];
+            localStorage.setItem('dhikrCounts', JSON.stringify(dhikrCounts));
+            if (navigator.vibrate) navigator.vibrate(20);
+        }
+
+        // ========== 12. التهيئة ==========
         window.addEventListener('load', () => {
-            // استعادة المدينة المحفوظة
             const lastCity = localStorage.getItem('lastCity');
             if (lastCity) document.getElementById('cityInput').value = lastCity;
             
             getPrayerTimes();
             fetchSurahList();
             
-            // الأذكار
             const adhkar = [
                 "سبحان الله وبحمده، سبحان الله العظيم",
                 "أستغفر الله وأتوب إليه",
@@ -929,27 +1000,17 @@
                 "سبحان الله، والحمد لله، ولا إله إلا الله، والله أكبر"
             ];
             
-            // استعادة عدادات الأذكار
             const dhikrCounts = JSON.parse(localStorage.getItem('dhikrCounts') || '{}');
             
             document.getElementById('adhkarList').innerHTML = adhkar.map((a, i) => 
                 `<div class="dhikr-item">
                     <div class="dhikr-text">${a}</div>
-                    <div class="dhikr-counter" data-index="${i}" onclick="incrementDhikr(${i}, this)">
+                    <div class="dhikr-counter" onclick="incrementDhikr(${i}, this)">
                         ${dhikrCounts[i] || 0}
                     </div>
                 </div>`
             ).join('');
         });
-
-        // ========== 12. عدادات الأذكار ==========
-        function incrementDhikr(index, el) {
-            const dhikrCounts = JSON.parse(localStorage.getItem('dhikrCounts') || '{}');
-            dhikrCounts[index] = (dhikrCounts[index] || 0) + 1;
-            el.textContent = dhikrCounts[index];
-            localStorage.setItem('dhikrCounts', JSON.stringify(dhikrCounts));
-            if (navigator.vibrate) navigator.vibrate(20);
-        }
     </script>
 </body>
 </html>
