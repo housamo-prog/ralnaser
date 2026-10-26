@@ -3,378 +3,297 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الشيخ محمد ربيع الناصر - التطبيق الإسلامي</title>
-    
-    <!-- بيانات تطبيق الويب (ضرورية لكي يسمح المتصفح بالتثبيت) -->
+    <title>الشيخ محمد ربيع الناصر</title>
     <meta name="theme-color" content="#0f5132">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
-    <!-- خط القاهرة للنصوص العادية -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --primary: #0f5132;
             --primary-light: #198754;
             --gold: #d4af37;
-            --gold-light: #f3d56b;
             --bg: #f8f9fa;
-            --text: #2c3e50;
             --white: #ffffff;
+            --text: #2c3e50;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
         body { background-color: var(--bg); color: var(--text); line-height: 1.6; }
 
-        /* --- شريط أوقات الصلاة --- */
-        .prayer-marquee-container {
-            background: var(--primary); color: var(--gold-light);
-            padding: 10px 0; overflow: hidden; white-space: nowrap;
-            font-weight: bold; font-size: 1rem; border-bottom: 2px solid var(--gold);
-            display: flex; align-items: center; direction: ltr; 
+        /* شريط أوقات الصلاة */
+        .prayer-marquee {
+            background: var(--primary); color: var(--gold); padding: 10px 0;
+            overflow: hidden; white-space: nowrap; font-weight: bold;
+            border-bottom: 2px solid var(--gold); direction: ltr;
         }
-        .prayer-marquee-content {
-            display: inline-block; animation: marquee-rtl 40s linear infinite;
-            white-space: nowrap; padding-left: 100%; 
+        .marquee-content {
+            display: inline-block; animation: marquee 30s linear infinite;
+            padding-left: 100%;
         }
-        .prayer-marquee-content span { margin: 0 20px; }
-        @keyframes marquee-rtl {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
-        }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
-        /* --- الترويسة --- */
+        /* الترويسة */
         header {
             background: linear-gradient(135deg, var(--primary-light), var(--primary));
-            color: var(--white); text-align: center; padding: 2rem 1rem;
-            border-bottom: 5px solid var(--gold); box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            color: white; text-align: center; padding: 1.5rem 1rem;
+            border-bottom: 4px solid var(--gold);
         }
-        header h1 { font-size: 2.2rem; margin-bottom: 0.2rem; color: var(--gold-light); }
-        header p { font-size: 1rem; opacity: 0.9; }
-        .hijri-date {
-            background: rgba(0,0,0,0.2); display: inline-block;
-            padding: 4px 15px; border-radius: 20px; margin-top: 10px;
-            font-size: 0.9rem; color: var(--gold-light); border: 1px solid var(--gold);
-        }
+        header h1 { color: var(--gold); font-size: 2rem; }
+        .hijri { background: rgba(0,0,0,0.2); padding: 4px 15px; border-radius: 20px; display: inline-block; margin-top: 10px; font-size: 0.9rem; }
 
-        /* --- زر التثبيت --- */
-        .install-bar {
-            background: #fff; text-align: center; padding: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1); display: none; 
-            border-bottom: 2px solid var(--gold);
-        }
-        .btn-install {
-            background: var(--gold); color: var(--primary); border: none;
-            padding: 12px 25px; border-radius: 25px; font-weight: bold;
-            font-size: 1.1rem; cursor: pointer; display: inline-flex;
-            align-items: center; gap: 10px; transition: 0.3s;
-        }
-        .btn-install:hover { background: var(--gold-light); transform: translateY(-2px); }
+        /* زر التثبيت */
+        .install-bar { display: none; background: #fff; text-align: center; padding: 10px; border-bottom: 1px solid #ddd; }
+        .btn-install { background: var(--gold); color: var(--primary); border: none; padding: 10px 20px; border-radius: 20px; font-weight: bold; cursor: pointer; }
 
-        /* --- القائمة والتبويبات --- */
-        .tabs-container {
-            background: var(--white); position: sticky; top: 0; z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-bottom: 2rem;
-        }
-        .tabs { display: flex; overflow-x: auto; max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
-        .tab-btn {
-            padding: 1rem 1.2rem; border: none; background: none; font-size: 1rem;
-            font-weight: 600; color: var(--text); cursor: pointer; white-space: nowrap;
-            border-bottom: 3px solid transparent; transition: 0.3s;
-        }
-        .tab-btn:hover { color: var(--primary); background: #f1f8f5; }
+        /* التبويبات */
+        .tabs { display: flex; overflow-x: auto; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+        .tab-btn { padding: 1rem; border: none; background: none; font-weight: bold; color: #555; cursor: pointer; white-space: nowrap; border-bottom: 3px solid transparent; }
         .tab-btn.active { color: var(--primary); border-bottom-color: var(--gold); }
 
-        /* --- الأقسام --- */
-        .content-section { display: none; max-width: 1200px; margin: 0 auto; padding: 1rem 1rem 4rem; }
-        .content-section.active { display: block; }
-        .section-title {
-            text-align: center; color: var(--primary); font-size: 1.8rem;
-            margin-bottom: 2rem; position: relative; padding-bottom: 10px;
-        }
-        .section-title::after {
-            content: ''; position: absolute; bottom: 0; left: 50%;
-            transform: translateX(-50%); width: 80px; height: 4px;
-            background: var(--gold); border-radius: 2px;
-        }
+        /* المحتوى */
+        .content { display: none; padding: 1.5rem; max-width: 800px; margin: 0 auto; }
+        .content.active { display: block; }
+        .section-title { text-align: center; color: var(--primary); margin-bottom: 1.5rem; }
 
-        /* --- كروت الواجهة --- */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
-        .card {
-            background: var(--white); border-radius: 15px; padding: 1.5rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-top: 4px solid var(--gold);
-        }
-        .hero { text-align: center; padding: 2rem 1rem; }
-        .hero-img {
-            width: 220px; height: 220px; border-radius: 50%; object-fit: cover;
-            border: 5px solid var(--gold); box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-            margin-bottom: 1rem;
-        }
-        .btn-whatsapp {
-            background: #25D366; color: white; padding: 12px 25px; border-radius: 50px;
-            text-decoration: none; font-weight: bold; display: inline-flex;
-            align-items: center; gap: 10px; font-size: 1rem; transition: 0.3s;
-        }
+        /* الرئيسية */
+        .hero { text-align: center; background: #fff; padding: 2rem; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .hero-img { width: 200px; height: 200px; border-radius: 50%; object-fit: cover; border: 5px solid var(--gold); margin-bottom: 1rem; }
+        .btn-wa { background: #25D366; color: #fff; padding: 10px 20px; border-radius: 25px; text-decoration: none; display: inline-block; font-weight: bold; margin-top: 1rem; }
 
-        /* --- أوقات الصلاة --- */
-        .prayer-search { display: flex; gap: 10px; margin-bottom: 2rem; justify-content: center; }
-        .prayer-search input { padding: 12px; border: 1px solid #ddd; border-radius: 8px; width: 250px; }
-        .prayer-search button { padding: 12px 25px; background: var(--primary); color: white; border: none; border-radius: 8px; cursor: pointer; }
-        .prayer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1rem; }
-        .prayer-card { background: var(--white); text-align: center; padding: 1.2rem; border-radius: 15px; border-bottom: 4px solid var(--primary); }
-        .prayer-card h4 { color: var(--primary-light); font-size: 1.1rem; margin-bottom: 0.5rem; }
-        .prayer-card p { font-size: 1.3rem; font-weight: bold; }
-
-        /* --- القرآن (صور) --- */
-        .quran-controls { display: flex; gap: 10px; margin-bottom: 1.5rem; justify-content: center; align-items: center; flex-wrap: wrap; }
-        .quran-controls input { padding: 10px; border: 1px solid #ddd; border-radius: 8px; width: 100px; text-align: center; font-size: 1.1rem; }
-        .quran-controls button { padding: 10px 20px; background: var(--primary); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
-        .quran-display { background: var(--white); padding: 1rem; border-radius: 15px; border: 2px solid var(--gold); text-align: center; min-height: 400px; }
-        .quran-display img { max-width: 100%; height: auto; display: none; margin: 0 auto; border: 1px solid #eee; }
-        
-        /* --- المسبحة والأذكار --- */
-        .tasbih-container { text-align: center; background: var(--white); padding: 2rem; border-radius: 20px; margin-bottom: 2rem; }
-        .tasbih-display { font-size: 4rem; font-weight: 900; color: var(--primary); }
-        .tasbih-btn {
-            width: 120px; height: 120px; border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            color: white; font-size: 1.2rem; font-weight: bold;
-            border: 6px solid var(--gold); cursor: pointer; margin: 1rem auto; display: block;
+        /* القرآن */
+        .quran-controls { display: flex; gap: 10px; justify-content: center; margin-bottom: 1.5rem; flex-wrap: wrap; }
+        .quran-controls select { padding: 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 1rem; max-width: 100%; }
+        .quran-text-box { 
+            background: #fff; padding: 1.5rem; border-radius: 15px; border: 2px solid var(--gold);
+            font-family: 'Amiri', serif; font-size: 1.5rem; line-height: 2.5; color: #111; text-align: justify;
+            min-height: 300px; margin-bottom: 1rem;
         }
-        .dhikr-item { background: var(--white); padding: 1rem; border-radius: 12px; margin-bottom: 1rem; border-right: 5px solid var(--primary); display: flex; justify-content: space-between; align-items: center; }
-        .dhikr-text { font-size: 1.2rem; font-family: 'Amiri', serif; }
-        .dhikr-counter { background: var(--bg); padding: 8px 15px; border-radius: 20px; font-weight: bold; border: 1px solid var(--gold); cursor: pointer; }
+        .quran-nav { display: flex; justify-content: space-between; align-items: center; }
+        .quran-nav button { padding: 10px 20px; background: var(--primary); color: #fff; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        .quran-nav button:disabled { background: #ccc; cursor: not-allowed; }
 
-        /* --- زر الواتساب العائم --- */
-        .floating-wa {
-            position: fixed; bottom: 20px; left: 20px; background: #25D366; color: white;
-            width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
-            font-size: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 1000; text-decoration: none;
-        }
+        /* أوقات الصلاة */
+        .prayer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
+        .prayer-card { background: #fff; text-align: center; padding: 15px; border-radius: 10px; border-bottom: 3px solid var(--primary); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .prayer-card h4 { color: var(--primary); }
+        .prayer-card p { font-size: 1.2rem; font-weight: bold; }
 
-        /* --- الفوتر --- */
-        footer { background: var(--primary); color: white; text-align: center; padding: 2rem; border-top: 5px solid var(--gold); margin-top: 2rem; }
+        /* الأدعية */
+        .tasbih { text-align: center; background: #fff; padding: 1.5rem; border-radius: 15px; margin-bottom: 1.5rem; }
+        .tasbih-num { font-size: 3rem; font-weight: bold; color: var(--primary); }
+        .btn-tasbih { width: 100px; height: 100px; border-radius: 50%; background: var(--primary); color: #fff; border: 4px solid var(--gold); font-size: 1.1rem; font-weight: bold; cursor: pointer; }
 
-        @media (max-width: 768px) {
-            header h1 { font-size: 1.7rem; }
-            .tab-btn { padding: 0.8rem; font-size: 0.9rem; }
-        }
+        /* الفوتر والواتساب */
+        footer { background: var(--primary); color: #fff; text-align: center; padding: 1.5rem; margin-top: 2rem; border-top: 4px solid var(--gold); }
+        .floating-wa { position: fixed; bottom: 20px; left: 20px; background: #25D366; color: #fff; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 30px; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 1000; }
     </style>
 </head>
 <body>
 
     <!-- شريط أوقات الصلاة -->
-    <div class="prayer-marquee-container">
-        <div class="prayer-marquee-content" id="marqueeContent">
-            <span>جاري جلب أوقات صلاة حلب...</span>
-        </div>
+    <div class="prayer-marquee">
+        <div class="marquee-content" id="marqueeContent">جاري جلب أوقات الصلاة...</div>
     </div>
 
     <!-- الترويسة -->
     <header>
         <h1>الشيخ محمد ربيع الناصر</h1>
-        <p>الفتوى | الرقية الشرعية | أمور الدين الإسلامي</p>
-        <div class="hijri-date" id="hijriDate">جاري جلب التاريخ...</div>
+        <div class="hijri" id="hijriDate">جاري جلب التاريخ...</div>
     </header>
 
-    <!-- زر التثبيت (يظهر تلقائياً إذا دعم المتصفح ذلك) -->
+    <!-- زر التثبيت -->
     <div class="install-bar" id="installBar">
-        <button class="btn-install" id="installBtn">📲 تثبيت التطبيق على جهازك</button>
+        <button class="btn-install" id="installBtn">📲 تثبيت التطبيق</button>
     </div>
 
     <!-- التبويبات -->
-    <div class="tabs-container">
-        <div class="tabs">
-            <button class="tab-btn active" onclick="openTab(event, 'home')">الرئيسية</button>
-            <button class="tab-btn" onclick="openTab(event, 'quran')">القرآن الكريم</button>
-            <button class="tab-btn" onclick="openTab(event, 'prayer')">أوقات الصلاة</button>
-            <button class="tab-btn" onclick="openTab(event, 'dua')">الأدعية والأذكار</button>
-            <button class="tab-btn" onclick="openTab(event, 'contact')">تواصل مع الشيخ</button>
+    <div class="tabs">
+        <button class="tab-btn active" onclick="openTab('home')">الرئيسية</button>
+        <button class="tab-btn" onclick="openTab('quran')">القرآن الكريم</button>
+        <button class="tab-btn" onclick="openTab('prayer')">أوقات الصلاة</button>
+        <button class="tab-btn" onclick="openTab('dua')">الأدعية</button>
+    </div>
+
+    <!-- الرئيسية -->
+    <div id="home" class="content active">
+        <div class="hero">
+            <!-- رابط صورة عام ومستقر يظهر للجميع -->
+            <img src="https://github.com/housamo-prog/ralnaser/blob/main/IMG-20260329-WA0079.jpg?raw=true" alt="الشيخ" class="hero-img">
+            <h2 style="color: var(--primary);">أهلاً بكم في التطبيق الرسمي</h2>
+            <p>نسعى لتقديم الفتاوى الشرعية، والرقية الشرعية، والإجابة على استفساراتكم.</p>
+            <a href="https://wa.me/963944856486" target="_blank" class="btn-wa">💬 تواصل مع الشيخ عبر واتساب</a>
         </div>
     </div>
 
-    <!-- 1. الرئيسية -->
-    <section id="home" class="content-section active">
-        <div class="hero">
-            <img src="https://raw.githubusercontent.com/housamo-prog/ralnaser/refs/heads/main/IMG-20260329-WA0079.jpg" alt="الشيخ" class="hero-img">
-            <h2 style="color: var(--primary); margin-bottom: 1rem;">أهلاً بكم في التطبيق الرسمي</h2>
-            <p style="margin-bottom: 1.5rem;">نسعى لتقديم الفتاوى الشرعية، والرقية الشرعية، والإجابة على استفساراتكم.</p>
-            <a href="https://wa.me/963944856486" target="_blank" class="btn-whatsapp">
-                💬 تواصل مع الشيخ عبر واتساب
-            </a>
-        </div>
-    </section>
-
-    <!-- 2. القرآن الكريم -->
-    <section id="quran" class="content-section">
+    <!-- القرآن -->
+    <div id="quran" class="content">
         <h2 class="section-title">القرآن الكريم</h2>
         <div class="quran-controls">
-            <label>رقم الصفحة (1 - 604):</label>
-            <input type="number" id="pageNum" min="1" max="604" value="1">
-            <button onclick="loadQuranPage()">عرض الصفحة</button>
+            <select id="surahSelect" onchange="loadSurah()">
+                <option value="">جاري تحميل قائمة السور...</option>
+            </select>
         </div>
-        <div class="quran-display">
-            <p id="quranLoading" style="color: #666; margin-top: 2rem;">الرجاء كتابة رقم الصفحة والضغط على عرض.</p>
-            <img id="quranImage" src="" alt="صفحة المصحف">
+        
+        <div class="quran-text-box" id="quranText">
+            الرجاء اختيار سورة من القائمة أعلاه.
         </div>
-    </section>
 
-    <!-- 3. أوقات الصلاة -->
-    <section id="prayer" class="content-section">
-        <h2 class="section-title">أوقات الصلاة</h2>
-        <div class="prayer-search">
-            <input type="text" id="cityInput" placeholder="أدخل اسم المدينة..." value="حلب">
-            <button onclick="getPrayerTimes()">تحديث</button>
+        <div class="quran-nav">
+            <button id="prevBtn" onclick="changePage(-1)" disabled>السابق</button>
+            <span id="pageInfo">صفحة 1</span>
+            <button id="nextBtn" onclick="changePage(1)" disabled>التالي</button>
         </div>
-        <div id="prayerResult" class="prayer-grid">
-            <!-- سيتم تعبئتها بالجافاسكريبت -->
-        </div>
-    </section>
+    </div>
 
-    <!-- 4. الأدعية والأذكار -->
-    <section id="dua" class="content-section">
-        <h2 class="section-title">المسبحة والأذكار</h2>
-        <div class="tasbih-container">
-            <h3 style="color: var(--primary);">المسبحة الإلكترونية</h3>
-            <div class="tasbih-display" id="tasbihCount">0</div>
-            <button class="tasbih-btn" onclick="incrementTasbih()">سبحان الله</button>
+    <!-- أوقات الصلاة -->
+    <div id="prayer" class="content">
+        <h2 class="section-title">أوقات الصلاة (حلب)</h2>
+        <div class="prayer-grid" id="prayerResult">
+            <p style="text-align:center; width:100%;">جاري التحميل...</p>
         </div>
-        <div id="adhkarList"></div>
-    </section>
+    </div>
 
-    <!-- 5. التواصل -->
-    <section id="contact" class="content-section">
-        <h2 class="section-title">تواصل مع الشيخ</h2>
-        <div class="card" style="text-align: center;">
-            <h3>لإرسال سؤال أو طلب رقية شرعية</h3>
-            <p style="margin: 1rem 0;">يمكنك التواصل مباشرة عبر الواتساب:</p>
-            <a href="https://wa.me/963944856486" target="_blank" class="btn-whatsapp" style="font-size: 1.2rem;">
-                💬 إرسال رسالة واتساب
-            </a>
+    <!-- الأدعية -->
+    <div id="dua" class="content">
+        <h2 class="section-title">المسبحة الإلكترونية</h2>
+        <div class="tasbih">
+            <div class="tasbih-num" id="tasbihCount">0</div>
+            <button class="btn-tasbih" onclick="incrementTasbih()">سبحان الله</button>
         </div>
-    </section>
+    </div>
 
-    <!-- الفوتر وزر الواتساب -->
+    <!-- الفوتر -->
     <footer>
         <h3>الشيخ محمد ربيع الناصر</h3>
         <p>جميع الحقوق محفوظة &copy; 2024</p>
     </footer>
+
     <a href="https://wa.me/963944856486" target="_blank" class="floating-wa">💬</a>
 
     <script>
-        // --- 1. تفعيل التثبيت أوتوماتيكياً عند الضغط ---
+        // --- 1. إعدادات التثبيت ---
         let deferredPrompt;
-        const installBar = document.getElementById('installBar');
-
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            // إظهار الزر تلقائياً بمجرد أن يسمح المتصفح بذلك
-            installBar.style.display = 'block';
+            document.getElementById('installBar').style.display = 'block';
         });
 
         document.getElementById('installBtn').addEventListener('click', async () => {
             if (deferredPrompt) {
-                // هذه الدالة تظهر نافذة التثبيت الرسمية للمتصفح فوراً
                 deferredPrompt.prompt();
                 const { outcome } = await deferredPrompt.userChoice;
                 if (outcome === 'accepted') {
-                    installBar.style.display = 'none'; // إخفاء الزر بعد التثبيت
+                    document.getElementById('installBar').style.display = 'none';
                 }
                 deferredPrompt = null;
             }
         });
 
-        // إخفاء الزر إذا كان التطبيق مثبتاً بالفعل
-        if (window.matchMedia('(display-mode: standalone)').matches) {
-            installBar.style.display = 'none';
-        }
-
-        // --- 2. التبويبات ---
-        function openTab(evt, tabName) {
-            let content = document.querySelectorAll(".content-section");
-            content.forEach(c => c.classList.remove("active"));
-            document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-            
-            document.getElementById(tabName).classList.add("active");
-            evt.currentTarget.classList.add("active");
+        // --- 2. التنقل بين التبويبات ---
+        function openTab(tabId) {
+            document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
         }
 
         // --- 3. التاريخ الهجري ---
-        function updateHijriDate() {
-            try {
-                const today = new Date();
-                const hijri = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', { day: 'numeric', month: 'long', year: 'numeric' }).format(today);
-                document.getElementById('hijriDate').textContent = hijri;
-            } catch(e) {
-                document.getElementById('hijriDate').textContent = "التقويم الهجري";
-            }
-        }
+        const today = new Date();
+        document.getElementById('hijriDate').textContent = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', { day: 'numeric', month: 'long', year: 'numeric' }).format(today);
 
         // --- 4. أوقات الصلاة ---
-        async function getPrayerTimes() {
-            const city = document.getElementById('cityInput').value.trim();
-            const resultDiv = document.getElementById('prayerResult');
-            resultDiv.innerHTML = '<p style="text-align:center; width:100%;">جاري التحميل...</p>';
-            
+        async function fetchPrayers() {
             try {
-                const res = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=&method=4`);
+                const res = await fetch('https://api.aladhan.com/v1/timingsByCity?city=Aleppo&country=Syria&method=4');
                 const data = await res.json();
-                if(data.code !== 200) throw new Error();
-                
                 const t = data.data.timings;
+                
                 const names = { Fajr: 'الفجر', Sunrise: 'الشروق', Dhuhr: 'الظهر', Asr: 'العصر', Maghrib: 'المغرب', Isha: 'العشاء' };
                 let html = '';
+                let marquee = '';
+
                 for(let key in names) {
                     let time = t[key];
                     let [h, m] = time.split(':');
                     h = parseInt(h);
                     let ampm = h >= 12 ? 'م' : 'ص';
                     h = h % 12 || 12;
-                    html += `<div class="prayer-card"><h4>${names[key]}</h4><p>${h}:${m} ${ampm}</p></div>`;
+                    let formatted = `${h}:${m} ${ampm}`;
+                    
+                    html += `<div class="prayer-card"><h4>${names[key]}</h4><p>${formatted}</p></div>`;
+                    marquee += `<span>🕌 ${names[key]}: ${formatted}</span>`;
                 }
-                resultDiv.innerHTML = html;
-                updateMarquee(t);
+                document.getElementById('prayerResult').innerHTML = html;
+                document.getElementById('marqueeContent').innerHTML = marquee + marquee; // تكرار لاستمرارية الشريط
+            } catch(e) { console.log('Error fetching prayers'); }
+        }
+
+        // --- 5. القرآن (الآيات والتقليب) ---
+        let currentSurah = 1;
+        let currentAyahIndex = 0;
+        let surahData = [];
+        let surahList = [];
+
+        // جلب أسماء السور
+        async function fetchSurahList() {
+            try {
+                const res = await fetch('https://api.alquran.cloud/v1/surah');
+                const data = await res.json();
+                const select = document.getElementById('surahSelect');
+                select.innerHTML = '<option value="">اختر السورة...</option>';
+                data.data.forEach(s => {
+                    select.innerHTML += `<option value="${s.number}">${s.number}. سورة ${s.name.replace('سُورَةُ ', '')}</option>`;
+                });
+            } catch(e) { console.log('Error fetching surahs'); }
+        }
+
+        // جلب آيات السورة المحددة
+        async function loadSurah() {
+            const select = document.getElementById('surahSelect');
+            currentSurah = select.value;
+            if (!currentSurah) return;
+
+            const textBox = document.getElementById('quranText');
+            textBox.innerHTML = 'جاري تحميل السورة...';
+            
+            try {
+                const res = await fetch(`https://api.alquran.cloud/v1/surah/${currentSurah}/quran-uthmani`);
+                const data = await res.json();
+                surahData = data.data.ayahs;
+                currentAyahIndex = 0; // نبدأ من الآية الأولى
+                displayAyah();
             } catch(e) {
-                resultDiv.innerHTML = '<p style="text-align:center; width:100%; color:red;">حدث خطأ، تأكد من اسم المدينة.</p>';
+                textBox.innerHTML = 'حدث خطأ في تحميل السورة.';
             }
         }
 
-        function updateMarquee(t) {
-            const marquee = document.getElementById('marqueeContent');
-            const times = [
-                `الفجر: ${t.Fajr}`, `الشروق: ${t.Sunrise}`, `الظهر: ${t.Dhuhr}`,
-                `العصر: ${t.Asr}`, `المغرب: ${t.Maghrib}`, `العشاء: ${t.Isha}`
-            ];
-            const text = times.map(x => `<span>🕌 ${x}</span>`).join('');
-            marquee.innerHTML = text + text; // تكرار النص لضمان استمرارية الحركة
+        // عرض الآية الحالية
+        function displayAyah() {
+            if (surahData.length === 0) return;
+            
+            const ayah = surahData[currentAyahIndex];
+            const textBox = document.getElementById('quranText');
+            
+            // عرض الآية مع رقمها
+            textBox.innerHTML = `${ayah.text} <span style="color: var(--gold); font-size: 1.2rem;">﴿${ayah.numberInSurah}﴾</span>`;
+            
+            // تحديث أزرار التالي والسابق
+            document.getElementById('pageInfo').textContent = `الآية ${ayah.numberInSurah} من ${surahData.length}`;
+            document.getElementById('prevBtn').disabled = (currentAyahIndex === 0);
+            document.getElementById('nextBtn').disabled = (currentAyahIndex === surahData.length - 1);
         }
 
-        // --- 5. القرآن (صور) ---
-        function loadQuranPage() {
-            const page = document.getElementById('pageNum').value.padStart(3, '0');
-            const img = document.getElementById('quranImage');
-            const loading = document.getElementById('quranLoading');
-            
-            // رابط مباشر لصور صفحات المصحف (خط عثماني واضح جداً)
-            const imgUrl = `https://cdn.quran.ws/svg/pages/v1.1.1/hafs-kfqc/${page}.svg`;
-            
-            loading.style.display = 'block';
-            loading.innerText = 'جاري تحميل الصفحة...';
-            img.style.display = 'none';
-            
-            img.onload = () => {
-                loading.style.display = 'none';
-                img.style.display = 'block';
-            };
-            img.onerror = () => {
-                loading.innerText = 'تعذر تحميل الصفحة. تأكد من الرقم (1-604).';
-            };
-            img.src = imgUrl;
+        // تقليب الآيات
+        function changePage(direction) {
+            currentAyahIndex += direction;
+            if (currentAyahIndex >= 0 && currentAyahIndex < surahData.length) {
+                displayAyah();
+            }
         }
 
-        // --- 6. المسبحة والأذكار ---
+        // --- 6. المسبحة ---
         let tasbihCount = 0;
         function incrementTasbih() {
             tasbihCount++;
@@ -382,46 +301,10 @@
             if (navigator.vibrate) navigator.vibrate(30);
         }
 
-        const adhkarData = [
-            { text: "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ", count: 1 },
-            { text: "اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ", count: 1 },
-            { text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ", count: 100 },
-            { text: "أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ", count: 100 }
-        ];
-
-        function renderAdhkar() {
-            const container = document.getElementById('adhkarList');
-            let html = '';
-            adhkarData.forEach((dhikr, index) => {
-                html += `
-                    <div class="dhikr-item">
-                        <div class="dhikr-text">${dhikr.text}</div>
-                        <div class="dhikr-counter" id="dhikr-count-${index}" onclick="countDhikr(${index}, ${dhikr.count})">${dhikr.count}</div>
-                    </div>
-                `;
-            });
-            container.innerHTML = html;
-        }
-
-        let dhikrState = {};
-        function countDhikr(index, max) {
-            if (!dhikrState[index]) dhikrState[index] = max;
-            if (dhikrState[index] > 0) {
-                dhikrState[index]--;
-                document.getElementById(`dhikr-count-${index}`).textContent = dhikrState[index];
-                if (navigator.vibrate) navigator.vibrate(30);
-                if (dhikrState[index] === 0) {
-                    document.getElementById(`dhikr-count-${index}`).style.background = "var(--primary)";
-                    document.getElementById(`dhikr-count-${index}`).style.color = "white";
-                }
-            }
-        }
-
-        // --- تشغيل التطبيق عند التحميل ---
+        // --- تشغيل عند فتح الصفحة ---
         window.onload = function() {
-            updateHijriDate();
-            getPrayerTimes(); // جلب أوقات حلب تلقائياً
-            renderAdhkar();
+            fetchPrayers();
+            fetchSurahList();
         };
     </script>
 </body>
