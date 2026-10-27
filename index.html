@@ -136,7 +136,7 @@
         .prayer-card h4 { color: var(--primary-light); font-size: 1.1rem; margin-bottom: 0.5rem; }
         .prayer-card p { font-size: 1.3rem; font-weight: bold; }
 
-        /* --- تصميم القبلة --- */
+        /* --- تصميم البوصلة المطابق للصورة --- */
         .qibla-box { 
             text-align: center; background: #fff; padding: 2rem 1.5rem; 
             border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.08); 
@@ -279,7 +279,7 @@
         <div id="prayerResult" class="prayer-grid"></div>
     </section>
 
-    <!-- تبويب بوصلة القبلة -->
+    <!-- تبويب بوصلة القبلة بعد ضبط اتجاهاتها لتتوافق مع حركة الجهاز بدقة -->
     <section id="qibla" class="content-section">
         <h2 class="section-title">اتجاه القبلة</h2>
         <div class="qibla-box">
@@ -306,7 +306,6 @@
         </div>
     </section>
 
-    <!-- تبويب أطوار القمر -->
     <section id="moon" class="content-section">
         <h2 class="section-title">أطوار القمر الهجرية</h2>
         <div class="moon-box">
@@ -319,7 +318,6 @@
         </div>
     </section>
 
-    <!-- تبويب حساب الزكاة الجديد -->
     <section id="zakat" class="content-section">
         <h2 class="section-title">حساب زكاة المال</h2>
         <div class="tool-box">
@@ -334,7 +332,6 @@
         </div>
     </section>
 
-    <!-- تبويب حساب الميراث الجديد -->
     <section id="inheritance" class="content-section">
         <h2 class="section-title">حساب التركات والمواريث (تقديري)</h2>
         <div class="tool-box">
@@ -355,7 +352,6 @@
         </div>
     </section>
 
-    <!-- تبويب أقرب مسجد الجديد -->
     <section id="mosque" class="content-section">
         <h2 class="section-title">البحث عن أقرب مسجد</h2>
         <div class="tool-box" style="text-align: center; padding: 2.5rem 1rem;">
@@ -366,7 +362,6 @@
         </div>
     </section>
 
-    <!-- تبويب القرآن الكريم -->
     <section id="quran" class="content-section">
         <h2 class="section-title">القرآن الكريم</h2>
         <div class="quran-controls">
@@ -383,7 +378,6 @@
         </div>
     </section>
 
-    <!-- تبويب الأدعية والتسابيح -->
     <section id="dua" class="content-section">
         <h2 class="section-title">الأدعية والأذكار</h2>
         <div class="tasbih-container">
@@ -470,7 +464,6 @@
             }
         }
 
-        /* --- دوسك الأدوات الجديدة (الزكاة والميراث والمساجد) --- */
         function calculateZakat() {
             const money = parseFloat(document.getElementById('zakatMoney').value) || 0;
             const goods = parseFloat(document.getElementById('zakatGoods').value) || 0;
@@ -506,7 +499,6 @@
             if (sons === 0 && daught === 0) {
                 resultHtml += `<br><i>ملاحظة: لم يتم تحديد أبناء، يرجى مراجعة أهل العلم للتفصيل في بقية العصبة.</i>`;
             } else {
-                // للذكر مثل حظ الأنثيين (الابن = 2 سهم، البنت = 1 سهم)
                 let totalShares = (sons * 2) + daught;
                 let shareValue = remaining / totalShares;
 
@@ -539,14 +531,14 @@
             }
         }
 
-        /* --- إعدادات بوصلة القبلة --- */
+        /* --- ضبط البوصلة وتصحيح الاتجاهات لتتوافق مع حركة الجهاز --- */
         let qiblaFixedAngle = 170;
 
         function initQibla() {
             document.getElementById('qiblaPointer').style.transform = `translateX(-50%) rotate(${qiblaFixedAngle}deg)`;
             document.getElementById('qiblaPointer').style.transformOrigin = `bottom center`;
             
-            document.getElementById('qiblaStatus').innerHTML = `اتجاه القبلة الثابت: <span style="color:#3182ce;">${qiblaFixedAngle}° (جنوب)</span> - حرك هاتفك`;
+            document.getElementById('qiblaStatus').innerHTML = `اتجاه القبلة: <span style="color:#3182ce;">${qiblaFixedAngle}°</span> - حرك هاتفك`;
 
             if (window.DeviceOrientationEvent) {
                 if (typeof DeviceOrientationEvent.requestPermission === 'function') {
@@ -568,7 +560,8 @@
             }
 
             if (heading !== null && heading !== undefined) {
-                let dialRotation = -heading;
+                // ضبط اتجاه دوران القرص ليتوافق تماماً مع الجهات الحقيقية دون انعكاس
+                let dialRotation = heading;
                 document.getElementById('compassDial').style.transform = `rotate(${dialRotation}deg)`;
             }
         }
