@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الشيخ محمد ربيع الناصر - التطبيق الشامل</title>
+    <title>الشيخ الدكتور محمد ربيع الناصر - التطبيق الشامل</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0f5132">
     
@@ -371,7 +371,7 @@
         .moon-box { text-align: center; background: #fff; padding: 2.5rem 1.5rem; border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.08); max-width: 500px; margin: 0 auto; border: 2px solid var(--gold); }
         .moon-icon-display { font-size: 5rem; margin-bottom: 1rem; filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4)); }
         
-        /* ============ مشغل الصوت الجديد ============ */
+        /* ============ مشغل الصوت ============ */
         .audio-player-box {
             background: #f0fdf4;
             border: 2px solid #86efac;
@@ -441,7 +441,7 @@
     </div>
 
     <header>
-        <h1>الشيخ محمد ربيع الناصر</h1>
+        <h1>الشيخ الدكتور محمد ربيع الناصر</h1>
         <p>الفتوى | الرقية الشرعية | أمور الدين الإسلامي</p>
         <div class="hijri-date" id="hijriDate">جاري جلب التاريخ الهجري...</div>
     </header>
@@ -466,7 +466,7 @@
 
     <section id="home" class="content-section active">
         <div class="hero">
-            <img src="https://raw.githubusercontent.com/housamo-prog/ralnaser/refs/heads/main/IMG-20260329-WA0079.jpg" alt="الشيخ محمد ربيع الناصر" class="hero-img">
+            <img src="https://raw.githubusercontent.com/housamo-prog/ralnaser/refs/heads/main/IMG-20260329-WA0079.jpg" alt="الشيخ الدكتور محمد ربيع الناصر" class="hero-img">
             <div class="hero-text">
                 <h2>أهلاً بكم في التطبيق الرسمي</h2>
                 <p>نسعى لتقديم الفتاوى الشرعية، والرقية الشرعية، والإجابة على استفساراتكم، مع مجموعة من الخدمات الإسلامية المتكاملة.</p>
@@ -520,9 +520,10 @@
     <section id="prayer" class="content-section">
         <h2 class="section-title">أوقات الصلاة</h2>
         <div class="prayer-search">
-            <input type="text" id="cityInput" placeholder="المدينة" value="حلب">
+            <input type="text" id="cityInput" placeholder="المدينة" value="حلب" readonly style="background:#f0f0f0; cursor:not-allowed;" title="تم تثبيت المدينة على حلب">
             <button onclick="getPrayerTimes()">تحديث</button>
         </div>
+        <p style="text-align:center; color:#666; margin-bottom:1rem; font-size:0.9rem;">طريقة الحساب: رابطة العالم الإسلامي</p>
         <div id="prayerResult" class="prayer-grid"></div>
     </section>
 
@@ -712,7 +713,7 @@
     </section>
 
     <footer>
-        <h3>الشيخ محمد ربيع الناصر</h3>
+        <h3>الشيخ الدكتور محمد ربيع الناصر</h3>
         <p>جميع الحقوق محفوظة &copy; 2026</p>
     </footer>
 
@@ -755,10 +756,13 @@
         }
         updateMoonPhase();
 
+        // تحديث جلب أوقات الصلاة لمدينة حلب بطريقة رابطة العالم الإسلامي
         async function getPrayerTimes() {
-            const city = document.getElementById('cityInput').value || 'حلب';
+            const city = "حلب"; // تثبيت المدينة
+            const method = 3; // 3 = Muslim World League (رابطة العالم الإسلامي)
+            
             try {
-                const res = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=&method=4`);
+                const res = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=Syria&method=${method}`);
                 const data = await res.json();
                 const t = data.data.timings;
                 const names = { Fajr: 'الفجر', Sunrise: 'الشروق', Dhuhr: 'الظهر', Asr: 'العصر', Maghrib: 'المغرب', Isha: 'العشاء' };
@@ -772,7 +776,7 @@
                 document.getElementById('prayerResult').innerHTML = html;
                 document.getElementById('marqueeContent').innerHTML = marquee + marquee;
             } catch(e) {
-                document.getElementById('prayerResult').innerHTML = '<p>تعذر جلب بيانات الصلاة (تأكد من الاتصال بالإنترنت).</p>';
+                document.getElementById('prayerResult').innerHTML = '<p style="text-align:center; color:red;">تعذر جلب بيانات الصلاة (تأكد من الاتصال بالإنترنت).</p>';
             }
         }
 
@@ -1096,8 +1100,6 @@
         async function loadSurah() {
             currentSurah = document.getElementById('surahSelect').value;
             if(!currentSurah) return;
-            
-            // إيقاف الصوت عند تغيير السورة
             stopAudio();
 
             const textBox = document.getElementById('quranText');
@@ -1145,11 +1147,10 @@
             const titleEl = document.getElementById('nowPlayingTitle');
             const btn = document.getElementById('audioToggleBtn');
 
-            // إذا كان المشغل مخفياً، نظهره ونشغل الصوت
             if (playerBox.style.display === 'none' || playerBox.style.display === '') {
                 playerBox.style.display = 'block';
                 
-                // استخدام سيرفر mp3quran الموثوق بدلاً من islamic.network المحظور
+                // استخدام سيرفر mp3quran الموثوق
                 const audioUrl = `https://server8.mp3quran.net/maher/${String(surahNum).padStart(3, '0')}.mp3`;
                 
                 audioEl.src = audioUrl;
@@ -1161,7 +1162,6 @@
                 btn.innerHTML = '⏹️ إخفاء المشغل';
                 btn.style.background = '#ef4444';
             } else {
-                // إذا كان المشغل ظاهراً، نوقفه ونخفيه
                 stopAudio();
             }
         }
