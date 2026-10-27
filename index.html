@@ -308,8 +308,8 @@
 
         .moon-box { text-align: center; background: #fff; padding: 2.5rem 1.5rem; border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.08); max-width: 500px; margin: 0 auto; border: 2px solid var(--gold); }
         .moon-icon-display { font-size: 5rem; margin-bottom: 1rem; filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4)); }
-        .quran-controls { display: flex; gap: 10px; margin-bottom: 1.5rem; justify-content: center; }
-        .quran-controls select { max-width: 320px; margin-bottom: 0; font-weight: bold; font-size: 1.1rem; }
+        .quran-controls { display: flex; gap: 10px; margin-bottom: 1.5rem; justify-content: center; flex-wrap: wrap; }
+        .quran-controls select { max-width: 320px; margin-bottom: 0; font-weight: bold; font-size: 1.1rem; flex: 1; min-width: 200px; }
         .quran-text-area { background: #fff; padding: 2.5rem 1.5rem; border-radius: 15px; border: 2px solid var(--gold); min-height: 350px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
         .quran-nav { display: flex; justify-content: space-between; margin-top: 1rem; }
         .quran-nav button { padding: 10px 20px; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
@@ -352,7 +352,7 @@
     <div class="tabs-container">
         <div class="tabs">
             <button class="tab-btn active" onclick="openTab(event, 'home')">الرئيسية</button>
-            <button class="tab-btn" onclick="openTab(event, 'worship')">🕌 دليل العبادات</button> <!-- التبويب الجديد -->
+            <button class="tab-btn" onclick="openTab(event, 'worship')">🕌 دليل العبادات</button>
             <button class="tab-btn" onclick="openTab(event, 'qa')">سؤال وجواب</button>
             <button class="tab-btn" onclick="openTab(event, 'prayer')">أوقات الصلاة</button>
             <button class="tab-btn" onclick="openTab(event, 'qibla')">القبلة</button>
@@ -378,7 +378,7 @@
         </div>
     </section>
 
-    <!-- ============ قسم دليل العبادات الجديد ============ -->
+    <!-- ============ قسم دليل العبادات ============ -->
     <section id="worship" class="content-section">
         <div class="worship-guide-container">
             <div class="worship-guide-header">
@@ -387,42 +387,34 @@
             </div>
             
             <div class="worship-grid">
-                <!-- الوضوء -->
                 <div class="worship-item" onclick="openWorshipModal('wudu')">
                     <div class="worship-icon">🚰</div>
                     <div class="worship-name">الوضوء</div>
                 </div>
-                <!-- الصلاة -->
                 <div class="worship-item" onclick="openWorshipModal('salah')">
                     <div class="worship-icon">🕌</div>
                     <div class="worship-name">الصلاة</div>
                 </div>
-                <!-- القرآن الكريم -->
                 <div class="worship-item" onclick="openWorshipModal('quranW')">
                     <div class="worship-icon">📖</div>
                     <div class="worship-name">القرآن الكريم</div>
                 </div>
-                <!-- الصيام -->
                 <div class="worship-item" onclick="openWorshipModal('fasting')">
                     <div class="worship-icon">🌴</div>
                     <div class="worship-name">الصيام</div>
                 </div>
-                <!-- الزكاة -->
                 <div class="worship-item" onclick="openWorshipModal('zakatW')">
                     <div class="worship-icon">💰</div>
                     <div class="worship-name">الزكاة</div>
                 </div>
-                <!-- الحج -->
                 <div class="worship-item" onclick="openWorshipModal('hajj')">
                     <div class="worship-icon">🕋</div>
                     <div class="worship-name">الحج</div>
                 </div>
-                <!-- العمرة -->
                 <div class="worship-item" onclick="openWorshipModal('umrah')">
                     <div class="worship-icon">🕋</div>
                     <div class="worship-name">العمرة</div>
                 </div>
-                <!-- الأذكار -->
                 <div class="worship-item" onclick="openWorshipModal('adhkarW')">
                     <div class="worship-icon">📿</div>
                     <div class="worship-name">الأذكار</div>
@@ -431,7 +423,7 @@
         </div>
     </section>
 
-    <!-- نافذة تفاصيل العبادات (Modal) -->
+    <!-- نافذة تفاصيل العبادات -->
     <div class="worship-modal-overlay" id="worshipModalOverlay" onclick="closeWorshipModal(event)">
         <div class="worship-modal" onclick="event.stopPropagation()">
             <button class="close-modal" onclick="closeWorshipModal()">✖</button>
@@ -439,9 +431,7 @@
                 <span class="modal-icon" id="modalIcon">🕌</span>
                 <h3 id="modalTitle">عنوان العبادة</h3>
             </div>
-            <ul class="modal-steps" id="modalStepsList">
-                <!-- سيتم تعبئتها بالجافاسكربت -->
-            </ul>
+            <ul class="modal-steps" id="modalStepsList"></ul>
         </div>
     </div>
 
@@ -459,7 +449,7 @@
         <h2 class="section-title">أوقات الصلاة</h2>
         <div class="prayer-search">
             <input type="text" id="cityInput" placeholder="المدينة" value="حلب">
-            <button onclick="getPrayerTimes()" style="background:var(--primary); color:white; border:none; border-radius:8px; padding:0 20px; cursor:pointer;">تحديث</button>
+            <button onclick="getPrayerTimes()">تحديث</button>
         </div>
         <div id="prayerResult" class="prayer-grid"></div>
     </section>
@@ -538,7 +528,7 @@
         <h2 class="section-title">حساب زكاة المال</h2>
         <div class="tool-box">
             <h3>حاسبة زكاة النقود والعروض التجارية</h3>
-            <p style="font-size: 0.9rem; color: #666; margin-bottom: 1rem;">تُخرج الزكاة بنسبة 2.5% إذا بلغ المال النصاب وحال عليه الحول (السنة القمرية).</p>
+            <p style="font-size: 0.9rem; color: #666; margin-bottom: 1rem;">تُخرج الزكاة بنسبة 2.5% إذا بلغ المال النصاب وحال عليه الحول.</p>
             <label>إجمالي الأموال النقدية والمدخرات:</label>
             <input type="number" id="zakatMoney" placeholder="أدخل المبلغ (مثال: 5000)">
             <label>قيمة عروض التجارة والديون المرجوة:</label>
@@ -554,7 +544,7 @@
             <h3>حاسبة حصص الورثة الشرعية</h3>
             <label>إجمالي مبلغ التركة:</label>
             <input type="number" id="estateAmount" placeholder="أدخل إجمالي التركة">
-            <label>هل توقفت زوجة؟ (الزوجة موجودة؟)</label>
+            <label>هل الزوجة موجودة؟</label>
             <select id="hasWife">
                 <option value="no">لا</option>
                 <option value="yes">نعم (تأخذ الثمن بوجود فرع وارث أو الربع بدونه)</option>
@@ -573,21 +563,33 @@
         <div class="tool-box" style="text-align: center; padding: 2.5rem 1rem;">
             <div style="font-size: 4rem; margin-bottom: 1rem;">🕌</div>
             <h3 style="color: var(--primary); margin-bottom: 1rem;">تحديد دور العبادة والمساجد القريبة منك</h3>
-            <p style="color: #666; margin-bottom: 2rem;">اضغط على الزر أدناه لفتح الخرائط والبحث المباشر عن المساجد المحيطة بموقعك الحالي.</p>
+            <p style="color: #666; margin-bottom: 2rem;">اضغط على الزر أدناه لفتح الخرائط والبحث المباشر عن المساجد المحيطة بموقعك.</p>
             <button onclick="findNearestMosques()" style="padding: 14px 30px; background: var(--primary); color: white; border: none; border-radius: 30px; font-weight: bold; font-size: 1.1rem; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">📍 فتح خريطة أقرب مسجد</button>
         </div>
     </section>
 
+    <!-- ============ قسم القرآن الكريم المحدث ============ -->
     <section id="quran" class="content-section">
         <h2 class="section-title">القرآن الكريم</h2>
+        
         <div class="quran-controls">
             <select id="surahSelect" onchange="loadSurah()">
                 <option value="">اختر السورة...</option>
             </select>
+            
+            <button onclick="playAudioRecitation()" style="padding: 10px 18px; background: #198754; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 5px; white-space: nowrap;">
+                🎧 استماع (المعيقلي)
+            </button>
+            
+            <button onclick="openShaarawyTafsir()" style="padding: 10px 18px; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; white-space: nowrap;">
+                🎙️ خواطر الشعراوي
+            </button>
         </div>
+
         <div class="quran-text-area">
             <div id="quranText" class="quran-text" style="text-align:center; color:#555;">الرجاء اختيار السورة من القائمة أعلاه.</div>
         </div>
+        
         <div class="quran-nav">
             <button id="prevBtn" onclick="changeSurah(-1)" disabled>السورة السابقة</button>
             <button id="nextBtn" onclick="changeSurah(1)" disabled>السورة التالية</button>
@@ -864,7 +866,7 @@
             );
         }
 
-        /* ============ منطق دليل العبادات الجديد ============ */
+        /* ============ منطق دليل العبادات ============ */
         const worshipData = {
             wudu: {
                 icon: "🚰",
@@ -993,8 +995,9 @@
             document.getElementById('worshipModalOverlay').classList.remove('active');
         }
 
-        /* ============ بقية الأكواد (القرآن، الأدعية، إلخ) ============ */
+        /* ============ منطق القرآن الكريم ============ */
         let currentSurah = 1;
+        
         async function fetchSurahList() {
             try {
                 const res = await fetch('https://api.alquran.cloud/v1/surah');
@@ -1041,6 +1044,36 @@
             loadSurah();
         }
 
+        /* ============ تشغيل الصوت (المعيقلي + الشعراوي) ============ */
+        function playAudioRecitation() {
+            const select = document.getElementById('surahSelect');
+            const surahNum = select.value;
+            
+            if (!surahNum) {
+                alert('الرجاء اختيار السورة أولاً للاستماع إليها.');
+                return;
+            }
+            
+            // رابط مباشر بصوت الشيخ ماهر المعيقلي
+            const audioUrl = `https://cdn.islamic.network/quran/audio-surah/128/ar.mahermuaiqly/${surahNum}.mp3`;
+            window.open(audioUrl, '_blank');
+        }
+
+        function openShaarawyTafsir() {
+            const select = document.getElementById('surahSelect');
+            const selectedOption = select.options[select.selectedIndex];
+            
+            if (!select.value) {
+                alert('الرجاء اختيار سورة أولاً للبحث عن خواطرها.');
+                return;
+            }
+            
+            let surahName = selectedOption.text.replace(/^\d+\.\s*سورة\s*/, '');
+            const searchQuery = encodeURIComponent(`خواطر الشعراوي سورة ${surahName}`);
+            window.open(`https://www.youtube.com/results?search_query=${searchQuery}`, '_blank');
+        }
+
+        /* ============ منطق الأدعية والتسابيح ============ */
         let count = 0;
         function incrementTasbih() {
             count++;
