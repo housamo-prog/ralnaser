@@ -239,6 +239,74 @@
             font-size: 0.8rem; font-weight: bold; flex-shrink: 0; margin-top: 2px;
         }
 
+        /* ============ تصميم الأدعية والأذكار الجديد ============ */
+        .dua-category-title {
+            color: var(--primary);
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin: 1.5rem 0 1rem;
+            padding-right: 10px;
+            border-right: 4px solid var(--gold);
+        }
+        .dua-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            border: 1px solid #eee;
+            position: relative;
+            transition: 0.3s;
+        }
+        .dua-card:hover {
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.15);
+            border-color: var(--gold-light);
+        }
+        .dua-text {
+            font-family: 'Amiri', serif;
+            font-size: 1.35rem;
+            line-height: 2.2;
+            color: #1a1a1a;
+            margin-bottom: 0.8rem;
+        }
+        .dua-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px dashed #eee;
+            padding-top: 0.8rem;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .dua-source {
+            font-size: 0.85rem;
+            color: #777;
+            font-style: italic;
+        }
+        .dua-count-btn {
+            background: var(--bg);
+            color: var(--primary);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: bold;
+            border: 1px solid var(--gold);
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            font-size: 0.9rem;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .dua-count-btn:hover {
+            background: var(--gold-light);
+        }
+        .dua-count-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
         /* ============ بقية التصميم ============ */
         .qa-form, .tool-box { background: var(--white); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: 1px solid #eee; }
         .qa-form input, .qa-form textarea, .tool-box input, .tool-box select, select {
@@ -314,12 +382,10 @@
         .quran-nav { display: flex; justify-content: space-between; margin-top: 1rem; }
         .quran-nav button { padding: 10px 20px; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
         .quran-nav button:disabled { background: #ccc; cursor: not-allowed; }
+        
         .tasbih-container { text-align: center; background: var(--white); padding: 2rem 1rem; border-radius: 20px; margin-bottom: 2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         .tasbih-display { font-size: 4rem; font-weight: 900; color: var(--primary); }
         .tasbih-btn { width: 130px; height: 130px; border-radius: 50%; background: var(--primary); color: white; font-size: 1.2rem; font-weight: bold; border: 6px solid var(--gold); margin: 1rem auto; display: block; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-        .dhikr-item { background: var(--white); padding: 1rem; border-radius: 12px; margin-bottom: 1rem; border-right: 5px solid var(--primary); display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
-        .dhikr-text { font-size: 1.2rem; font-family: 'Amiri', serif; }
-        .dhikr-counter { background: var(--bg); padding: 8px 15px; border-radius: 20px; font-weight: bold; border: 1px solid var(--gold); cursor: pointer; }
 
         footer { background: var(--primary); color: white; text-align: center; padding: 2rem; border-top: 5px solid var(--gold); margin-top: 2rem; }
         .floating-wa { position: fixed; bottom: 20px; left: 20px; background: #25D366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 1000; text-decoration: none; }
@@ -332,6 +398,7 @@
             .qibla-compass-container { max-width: 280px; }
             .kaaba-center { width: 60px; height: 60px; font-size: 1.7rem; }
             .degree-item .value { font-size: 1.1rem; }
+            .dua-text { font-size: 1.2rem; line-height: 2; }
         }
     </style>
 </head>
@@ -568,41 +635,43 @@
         </div>
     </section>
 
-    <!-- ============ قسم القرآن الكريم المحدث ============ -->
+    <!-- ============ قسم القرآن الكريم ============ -->
     <section id="quran" class="content-section">
         <h2 class="section-title">القرآن الكريم</h2>
-        
         <div class="quran-controls">
             <select id="surahSelect" onchange="loadSurah()">
                 <option value="">اختر السورة...</option>
             </select>
-            
             <button onclick="playAudioRecitation()" style="padding: 10px 18px; background: #198754; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 5px; white-space: nowrap;">
                 🎧 استماع (المعيقلي)
             </button>
-            
             <button onclick="openShaarawyTafsir()" style="padding: 10px 18px; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; white-space: nowrap;">
                 🎙️ خواطر الشعراوي
             </button>
         </div>
-
         <div class="quran-text-area">
             <div id="quranText" class="quran-text" style="text-align:center; color:#555;">الرجاء اختيار السورة من القائمة أعلاه.</div>
         </div>
-        
         <div class="quran-nav">
             <button id="prevBtn" onclick="changeSurah(-1)" disabled>السورة السابقة</button>
             <button id="nextBtn" onclick="changeSurah(1)" disabled>السورة التالية</button>
         </div>
     </section>
 
+    <!-- ============ قسم الأدعية والتسابيح الجديد ============ -->
     <section id="dua" class="content-section">
         <h2 class="section-title">الأدعية والأذكار</h2>
+        
+        <!-- المسبحة الإلكترونية -->
         <div class="tasbih-container">
+            <h3 style="color: var(--primary); margin-bottom: 1rem;">المسبحة الإلكترونية</h3>
             <div class="tasbih-display" id="tasbihCount">0</div>
             <button class="tasbih-btn" onclick="incrementTasbih()">سبحان الله</button>
+            <button onclick="resetTasbih()" style="margin-top: 1rem; background: transparent; border: 1px solid #ccc; padding: 6px 15px; border-radius: 20px; cursor: pointer; color: #666;">تصفير العداد</button>
         </div>
-        <div id="adhkarList"></div>
+
+        <!-- أقسام الأدعية -->
+        <div id="duaContainer"></div>
     </section>
 
     <section id="hadith" class="content-section">
@@ -1044,17 +1113,10 @@
             loadSurah();
         }
 
-        /* ============ تشغيل الصوت (المعيقلي + الشعراوي) ============ */
         function playAudioRecitation() {
             const select = document.getElementById('surahSelect');
             const surahNum = select.value;
-            
-            if (!surahNum) {
-                alert('الرجاء اختيار السورة أولاً للاستماع إليها.');
-                return;
-            }
-            
-            // رابط مباشر بصوت الشيخ ماهر المعيقلي
+            if (!surahNum) { alert('الرجاء اختيار السورة أولاً للاستماع إليها.'); return; }
             const audioUrl = `https://cdn.islamic.network/quran/audio-surah/128/ar.mahermuaiqly/${surahNum}.mp3`;
             window.open(audioUrl, '_blank');
         }
@@ -1062,25 +1124,119 @@
         function openShaarawyTafsir() {
             const select = document.getElementById('surahSelect');
             const selectedOption = select.options[select.selectedIndex];
-            
-            if (!select.value) {
-                alert('الرجاء اختيار سورة أولاً للبحث عن خواطرها.');
-                return;
-            }
-            
+            if (!select.value) { alert('الرجاء اختيار سورة أولاً للبحث عن خواطرها.'); return; }
             let surahName = selectedOption.text.replace(/^\d+\.\s*سورة\s*/, '');
             const searchQuery = encodeURIComponent(`خواطر الشعراوي سورة ${surahName}`);
             window.open(`https://www.youtube.com/results?search_query=${searchQuery}`, '_blank');
         }
 
-        /* ============ منطق الأدعية والتسابيح ============ */
+        /* ============ منطق المسبحة ============ */
         let count = 0;
         function incrementTasbih() {
             count++;
             document.getElementById('tasbihCount').textContent = count;
             if(navigator.vibrate) navigator.vibrate(30);
         }
+        function resetTasbih() {
+            count = 0;
+            document.getElementById('tasbihCount').textContent = 0;
+        }
 
+        /* ============ منطق الأدعية الجديد ============ */
+        const adhkarData = [
+            {
+                category: "🌅 أذكار الصباح والمساء",
+                items: [
+                    { text: "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ.", source: "رواه مسلم" },
+                    { text: "اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ الْمَصِيرُ.", source: "رواه الترمذي" },
+                    { text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ، عَدَدَ خَلْقِهِ، وَرِضَا نَفْسِهِ، وَزِنَةَ عَرْشِهِ، وَمِدَادَ كَلِمَاتِهِ.", source: "رواه مسلم" },
+                    { text: "اللَّهُمَّ عَافِنِي فِي بَدَنِي، اللَّهُمَّ عَافِنِي فِي سَمْعِي، اللَّهُمَّ عَافِنِي فِي بَصَرِي، لَا إِلَهَ إِلَّا أَنْتَ.", source: "رواه أبو داود" },
+                    { text: "بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ، وَهُوَ السَّمِيعُ الْعَلِيمُ. (ثلاث مرات)", source: "رواه أبو داود والترمذي" }
+                ]
+            },
+            {
+                category: "🌙 أذكار النوم والاستيقاظ",
+                items: [
+                    { text: "بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا.", source: "رواه البخاري" },
+                    { text: "اللَّهُمَّ قِنِي عَذَابَكَ يَوْمَ تَبْعَثُ عِبَادَكَ. (ثلاث مرات)", source: "رواه أبو داود والترمذي" },
+                    { text: "سُبْحَانَ اللَّهِ (33)، وَالْحَمْدُ لِلَّهِ (33)، وَاللَّهُ أَكْبَرُ (34).", source: "متفق عليه" },
+                    { text: "آيَةُ الْكُرْسِيِّ: اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ...", source: "رواه البخاري" },
+                    { text: "الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ.", source: "رواه البخاري" }
+                ]
+            },
+            {
+                category: "🤲 أدعية الهم والحزن",
+                items: [
+                    { text: "اللَّهُمَّ إِنِّي عَبْدُكَ، ابْنُ عَبْدِكَ، ابْنُ أَمَتِكَ، أَصْغَرَ رَأْسِي، وَاضْطَرَّ ذَنْبِي، وَانْقَطَعَ حَبْلِي، فَاقْضِ عَنِّي دَيْنِي، وَاغْنِنِي مِنْ فَقْرِي، وَأَعْطِنِي حَاجَتِي.", source: "رواه أحمد" },
+                    { text: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ، وَالْعَجْزِ وَالْكَسَلِ، وَالْبُخْلِ وَالْجُبْنِ، وَضَلَعِ الدَّيْنِ وَغَلَبَةِ الرِّجَالِ.", source: "رواه البخاري" },
+                    { text: "لَا إِلَهَ إِلَّا اللَّهُ الْعَظِيمُ الْحَلِيمُ، لَا إِلَهَ إِلَّا اللَّهُ رَبُّ الْعَرْشِ الْعَظِيمِ، لَا إِلَهَ إِلَّا اللَّهُ رَبُّ السَّمَاوَاتِ وَرَبُّ الْأَرْضِ وَرَبُّ الْعَرْشِ الْكَرِيمِ.", source: "متفق عليه" },
+                    { text: "اللَّهُمَّ رَحْمَتَكَ أَرْجُو، فَلَا تَكِلْنِي إِلَى نَفْسِي طَرْفَةَ عَيْنٍ، وَأَصْلِحْ لِي شَأْنِي كُلَّهُ، لَا إِلَهَ إِلَّا أَنْتَ.", source: "رواه أبو داود" }
+                ]
+            },
+            {
+                category: "🕊️ أدعية الاستغفار والتوبة",
+                items: [
+                    { text: "أَسْتَغْفِرُ اللَّهَ الَّذِي لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ وَأَتُوبُ إِلَيْهِ.", source: "رواه أبو داود والترمذي" },
+                    { text: "اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي، فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ.", source: "سيد الاستغفار - رواه البخاري" },
+                    { text: "رَبِّ اغْفِرْ لِي وَتُبْ عَلَيَّ، إِنَّكَ أَنْتَ التَّوَّابُ الرَّحِيمُ.", source: "رواه الترمذي" },
+                    { text: "اللَّهُمَّ اغْفِرْ لِي ذَنْبِي كُلَّهُ، دِقَّهُ وَجِلَّهُ، وَأَوَّلَهُ وَآخِرَهُ، وَعَلَانِيَتَهُ وَسِرَّهُ.", source: "رواه مسلم" }
+                ]
+            },
+            {
+                category: "✨ أدعية مأثورة جامعة",
+                items: [
+                    { text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْهُدَى وَالتُّقَى وَالْعَفَافَ وَالْغِنَى.", source: "رواه مسلم" },
+                    { text: "اللَّهُمَّ أَصْلِحْ لِي دِينِي الَّذِي هُوَ عِصْمَةُ أَمْرِي، وَأَصْلِحْ لِي دُنْيَايَ الَّتِي فِيهَا مَعَاشِي، وَأَصْلِحْ لِي آخِرَتِي الَّتِي فِيهَا مَعَادِي.", source: "رواه مسلم" },
+                    { text: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ زَوَالِ نِعْمَتِكَ، وَتَحَوُّلِ عَافِيَتِكَ، وَفُجَاءَةِ نِقْمَتِكَ، وَجَمِيعِ سَخَطِكَ.", source: "رواه مسلم" },
+                    { text: "يَا حَيُّ يَا قَيُّومُ بِرَحْمَتِكَ أَسْتَغِيثُ، أَصْلِحْ لِي شَأْنِي كُلَّهُ وَلَا تَكِلْنِي إِلَى نَفْسِي.", source: "رواه الترمذي" },
+                    { text: "لَا إِلَهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ.", source: "دعوة ذي النون - رواه الترمذي" }
+                ]
+            }
+        ];
+
+        function renderAdhkar() {
+            const container = document.getElementById('duaContainer');
+            if (!container) return;
+            
+            let html = '';
+            adhkarData.forEach((cat, catIdx) => {
+                html += `<h3 class="dua-category-title">${cat.category}</h3>`;
+                cat.items.forEach((item, idx) => {
+                    const id = `dua-${catIdx}-${idx}`;
+                    html += `
+                        <div class="dua-card">
+                            <div class="dua-text">${item.text}</div>
+                            <div class="dua-footer">
+                                <span class="dua-source">📚 ${item.source}</span>
+                                <button class="dua-count-btn" id="btn-${id}" onclick="countDua('${id}')">
+                                    <span>🔁</span> <span id="count-${id}">0</span>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+            });
+            container.innerHTML = html;
+        }
+
+        function countDua(id) {
+            const countEl = document.getElementById(`count-${id}`);
+            const btnEl = document.getElementById(`btn-${id}`);
+            if (!countEl) return;
+            let current = parseInt(countEl.textContent) || 0;
+            current++;
+            countEl.textContent = current;
+            if (navigator.vibrate) navigator.vibrate(20);
+            
+            // تأثير بصري عند الوصول لـ 3 أو 7 أو 10 أو 100
+            if ([3, 7, 10, 33, 100].includes(current)) {
+                btnEl.classList.add('active');
+                setTimeout(() => btnEl.classList.remove('active'), 1500);
+                if (navigator.vibrate) navigator.vibrate([50, 30, 50]);
+            }
+        }
+
+        /* ============ إرسال السؤال ============ */
         function sendQuestion() {
             const name = document.getElementById('qaName').value.trim();
             const question = document.getElementById('qaQuestion').value.trim();
@@ -1095,9 +1251,7 @@
         window.onload = () => {
             getPrayerTimes(); 
             fetchSurahList(); 
-
-            const adhkar = ["سبحان الله وبحمده", "أستغفر الله وأتوب إليه", "لا حول ولا قوة إلا بالله", "لا إله إلا الله وحده لا شريك له"];
-            document.getElementById('adhkarList').innerHTML = adhkar.map(a => `<div class="dhikr-item"><div class="dhikr-text">${a}</div><div class="dhikr-counter" onclick="this.textContent = parseInt(this.textContent) + 1">+</div></div>`).join('');
+            renderAdhkar(); // عرض الأدعية عند فتح الصفحة
         };
     </script>
 </body>
