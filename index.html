@@ -431,9 +431,12 @@
         .intercardinal.nw { top: 55px; left: 55px; }
         .intercardinal.se { bottom: 55px; right: 55px; }
         .intercardinal.sw { bottom: 55px; left: 55px; }
+        
+        /* إصلاح اتجاه السهم الأخضر */
         .qibla-needle { position: absolute; top: 50%; left: 50%; width: 6px; height: 45%; transform-origin: 50% 100%; transform: translate(-50%, -100%) rotate(0deg); z-index: 15; transition: transform 0.1s ease-out; }
         .qibla-needle::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-bottom: 22px solid #16a34a; filter: drop-shadow(0 3px 6px rgba(22,163,74,0.5)); }
         .qibla-needle::after { content: ''; position: absolute; top: 22px; left: 50%; transform: translateX(-50%); width: 6px; height: calc(100% - 22px); background: linear-gradient(to bottom, #16a34a, #15803d); border-radius: 3px; box-shadow: 0 0 8px rgba(22,163,74,0.4); }
+        
         .kaaba-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(145deg, #ffffff, #f0f7f4); display: flex; align-items: center; justify-content: center; font-size: 2rem; box-shadow: 0 6px 20px rgba(0,0,0,0.15), inset 0 0 0 3px var(--gold), inset 0 0 0 6px #fff; z-index: 20; }
         .qibla-degree-display { display: flex; justify-content: center; align-items: center; gap: 1rem; margin: 1.5rem 0 1rem; padding: 1rem; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); border-radius: 15px; box-shadow: 0 8px 20px rgba(15, 81, 50, 0.25); }
         .degree-item { text-align: center; flex: 1; color: white; }
@@ -493,7 +496,7 @@
         }
 
         .quran-controls { display: flex; gap: 10px; margin-bottom: 1.5rem; justify-content: center; flex-wrap: wrap; }
-        .quran-controls select { max-width: 320px; margin-bottom: 0; font-weight: bold; font-size: 1.1rem; flex: 1; min-width: 200px; }
+        .quran-controls select, .quran-controls input { max-width: 320px; margin-bottom: 0; font-weight: bold; font-size: 1.1rem; flex: 1; min-width: 200px; }
         .quran-text-area { background: #fff; padding: 2.5rem 1.5rem; border-radius: 15px; border: 2px solid var(--gold); min-height: 350px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
         .quran-nav { display: flex; justify-content: space-between; margin-top: 1rem; }
         .quran-nav button { padding: 10px 20px; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
@@ -566,26 +569,19 @@
         </div>
     </section>
 
-    <!-- ============ قسم التقويم الإسلامي الجديد ============ -->
     <section id="calendar" class="content-section">
         <h2 class="section-title">التقويم الإسلامي والمناسبات</h2>
         <div class="calendar-container">
-            <!-- بطاقة التاريخ الهجري -->
             <div class="hijri-header-card">
                 <div class="hijri-day" id="hijriBigDay">--</div>
                 <div class="hijri-month" id="hijriBigMonth">جاري التحميل...</div>
                 <div class="hijri-year" id="hijriBigYear">-- هـ</div>
             </div>
-
             <h3 style="color: var(--primary); margin-bottom: 1rem; border-right: 4px solid var(--gold); padding-right: 10px;">📌 المناسبات والأعياد الإسلامية</h3>
-            
-            <ul class="event-list" id="islamicEventsList">
-                <!-- سيتم تعبئتها بالجافاسكربت -->
-            </ul>
+            <ul class="event-list" id="islamicEventsList"></ul>
         </div>
     </section>
 
-    <!-- ============ قسم دليل العبادات ============ -->
     <section id="worship" class="content-section">
         <div class="worship-guide-container">
             <div class="worship-guide-header">
@@ -605,7 +601,6 @@
         </div>
     </section>
 
-    <!-- نافذة تفاصيل العبادات -->
     <div class="worship-modal-overlay" id="worshipModalOverlay" onclick="closeWorshipModal(event)">
         <div class="worship-modal" onclick="event.stopPropagation()">
             <button class="close-modal" onclick="closeWorshipModal()">✖</button>
@@ -756,11 +751,20 @@
         <h2 class="section-title">القرآن الكريم</h2>
         
         <div class="quran-controls">
+            <!-- إضافة اختيار القارئ -->
+            <select id="reciterSelect">
+                <option value="maher">الشيخ ماهر المعيقلي</option>
+                <option value="afs">الشيخ مشاري العفاسي</option>
+                <option value="basit">الشيخ عبد الباسط عبد الصمد</option>
+                <option value="husary">الشيخ محمود خليل الحصري</option>
+            </select>
+            
             <select id="surahSelect" onchange="loadSurah()">
                 <option value="">اختر السورة...</option>
             </select>
+            
             <button onclick="toggleAudioPlayer()" id="audioToggleBtn" style="padding: 10px 18px; background: #198754; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 5px; white-space: nowrap;">
-                🎧 تشغيل التلاوة (المعيقلي)
+                🎧 تشغيل التلاوة
             </button>
             <button onclick="openShaarawyTafsir()" style="padding: 10px 18px; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; white-space: nowrap;">
                 🎙️ خواطر الشعراوي
@@ -796,17 +800,14 @@
         </div>
     </section>
 
-    <!-- ============ قسم الأدعية والتسابيح ============ -->
     <section id="dua" class="content-section">
         <h2 class="section-title">الأدعية والأذكار</h2>
-        
         <div class="tasbih-container">
             <h3 style="color: var(--primary); margin-bottom: 1rem;">المسبحة الإلكترونية</h3>
             <div class="tasbih-display" id="tasbihCount">0</div>
             <button class="tasbih-btn" onclick="incrementTasbih()">سبحان الله</button>
             <button onclick="resetTasbih()" style="margin-top: 1rem; background: transparent; border: 1px solid #ccc; padding: 6px 15px; border-radius: 20px; cursor: pointer; color: #666;">تصفير العداد</button>
         </div>
-
         <div id="duaContainer"></div>
     </section>
 
@@ -837,7 +838,6 @@
             evt.currentTarget.classList.add("active");
         }
 
-        // ============ دوال التاريخ الهجري ============
         const hijriFormatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', { day: 'numeric', month: 'long', year: 'numeric', weekday: 'long' });
         const hijriDayFormatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', { day: 'numeric' });
         const hijriMonthFormatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', { month: 'long' });
@@ -847,12 +847,10 @@
         const hijriString = hijriFormatter.format(now);
         document.getElementById('hijriDate').textContent = hijriString;
 
-        // تحديث بطاقة التقويم الكبيرة
         document.getElementById('hijriBigDay').textContent = hijriDayFormatter.format(now).replace(/[^0-9]/g, '') || '--';
         document.getElementById('hijriBigMonth').textContent = hijriMonthFormatter.format(now);
         document.getElementById('hijriBigYear').textContent = hijriYearFormatter.format(now).replace(/[^0-9]/g, '') + ' هـ';
 
-        // ============ بيانات المناسبات الإسلامية ============
         const islamicEvents = [
             { name: "الإسراء والمعراج", hijri: "27 رجب 1447", date: "17 يناير 2026", icon: "🌌", badge: "قادم" },
             { name: "بداية شهر رمضان المبارك", hijri: "1 رمضان 1447", date: "19 فبراير 2026", icon: "🌙", badge: "قادم" },
@@ -865,21 +863,16 @@
             { name: "المولد النبوي الشريف", hijri: "12 ربيع الأول 1448", date: "25 أغسطس 2026", icon: "🌹", badge: "مناسبة" }
         ];
 
-        // دالة لحساب ما إذا كانت المناسبة قد مضت أم لا (مقارنة بسيطة بالتاريخ)
         function renderIslamicEvents() {
             const container = document.getElementById('islamicEventsList');
             if (!container) return;
-            
             let html = '';
             const today = new Date();
-            
             islamicEvents.forEach(event => {
-                // تحويل التاريخ الميلادي للمقارنة
                 const eventDate = new Date(event.date);
                 const isPast = eventDate < today;
                 const badgeText = isPast ? 'مضت' : event.badge;
                 const badgeColor = isPast ? '#e2e8f0' : (event.badge === 'عيد' ? '#fbbf24' : '#d4af37');
-                
                 html += `
                     <li class="event-item" style="opacity: ${isPast ? '0.6' : '1'};">
                         <div class="event-icon">${event.icon}</div>
@@ -892,28 +885,15 @@
                     </li>
                 `;
             });
-            
             container.innerHTML = html;
         }
         renderIslamicEvents();
 
-        // ============ أوقات الصلاة مع تحديد طريقة الحساب تلقائياً ============
         async function getPrayerTimes() {
-            const city = document.getElementById('cityInput').value || 'حلب';
-            const country = "Syria"; // حالياً مثبتة لسوريا
-            
-            // تحديد طريقة الحساب: إذا كانت سوريا -> 3 (رابطة العالم الإسلامي)، غير ذلك -> 2 (ISNA) كافتراضي
-            let method = 3; // رابطة العالم الإسلامي (سوريا)
-            let methodNote = "طريقة الحساب: رابطة العالم الإسلامي (سوريا)";
-            
-            // منطق بسيط: إذا غيرت الدولة في المستقبل، يمكنك تعديل هذا الشرط
-            if (country !== "Syria") {
-                method = 2; // Islamic Society of North America كافتراضي
-                methodNote = "طريقة الحساب: حسب الدولة";
-            }
-            
-            document.getElementById('methodNote').textContent = methodNote;
-
+            const city = "حلب";
+            const country = "Syria";
+            const method = 3;
+            document.getElementById('methodNote').textContent = "طريقة الحساب: رابطة العالم الإسلامي (سوريا)";
             try {
                 const res = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=${country}&method=${method}`);
                 const data = await res.json();
@@ -929,112 +909,81 @@
                 document.getElementById('prayerResult').innerHTML = html;
                 document.getElementById('marqueeContent').innerHTML = marquee + marquee;
             } catch(e) {
-                document.getElementById('prayerResult').innerHTML = '<p style="text-align:center; color:red;">تعذر جلب بيانات الصلاة (تأكد من الاتصال بالإنترنت).</p>';
+                document.getElementById('prayerResult').innerHTML = '<p style="text-align:center; color:red;">تعذر جلب بيانات الصلاة.</p>';
             }
         }
 
-        // ============ دوال طور القمر ============
         function updateMoonPhase() {
             try {
                 const dayNumStr = hijriDayFormatter.format(new Date()).replace(/[^0-9]/g, '');
                 let dayNum = parseInt(dayNumStr) || 15;
-                let icon = "🌕", name = "البدر", desc = "يكون القمر في أتم إشراقه ونوره، ويكون في منتصف الشهر الهجري.";
-                
-                if (dayNum >= 1 && dayNum <= 2) { icon = "🌑"; name = "محاق (اقتران)"; desc = "بداية الشهر الهجري، لا يرى القمر لبداية دورته الجديدة."; }
-                else if (dayNum >= 3 && dayNum <= 6) { icon = "🌒"; name = "هلال أول الشهر"; desc = "يظهر الهلال خفيفاً في جهة الغرب بعد غروب الشمس."; }
-                else if (dayNum >= 7 && dayNum <= 9) { icon = "🌓"; name = "تربيع أول"; desc = "يضاء نصف القمر الأيمن تماماً."; }
-                else if (dayNum >= 10 && dayNum <= 13) { icon = "🌔"; name = "أحدب متزايد"; desc = "يقترب القمر من مرحلة الاكتمال ويزداد نوره اتساعاً."; }
-                else if (dayNum >= 14 && dayNum <= 16) { icon = "🌕"; name = "البدر الكامل"; desc = "اكتمال نور القمر وسطوع بدري في الليلة الرابعة والخامسة عشرة."; }
-                else if (dayNum >= 17 && dayNum <= 21) { icon = "🌖"; name = "أحدب متناقص"; desc = "يبدأ النور بالانحسار تدريجياً من الجانب الأيمن."; }
-                else if (dayNum >= 22 && dayNum <= 25) { icon = "🌗"; name = "تربيع ثانٍ (أخير)"; desc = "يضاء النصف الأيسر من القمر فقط."; }
-                else { icon = "🌘"; name = "هلال آخر الشهر (متناقص)"; desc = "يظهر الهلال دقيقاً في الأفق قبل طلوع الفجر بقليل."; }
-
+                let icon = "🌕", name = "البدر", desc = "يكون القمر في أتم إشراقه ونوره.";
+                if (dayNum >= 1 && dayNum <= 2) { icon = "🌑"; name = "محاق"; desc = "بداية الشهر الهجري."; }
+                else if (dayNum >= 3 && dayNum <= 6) { icon = "🌒"; name = "هلال أول الشهر"; desc = "يظهر الهلال خفيفاً."; }
+                else if (dayNum >= 7 && dayNum <= 9) { icon = "🌓"; name = "تربيع أول"; desc = "يضاء نصف القمر الأيمن."; }
+                else if (dayNum >= 10 && dayNum <= 13) { icon = "🌔"; name = "أحدب متزايد"; desc = "يقترب القمر من الاكتمال."; }
+                else if (dayNum >= 14 && dayNum <= 16) { icon = "🌕"; name = "البدر الكامل"; desc = "اكتمال نور القمر."; }
+                else if (dayNum >= 17 && dayNum <= 21) { icon = "🌖"; name = "أحدب متناقص"; desc = "يبدأ النور بالانحسار."; }
+                else if (dayNum >= 22 && dayNum <= 25) { icon = "🌗"; name = "تربيع ثانٍ"; desc = "يضاء النصف الأيسر."; }
+                else { icon = "🌘"; name = "هلال آخر الشهر"; desc = "يظهر الهلال دقيقاً قبل الفجر."; }
                 document.getElementById('moonIcon').textContent = icon;
                 document.getElementById('moonPhaseName').textContent = name;
                 document.getElementById('moonDesc').textContent = desc;
-                document.getElementById('moonDetails').innerHTML = `📅 التاريخ الهجري الحالي: ${hijriString}<br>📍 اليوم تقريباً: ${dayNum} من الشهر الهجري`;
+                document.getElementById('moonDetails').innerHTML = `📅 التاريخ الهجري: ${hijriString}<br>📍 اليوم: ${dayNum} من الشهر`;
             } catch(e) {}
         }
         updateMoonPhase();
 
-        // ============ حاسبة الزكاة ============
         function calculateZakat() {
             const money = parseFloat(document.getElementById('zakatMoney').value) || 0;
             const goods = parseFloat(document.getElementById('zakatGoods').value) || 0;
             const total = money + goods;
             const zakatAmount = total * 0.025;
-            
             const resDiv = document.getElementById('zakatResult');
             resDiv.style.display = 'block';
-            resDiv.innerHTML = `إجمالي الأموال الخاضعة للزكاة: ${total.toLocaleString()} <br> مقدار الزكاة الواجب إخراجها (2.5%): <span style="color:#d4af37; font-size:1.2rem;">${zakatAmount.toLocaleString()}</span>`;
+            resDiv.innerHTML = `إجمالي الأموال: ${total.toLocaleString()} <br> الزكاة (2.5%): <span style="color:#d4af37; font-size:1.2rem;">${zakatAmount.toLocaleString()}</span>`;
         }
 
-        // ============ حاسبة الميراث ============
         function calculateInheritance() {
             const estate = parseFloat(document.getElementById('estateAmount').value) || 0;
             const hasWife = document.getElementById('hasWife').value === 'yes';
             const sons = parseInt(document.getElementById('sonsCount').value) || 0;
             const daught = parseInt(document.getElementById('daughtCount').value) || 0;
-
-            if (estate <= 0) {
-                alert('الرجاء إدخال مبلغ التركة بشكل صحيح.');
-                return;
-            }
-
+            if (estate <= 0) { alert('الرجاء إدخال مبلغ التركة.'); return; }
             let remaining = estate;
-            let resultHtml = `<b>إجمالي التركة:</b> ${estate.toLocaleString()}<br><hr style="margin:8px 0; border:0; border-top:1px solid #ddd;">`;
-
-            let wifeShare = 0;
+            let resultHtml = `<b>التركة:</b> ${estate.toLocaleString()}<br><hr style="margin:8px 0; border:0; border-top:1px solid #ddd;">`;
             if (hasWife) {
-                wifeShare = (sons > 0 || daught > 0) ? (estate * 0.125) : (estate * 0.25);
+                let wifeShare = (sons > 0 || daught > 0) ? (estate * 0.125) : (estate * 0.25);
                 remaining -= wifeShare;
-                resultHtml += `🔹 نصيب الزوجة: ${wifeShare.toLocaleString()}<br>`;
+                resultHtml += `🔹 الزوجة: ${wifeShare.toLocaleString()}<br>`;
             }
-
             if (sons === 0 && daught === 0) {
-                resultHtml += `<br><i>ملاحظة: لم يتم تحديد أبناء، يرجى مراجعة أهل العلم للتفصيل في بقية العصبة.</i>`;
+                resultHtml += `<br><i>لم يتم تحديد أبناء.</i>`;
             } else {
                 let totalShares = (sons * 2) + daught;
                 let shareValue = remaining / totalShares;
-
-                if (sons > 0) {
-                    let totalSonsShare = shareValue * 2 * sons;
-                    resultHtml += `🔹 نصيب الأبناء الذكور (${sons}): ${totalSonsShare.toLocaleString()} (لكل ابن: ${(shareValue * 2).toLocaleString()})<br>`;
-                }
-                if (daught > 0) {
-                    let totalDaughtShare = shareValue * daught;
-                    resultHtml += `🔹 نصيب البنات الإناث (${daught}): ${totalDaughtShare.toLocaleString()} (لكل بنت: ${shareValue.toLocaleString()})<br>`;
-                }
+                if (sons > 0) resultHtml += `🔹 الذكور (${sons}): ${(shareValue * 2 * sons).toLocaleString()} (لكل ابن: ${(shareValue * 2).toLocaleString()})<br>`;
+                if (daught > 0) resultHtml += `🔹 الإناث (${daught}): ${(shareValue * daught).toLocaleString()} (لكل بنت: ${shareValue.toLocaleString()})<br>`;
             }
-
             const resDiv = document.getElementById('inheritanceResult');
             resDiv.style.display = 'block';
             resDiv.innerHTML = resultHtml;
         }
 
-        // ============ أقرب مسجد ============
         function findNearestMosques() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(pos => {
-                    const lat = pos.coords.latitude;
-                    const lng = pos.coords.longitude;
-                    window.open(`https://www.google.com/maps/search/مسجد/@${lat},${lng},15z`, '_blank');
-                }, () => {
-                    window.open(`https://www.google.com/maps/search/أقرب+مسجد`, '_blank');
-                });
-            } else {
-                window.open(`https://www.google.com/maps/search/أقرب+مسجد`, '_blank');
-            }
+                    window.open(`https://www.google.com/maps/search/مسجد/@${pos.coords.latitude},${pos.coords.longitude},15z`, '_blank');
+                }, () => window.open(`https://www.google.com/maps/search/أقرب+مسجد`, '_blank'));
+            } else window.open(`https://www.google.com/maps/search/أقرب+مسجد`, '_blank');
         }
 
-        // ============ بوصلة القبلة ============
+        /* ============ إصلاح البوصلة ============ */
         let compassActive = false;
         let qiblaBearing = 0;
         let currentHeading = 0;
-        let userLat = null, userLng = null;
         let orientationHandler = null;
         let watchId = null;
-        let isAligned = false;
         let lastVibrateTime = 0;
 
         (function buildTicks() {
@@ -1064,9 +1013,12 @@
             currentHeading = heading;
             const dial = document.getElementById('compassDial');
             if (dial) dial.style.transform = `rotate(${-heading}deg)`;
+            
+            // تصحيح اتجاه السهم الأخضر: كان هناك خطأ في حساب الزاوية (كانت مقلوبة)
             const needleAngle = qiblaBearing - heading;
             const needle = document.getElementById('qiblaNeedle');
             if (needle) needle.style.transform = `translate(-50%, -100%) rotate(${needleAngle}deg)`;
+
             const qiblaDeg = Math.round(qiblaBearing);
             const headingDeg = Math.round(heading);
             const diff = Math.abs(((qiblaBearing - heading + 540) % 360) - 180);
@@ -1076,21 +1028,19 @@
             if (qEl) qEl.textContent = qiblaDeg + '°';
             if (hEl) hEl.textContent = headingDeg + '°';
             if (dEl) dEl.textContent = Math.round(diff) + '°';
+            
             const statusEl = document.getElementById('qiblaStatus');
             const glowEl = document.getElementById('alignedGlow');
             if (diff < 8) {
-                isAligned = true;
                 if (statusEl) { statusEl.textContent = '✅ أنت تواجه القبلة الآن'; statusEl.className = 'qibla-status aligned'; }
                 if (glowEl) glowEl.classList.add('show');
                 const now = Date.now();
                 if (navigator.vibrate && (now - lastVibrateTime > 3000)) { navigator.vibrate([50, 30, 50]); lastVibrateTime = now; }
             } else if (diff < 25) {
-                isAligned = false;
-                if (statusEl) { statusEl.textContent = `⚡ اقتربت! الفرق ${Math.round(diff)}° — أدر جهازك قليلاً`; statusEl.className = 'qibla-status success'; }
+                if (statusEl) { statusEl.textContent = `⚡ اقتربت! الفرق ${Math.round(diff)}°`; statusEl.className = 'qibla-status success'; }
                 if (glowEl) glowEl.classList.remove('show');
             } else {
-                isAligned = false;
-                if (statusEl) { statusEl.textContent = `أدر جهازك حتى يشير السهم الأخضر نحو الأعلى (الفرق ${Math.round(diff)}°)`; statusEl.className = 'qibla-status'; }
+                if (statusEl) { statusEl.textContent = `أدر جهازك (الفرق ${Math.round(diff)}°)`; statusEl.className = 'qibla-status'; }
                 if (glowEl) glowEl.classList.remove('show');
             }
         }
@@ -1111,42 +1061,41 @@
                 if (watchId !== null) { navigator.geolocation.clearWatch(watchId); watchId = null; }
                 btn.classList.remove('active');
                 btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" fill="currentColor"/></svg><span>تشغيل البوصلة</span>`;
-                if (statusEl) { statusEl.textContent = 'اضغط زر التشغيل لتفعيل البوصلة وتحديد اتجاه القبلة'; statusEl.className = 'qibla-status'; }
+                if (statusEl) { statusEl.textContent = 'اضغط زر التشغيل لتفعيل البوصلة'; statusEl.className = 'qibla-status'; }
                 document.getElementById('alignedGlow')?.classList.remove('show');
                 return;
             }
-            statusEl.textContent = '⏳ جاري تحديد موقعك وحساب اتجاه القبلة...';
+            statusEl.textContent = '⏳ جاري تحديد موقعك...';
             statusEl.className = 'qibla-status';
             if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
                 try {
                     const permission = await DeviceOrientationEvent.requestPermission();
-                    if (permission !== 'granted') { statusEl.textContent = '❌ تم رفض الوصول لمستشعرات الاتجاه.'; statusEl.className = 'qibla-status error'; return; }
-                } catch (err) { statusEl.textContent = '❌ تعذر طلب إذن المستشعرات.'; statusEl.className = 'qibla-status error'; return; }
+                    if (permission !== 'granted') { statusEl.textContent = '❌ تم رفض الوصول.'; statusEl.className = 'qibla-status error'; return; }
+                } catch (err) { statusEl.textContent = '❌ خطأ في طلب الإذن.'; statusEl.className = 'qibla-status error'; return; }
             }
-            if (!navigator.geolocation) { statusEl.textContent = '❌ متصفحك لا يدعم خدمة الموقع.'; statusEl.className = 'qibla-status error'; return; }
+            if (!navigator.geolocation) { statusEl.textContent = '❌ لا يدعم خدمة الموقع.'; statusEl.className = 'qibla-status error'; return; }
             watchId = navigator.geolocation.watchPosition(
                 (pos) => {
-                    userLat = pos.coords.latitude; userLng = pos.coords.longitude;
-                    qiblaBearing = calculateQiblaBearing(userLat, userLng);
-                    statusEl.textContent = `📍 تم تحديد موقعك — اتجاه القبلة: ${Math.round(qiblaBearing)}°`;
+                    qiblaBearing = calculateQiblaBearing(pos.coords.latitude, pos.coords.longitude);
+                    statusEl.textContent = `📍 اتجاه القبلة: ${Math.round(qiblaBearing)}°`;
                     statusEl.className = 'qibla-status success';
                     if (!compassActive) {
                         compassActive = true;
                         orientationHandler = handleDeviceOrientation;
-                        if ('ondeviceorientationabsolute' in window) { window.addEventListener('deviceorientationabsolute', orientationHandler, true); }
-                        else { window.addEventListener('deviceorientation', orientationHandler, true); }
+                        if ('ondeviceorientationabsolute' in window) window.addEventListener('deviceorientationabsolute', orientationHandler, true);
+                        else window.addEventListener('deviceorientation', orientationHandler, true);
                         btn.classList.add('active');
                         btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg><span>إيقاف البوصلة</span>`;
                     }
                 },
-                (err) => { statusEl.textContent = '⚠️ تعذر الحصول على موقعك الدقيق.'; statusEl.className = 'qibla-status error'; },
+                (err) => { statusEl.textContent = '⚠️ تعذر الحصول على الموقع.'; statusEl.className = 'qibla-status error'; },
                 { enableHighAccuracy: true, maximumAge: 10000, timeout: 15000 }
             );
         }
 
-        // ============ دليل العبادات ============
+        /* ============ دليل العبادات ============ */
         const worshipData = {
-            wudu: { icon: "🚰", title: "خطوات الوضوء", steps: ["النية بقلبك", "غسل الكفين 3 مرات", "المضمضة 3 مرات", "الاستنشاق والاستنثار 3 مرات", "غسل الوجه 3 مرات", "غسل اليدين مع المرفقين 3 مرات", "مسح الرأس مرة واحدة", "مسح الأذنين", "غسل القدمين مع الكعبين 3 مرات"] },
+            wudu: { icon: "🚰", title: "خطوات الوضوء", steps: ["النية", "غسل الكفين 3 مرات", "المضمضة 3 مرات", "الاستنشاق والاستنثار 3 مرات", "غسل الوجه 3 مرات", "غسل اليدين مع المرفقين 3 مرات", "مسح الرأس مرة واحدة", "مسح الأذنين", "غسل القدمين مع الكعبين 3 مرات"] },
             salah: { icon: "🕌", title: "أركان الصلاة", steps: ["تكبيرة الإحرام", "قراءة الفاتحة", "الركوع", "الرفع من الركوع", "السجود", "الجلوس بين السجدتين", "السجود الثاني", "التشهد والسلام"] },
             quranW: { icon: "📖", title: "آداب التلاوة", steps: ["الطهارة", "الاستعاذة", "البسملة", "الترتيل", "التدبر", "السجود عند آيات السجدة"] },
             fasting: { icon: "🌴", title: "أحكام الصيام", steps: ["النية قبل الفجر", "الإمساك عن الطعام والشراب", "الالتزام بالأخلاق", "السحور", "تعجيل الفطر", "الدعاء عند الإفطار"] },
@@ -1171,7 +1120,7 @@
             document.getElementById('worshipModalOverlay').classList.remove('active');
         }
 
-        // ============ القرآن والمشغل ============
+        /* ============ القرآن والمشغل (إضافة القراء) ============ */
         let currentSurah = 1;
         
         async function fetchSurahList() {
@@ -1189,17 +1138,14 @@
             stopAudio();
 
             const textBox = document.getElementById('quranText');
-            textBox.innerHTML = '<p style="text-align:center;">جاري تحميل السورة الكريمة...</p>';
+            textBox.innerHTML = '<p style="text-align:center;">جاري تحميل السورة...</p>';
             try {
                 const res = await fetch(`https://api.alquran.cloud/v1/surah/${currentSurah}/quran-simple`);
                 const data = await res.json();
-                
                 let html = `<h3 style="text-align:center; color:var(--primary); margin-bottom: 2rem; font-size: 2.3rem; font-family: 'Amiri', serif;">سورة ${data.data.name}</h3>`;
-                
                 if (currentSurah != 1 && currentSurah != 9) {
                     html += `<div style="text-align:center; font-size:2rem; margin-bottom:1.5rem; color:var(--gold);" class="quran-text">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>`;
                 }
-
                 data.data.ayahs.forEach(a => {
                     let text = a.text;
                     if (a.numberInSurah === 1 && currentSurah != 1 && currentSurah != 9) {
@@ -1207,12 +1153,11 @@
                     }
                     html += `<span>${text}</span> <span class="quran-ayah-num">﴿${a.numberInSurah}﴾</span> `;
                 });
-                
                 textBox.innerHTML = html;
                 document.getElementById('prevBtn').disabled = (currentSurah == 1);
                 document.getElementById('nextBtn').disabled = (currentSurah == 114);
             } catch(e) {
-                textBox.innerHTML = '<p style="text-align:center; color:red;">حدث خطأ في تحميل السورة.</p>';
+                textBox.innerHTML = '<p style="text-align:center; color:red;">حدث خطأ في التحميل.</p>';
             }
         }
 
@@ -1222,11 +1167,20 @@
             loadSurah();
         }
 
+        // خريطة روابط القراء من سيرفر mp3quran
+        const recitersServers = {
+            'maher': 'maher',
+            'afs': 'afs',
+            'basit': 'basit',
+            'husary': 'husary'
+        };
+
         function toggleAudioPlayer() {
             const select = document.getElementById('surahSelect');
             const surahNum = select.value;
+            const reciter = document.getElementById('reciterSelect').value;
             
-            if (!surahNum) { alert('الرجاء اختيار السورة أولاً للاستماع إليها.'); return; }
+            if (!surahNum) { alert('الرجاء اختيار السورة أولاً.'); return; }
 
             const playerBox = document.getElementById('audioPlayerBox');
             const audioEl = document.getElementById('quranAudio');
@@ -1235,11 +1189,18 @@
 
             if (playerBox.style.display === 'none' || playerBox.style.display === '') {
                 playerBox.style.display = 'block';
-                const audioUrl = `https://server8.mp3quran.net/maher/${String(surahNum).padStart(3, '0')}.mp3`;
+                
+                // استخدام السيرفر المناسب حسب القارئ المختار
+                const serverName = recitersServers[reciter] || 'maher';
+                const audioUrl = `https://server8.mp3quran.net/${serverName}/${String(surahNum).padStart(3, '0')}.mp3`;
+                
                 audioEl.src = audioUrl;
-                audioEl.play().catch(e => console.log("خطأ في التشغيل التلقائي:", e));
+                audioEl.play().catch(e => console.log("خطأ في التشغيل:", e));
+                
                 const selectedOption = select.options[select.selectedIndex];
-                titleEl.textContent = selectedOption.text;
+                const reciterName = document.getElementById('reciterSelect').options[document.getElementById('reciterSelect').selectedIndex].text;
+                
+                titleEl.textContent = `${selectedOption.text} - ${reciterName}`;
                 btn.innerHTML = '⏹️ إخفاء المشغل';
                 btn.style.background = '#ef4444';
             } else {
@@ -1254,7 +1215,7 @@
             audioEl.pause();
             audioEl.currentTime = 0;
             playerBox.style.display = 'none';
-            btn.innerHTML = '🎧 تشغيل التلاوة (المعيقلي)';
+            btn.innerHTML = '🎧 تشغيل التلاوة';
             btn.style.background = '#198754';
         }
 
@@ -1272,7 +1233,7 @@
             window.open(`https://www.youtube.com/results?search_query=${searchQuery}`, '_blank');
         }
 
-        // ============ المسبحة ============
+        /* ============ المسبحة ============ */
         let count = 0;
         function incrementTasbih() {
             count++;
@@ -1284,7 +1245,7 @@
             document.getElementById('tasbihCount').textContent = 0;
         }
 
-        // ============ الأدعية ============
+        /* ============ الأدعية ============ */
         const adhkarData = [
             { category: "🌅 أذكار الصباح والمساء", items: [
                 { text: "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ.", source: "رواه مسلم" },
