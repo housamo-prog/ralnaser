@@ -301,6 +301,92 @@
         .dua-count-btn:hover { background: var(--gold-light); }
         .dua-count-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
 
+        /* ============ التقويم الإسلامي ============ */
+        .calendar-container {
+            background: var(--white);
+            border-radius: 25px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+        }
+        .hijri-header-card {
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 2rem 1rem;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 20px rgba(15, 81, 50, 0.2);
+        }
+        .hijri-header-card .hijri-day {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--gold-light);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        .hijri-header-card .hijri-month {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+        .hijri-header-card .hijri-year {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        .event-list {
+            list-style: none;
+            padding: 0;
+        }
+        .event-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 1.2rem 1rem;
+            border-bottom: 1px solid #f1f5f9;
+            transition: 0.2s;
+        }
+        .event-item:hover {
+            background: #f8fafc;
+            border-radius: 10px;
+        }
+        .event-icon {
+            font-size: 2rem;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff8eb;
+            border-radius: 50%;
+            border: 1px solid var(--gold-light);
+        }
+        .event-info {
+            flex: 1;
+        }
+        .event-name {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 0.2rem;
+        }
+        .event-date {
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+        .event-hijri {
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+        .event-badge {
+            background: var(--gold-light);
+            color: #5c4a1f;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
         /* ============ بقية التصميم ============ */
         .qa-form, .tool-box { background: var(--white); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: 1px solid #eee; }
         .qa-form input, .qa-form textarea, .tool-box input, .tool-box select, select {
@@ -429,6 +515,10 @@
             .kaaba-center { width: 60px; height: 60px; font-size: 1.7rem; }
             .degree-item .value { font-size: 1.1rem; }
             .dua-text { font-size: 1.2rem; line-height: 2; }
+            .calendar-container { padding: 1rem; }
+            .hijri-header-card .hijri-day { font-size: 2.5rem; }
+            .hijri-header-card .hijri-month { font-size: 1.3rem; }
+            .event-item { padding: 1rem 0.5rem; }
         }
     </style>
 </head>
@@ -450,6 +540,7 @@
         <div class="tabs">
             <button class="tab-btn active" onclick="openTab(event, 'home')">الرئيسية</button>
             <button class="tab-btn" onclick="openTab(event, 'worship')">🕌 دليل العبادات</button>
+            <button class="tab-btn" onclick="openTab(event, 'calendar')">📅 التقويم الإسلامي</button>
             <button class="tab-btn" onclick="openTab(event, 'qa')">سؤال وجواب</button>
             <button class="tab-btn" onclick="openTab(event, 'prayer')">أوقات الصلاة</button>
             <button class="tab-btn" onclick="openTab(event, 'qibla')">القبلة</button>
@@ -472,6 +563,25 @@
                 <p>نسعى لتقديم الفتاوى الشرعية، والرقية الشرعية، والإجابة على استفساراتكم، مع مجموعة من الخدمات الإسلامية المتكاملة.</p>
                 <a href="https://wa.me/963944856486" target="_blank" class="btn-whatsapp">💬 تواصل مع الشيخ</a>
             </div>
+        </div>
+    </section>
+
+    <!-- ============ قسم التقويم الإسلامي الجديد ============ -->
+    <section id="calendar" class="content-section">
+        <h2 class="section-title">التقويم الإسلامي والمناسبات</h2>
+        <div class="calendar-container">
+            <!-- بطاقة التاريخ الهجري -->
+            <div class="hijri-header-card">
+                <div class="hijri-day" id="hijriBigDay">--</div>
+                <div class="hijri-month" id="hijriBigMonth">جاري التحميل...</div>
+                <div class="hijri-year" id="hijriBigYear">-- هـ</div>
+            </div>
+
+            <h3 style="color: var(--primary); margin-bottom: 1rem; border-right: 4px solid var(--gold); padding-right: 10px;">📌 المناسبات والأعياد الإسلامية</h3>
+            
+            <ul class="event-list" id="islamicEventsList">
+                <!-- سيتم تعبئتها بالجافاسكربت -->
+            </ul>
         </div>
     </section>
 
@@ -523,7 +633,7 @@
             <input type="text" id="cityInput" placeholder="المدينة" value="حلب" readonly style="background:#f0f0f0; cursor:not-allowed;" title="تم تثبيت المدينة على حلب">
             <button onclick="getPrayerTimes()">تحديث</button>
         </div>
-        <p style="text-align:center; color:#666; margin-bottom:1rem; font-size:0.9rem;">طريقة الحساب: رابطة العالم الإسلامي</p>
+        <p style="text-align:center; color:#666; margin-bottom:1rem; font-size:0.9rem;" id="methodNote">طريقة الحساب: رابطة العالم الإسلامي (سوريا)</p>
         <div id="prayerResult" class="prayer-grid"></div>
     </section>
 
@@ -727,12 +837,103 @@
             evt.currentTarget.classList.add("active");
         }
 
+        // ============ دوال التاريخ الهجري ============
         const hijriFormatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', { day: 'numeric', month: 'long', year: 'numeric', weekday: 'long' });
         const hijriDayFormatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', { day: 'numeric' });
+        const hijriMonthFormatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', { month: 'long' });
+        const hijriYearFormatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', { year: 'numeric' });
         
-        const hijriString = hijriFormatter.format(new Date());
+        const now = new Date();
+        const hijriString = hijriFormatter.format(now);
         document.getElementById('hijriDate').textContent = hijriString;
 
+        // تحديث بطاقة التقويم الكبيرة
+        document.getElementById('hijriBigDay').textContent = hijriDayFormatter.format(now).replace(/[^0-9]/g, '') || '--';
+        document.getElementById('hijriBigMonth').textContent = hijriMonthFormatter.format(now);
+        document.getElementById('hijriBigYear').textContent = hijriYearFormatter.format(now).replace(/[^0-9]/g, '') + ' هـ';
+
+        // ============ بيانات المناسبات الإسلامية ============
+        const islamicEvents = [
+            { name: "الإسراء والمعراج", hijri: "27 رجب 1447", date: "17 يناير 2026", icon: "🌌", badge: "قادم" },
+            { name: "بداية شهر رمضان المبارك", hijri: "1 رمضان 1447", date: "19 فبراير 2026", icon: "🌙", badge: "قادم" },
+            { name: "ليلة القدر (المرجحة)", hijri: "27 رمضان 1447", date: "16 مارس 2026", icon: "✨", badge: "قادم" },
+            { name: "عيد الفطر المبارك", hijri: "1 شوال 1447", date: "20 مارس 2026", icon: "🎉", badge: "عيد" },
+            { name: "يوم عرفة", hijri: "9 ذو الحجة 1447", date: "26 مايو 2026", icon: "🕋", badge: "قادم" },
+            { name: "عيد الأضحى المبارك", hijri: "10 ذو الحجة 1447", date: "27 مايو 2026", icon: "🐑", badge: "عيد" },
+            { name: "رأس السنة الهجرية 1448", hijri: "1 محرم 1448", date: "16 يونيو 2026", icon: "📅", badge: "مناسبة" },
+            { name: "يوم عاشوراء", hijri: "10 محرم 1448", date: "25 يونيو 2026", icon: "💧", badge: "مناسبة" },
+            { name: "المولد النبوي الشريف", hijri: "12 ربيع الأول 1448", date: "25 أغسطس 2026", icon: "🌹", badge: "مناسبة" }
+        ];
+
+        // دالة لحساب ما إذا كانت المناسبة قد مضت أم لا (مقارنة بسيطة بالتاريخ)
+        function renderIslamicEvents() {
+            const container = document.getElementById('islamicEventsList');
+            if (!container) return;
+            
+            let html = '';
+            const today = new Date();
+            
+            islamicEvents.forEach(event => {
+                // تحويل التاريخ الميلادي للمقارنة
+                const eventDate = new Date(event.date);
+                const isPast = eventDate < today;
+                const badgeText = isPast ? 'مضت' : event.badge;
+                const badgeColor = isPast ? '#e2e8f0' : (event.badge === 'عيد' ? '#fbbf24' : '#d4af37');
+                
+                html += `
+                    <li class="event-item" style="opacity: ${isPast ? '0.6' : '1'};">
+                        <div class="event-icon">${event.icon}</div>
+                        <div class="event-info">
+                            <div class="event-name">${event.name}</div>
+                            <div class="event-date">${event.date}</div>
+                            <div class="event-hijri">${event.hijri}</div>
+                        </div>
+                        <span class="event-badge" style="background: ${badgeColor}; color: ${isPast ? '#64748b' : '#5c4a1f'};">${badgeText}</span>
+                    </li>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        renderIslamicEvents();
+
+        // ============ أوقات الصلاة مع تحديد طريقة الحساب تلقائياً ============
+        async function getPrayerTimes() {
+            const city = document.getElementById('cityInput').value || 'حلب';
+            const country = "Syria"; // حالياً مثبتة لسوريا
+            
+            // تحديد طريقة الحساب: إذا كانت سوريا -> 3 (رابطة العالم الإسلامي)، غير ذلك -> 2 (ISNA) كافتراضي
+            let method = 3; // رابطة العالم الإسلامي (سوريا)
+            let methodNote = "طريقة الحساب: رابطة العالم الإسلامي (سوريا)";
+            
+            // منطق بسيط: إذا غيرت الدولة في المستقبل، يمكنك تعديل هذا الشرط
+            if (country !== "Syria") {
+                method = 2; // Islamic Society of North America كافتراضي
+                methodNote = "طريقة الحساب: حسب الدولة";
+            }
+            
+            document.getElementById('methodNote').textContent = methodNote;
+
+            try {
+                const res = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=${country}&method=${method}`);
+                const data = await res.json();
+                const t = data.data.timings;
+                const names = { Fajr: 'الفجر', Sunrise: 'الشروق', Dhuhr: 'الظهر', Asr: 'العصر', Maghrib: 'المغرب', Isha: 'العشاء' };
+                let html = '', marquee = '';
+                for(let k in names) {
+                    let [h, m] = t[k].split(':');
+                    h = parseInt(h); let ampm = h >= 12 ? 'م' : 'ص'; h = h % 12 || 12;
+                    html += `<div class="prayer-card"><h4>${names[k]}</h4><p>${h}:${m} ${ampm}</p></div>`;
+                    marquee += `<span>🕌 ${names[k]}: ${h}:${m} ${ampm}</span>`;
+                }
+                document.getElementById('prayerResult').innerHTML = html;
+                document.getElementById('marqueeContent').innerHTML = marquee + marquee;
+            } catch(e) {
+                document.getElementById('prayerResult').innerHTML = '<p style="text-align:center; color:red;">تعذر جلب بيانات الصلاة (تأكد من الاتصال بالإنترنت).</p>';
+            }
+        }
+
+        // ============ دوال طور القمر ============
         function updateMoonPhase() {
             try {
                 const dayNumStr = hijriDayFormatter.format(new Date()).replace(/[^0-9]/g, '');
@@ -756,30 +957,7 @@
         }
         updateMoonPhase();
 
-        // تحديث جلب أوقات الصلاة لمدينة حلب بطريقة رابطة العالم الإسلامي
-        async function getPrayerTimes() {
-            const city = "حلب"; // تثبيت المدينة
-            const method = 3; // 3 = Muslim World League (رابطة العالم الإسلامي)
-            
-            try {
-                const res = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=Syria&method=${method}`);
-                const data = await res.json();
-                const t = data.data.timings;
-                const names = { Fajr: 'الفجر', Sunrise: 'الشروق', Dhuhr: 'الظهر', Asr: 'العصر', Maghrib: 'المغرب', Isha: 'العشاء' };
-                let html = '', marquee = '';
-                for(let k in names) {
-                    let [h, m] = t[k].split(':');
-                    h = parseInt(h); let ampm = h >= 12 ? 'م' : 'ص'; h = h % 12 || 12;
-                    html += `<div class="prayer-card"><h4>${names[k]}</h4><p>${h}:${m} ${ampm}</p></div>`;
-                    marquee += `<span>🕌 ${names[k]}: ${h}:${m} ${ampm}</span>`;
-                }
-                document.getElementById('prayerResult').innerHTML = html;
-                document.getElementById('marqueeContent').innerHTML = marquee + marquee;
-            } catch(e) {
-                document.getElementById('prayerResult').innerHTML = '<p style="text-align:center; color:red;">تعذر جلب بيانات الصلاة (تأكد من الاتصال بالإنترنت).</p>';
-            }
-        }
-
+        // ============ حاسبة الزكاة ============
         function calculateZakat() {
             const money = parseFloat(document.getElementById('zakatMoney').value) || 0;
             const goods = parseFloat(document.getElementById('zakatGoods').value) || 0;
@@ -791,6 +969,7 @@
             resDiv.innerHTML = `إجمالي الأموال الخاضعة للزكاة: ${total.toLocaleString()} <br> مقدار الزكاة الواجب إخراجها (2.5%): <span style="color:#d4af37; font-size:1.2rem;">${zakatAmount.toLocaleString()}</span>`;
         }
 
+        // ============ حاسبة الميراث ============
         function calculateInheritance() {
             const estate = parseFloat(document.getElementById('estateAmount').value) || 0;
             const hasWife = document.getElementById('hasWife').value === 'yes';
@@ -833,6 +1012,7 @@
             resDiv.innerHTML = resultHtml;
         }
 
+        // ============ أقرب مسجد ============
         function findNearestMosques() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(pos => {
@@ -847,7 +1027,7 @@
             }
         }
 
-        /* ============ منطق بوصلة القبلة ============ */
+        // ============ بوصلة القبلة ============
         let compassActive = false;
         let qiblaBearing = 0;
         let currentHeading = 0;
@@ -964,110 +1144,16 @@
             );
         }
 
-        /* ============ منطق دليل العبادات ============ */
+        // ============ دليل العبادات ============
         const worshipData = {
-            wudu: {
-                icon: "🚰",
-                title: "خطوات الوضوء",
-                steps: [
-                    "النية بقلبك (الوضوء لرفع الحدث)",
-                    "غسل الكفين ثلاث مرات",
-                    "المضمضة (وضع الماء في الفم وتحريكه) 3 مرات",
-                    "الاستنشاق (سحب الماء إلى الأنف) والاستنثار 3 مرات",
-                    "غسل الوجه ثلاث مرات (من الجبهة إلى اللحية، ومن الأذن إلى الأذن)",
-                    "غسل اليدين مع المرفقين ثلاث مرات (اليمنى ثم اليسرى)",
-                    "مسح الرأس كاملاً مرة واحدة",
-                    "مسح الأذنين (داخلهما بالسبابتين وخارجهما بالإبهامين)",
-                    "غسل القدمين مع الكعبين ثلاث مرات (اليمنى ثم اليسرى)"
-                ]
-            },
-            salah: {
-                icon: "🕌",
-                title: "أركان الصلاة الأساسية",
-                steps: [
-                    "القيام مع القدرة، ثم تكبيرة الإحرام (الله أكبر)",
-                    "قراءة سورة الفاتحة وما تيسر من القرآن",
-                    "الركوع (سبحان ربي العظيم 3 مرات)",
-                    "الرفع من الركوع (سمع الله لمن حمده، ربنا ولك الحمد)",
-                    "السجود (سبحان ربي الأعلى 3 مرات)",
-                    "الجلوس بين السجدتين (رب اغفر لي)",
-                    "السجود الثاني",
-                    "الجلوس للتشهد الأخير والسلام"
-                ]
-            },
-            quranW: {
-                icon: "📖",
-                title: "آداب تلاوة القرآن",
-                steps: [
-                    "الطهارة (يفضل الوضوء قبل التلاوة)",
-                    "الاستعاذة بالله من الشيطان الرجيم",
-                    "البسملة (بسم الله الرحمن الرحيم)",
-                    "الترتيل والتأني في القراءة (ورتل القرآن ترتيلاً)",
-                    "التدبر وفهم معاني الآيات",
-                    "السجود عند آيات السجدة"
-                ]
-            },
-            fasting: {
-                icon: "🌴",
-                title: "أحكام الصيام",
-                steps: [
-                    "النية قبل الفجر (صيام اليوم)",
-                    "الإمساك عن الطعام والشراب والشهوات من الفجر حتى المغرب",
-                    "الالتزام بالأخلاق الحسنة وترك الغيبة والنميمة",
-                    "السحور (سنة مؤكدة)",
-                    "تعجيل الفطر عند غروب الشمس",
-                    "الدعاء عند الإفطار"
-                ]
-            },
-            zakatW: {
-                icon: "💰",
-                title: "شروط وجوب الزكاة",
-                steps: [
-                    "الإسلام (لا تجب على غير المسلم)",
-                    "الحرية (لا تجب على المملوك)",
-                    "ملك النصاب (الحد الأدنى من المال)",
-                    "حولان الحول (مرور سنة قمرية كاملة على المال)",
-                    "المال النامي (أو القابل للنماء كالذهب والفضة والنقود)",
-                    "إخراج 2.5% من المال للفقراء والمحتاجين"
-                ]
-            },
-            hajj: {
-                icon: "🕋",
-                title: "أركان الحج",
-                steps: [
-                    "الإحرام (النية والتلبية)",
-                    "الوقوف بعرفة (الركن الأعظم)",
-                    "طواف الإفاضة (يوم النحر)",
-                    "السعي بين الصفا والمروة",
-                    "الحلق أو التقصير",
-                    "المبيت بمنى أيام التشريق",
-                    "رمي الجمرات"
-                ]
-            },
-            umrah: {
-                icon: "🕋",
-                title: "أركان العمرة",
-                steps: [
-                    "الإحرام من الميقات",
-                    "الطواف حول الكعبة (7 أشواط)",
-                    "الصلاة خلف مقام إبراهيم",
-                    "السعي بين الصفا والمروة (7 أشواط)",
-                    "الحلق أو التقصير (لإتمام العمرة)"
-                ]
-            },
-            adhkarW: {
-                icon: "📿",
-                title: "أوقات الأذكار",
-                steps: [
-                    "أذكار الصباح والمساء",
-                    "أذكار بعد الصلوات المكتوبة",
-                    "أذكار النوم والاستيقاظ",
-                    "أذكار الطعام والشراب",
-                    "أذكار دخول وخروج المنزل والمسجد",
-                    "أذكار الهم والحزن",
-                    "الاستغفار والتسبيح دائماً"
-                ]
-            }
+            wudu: { icon: "🚰", title: "خطوات الوضوء", steps: ["النية بقلبك", "غسل الكفين 3 مرات", "المضمضة 3 مرات", "الاستنشاق والاستنثار 3 مرات", "غسل الوجه 3 مرات", "غسل اليدين مع المرفقين 3 مرات", "مسح الرأس مرة واحدة", "مسح الأذنين", "غسل القدمين مع الكعبين 3 مرات"] },
+            salah: { icon: "🕌", title: "أركان الصلاة", steps: ["تكبيرة الإحرام", "قراءة الفاتحة", "الركوع", "الرفع من الركوع", "السجود", "الجلوس بين السجدتين", "السجود الثاني", "التشهد والسلام"] },
+            quranW: { icon: "📖", title: "آداب التلاوة", steps: ["الطهارة", "الاستعاذة", "البسملة", "الترتيل", "التدبر", "السجود عند آيات السجدة"] },
+            fasting: { icon: "🌴", title: "أحكام الصيام", steps: ["النية قبل الفجر", "الإمساك عن الطعام والشراب", "الالتزام بالأخلاق", "السحور", "تعجيل الفطر", "الدعاء عند الإفطار"] },
+            zakatW: { icon: "💰", title: "شروط الزكاة", steps: ["الإسلام", "الحرية", "ملك النصاب", "حولان الحول", "المال النامي", "إخراج 2.5%"] },
+            hajj: { icon: "🕋", title: "أركان الحج", steps: ["الإحرام", "الوقوف بعرفة", "طواف الإفاضة", "السعي", "الحلق أو التقصير", "المبيت بمنى", "رمي الجمرات"] },
+            umrah: { icon: "🕋", title: "أركان العمرة", steps: ["الإحرام من الميقات", "الطواف 7 أشواط", "الصلاة خلف المقام", "السعي 7 أشواط", "الحلق أو التقصير"] },
+            adhkarW: { icon: "📿", title: "أوقات الأذكار", steps: ["أذكار الصباح والمساء", "أذكار بعد الصلوات", "أذكار النوم والاستيقاظ", "أذكار الطعام والشراب", "أذكار دخول وخروج المنزل", "أذكار الهم والحزن", "الاستغفار والتسبيح"] }
         };
 
         function openWorshipModal(key) {
@@ -1085,7 +1171,7 @@
             document.getElementById('worshipModalOverlay').classList.remove('active');
         }
 
-        /* ============ منطق القرآن والمشغل ============ */
+        // ============ القرآن والمشغل ============
         let currentSurah = 1;
         
         async function fetchSurahList() {
@@ -1149,16 +1235,11 @@
 
             if (playerBox.style.display === 'none' || playerBox.style.display === '') {
                 playerBox.style.display = 'block';
-                
-                // استخدام سيرفر mp3quran الموثوق
                 const audioUrl = `https://server8.mp3quran.net/maher/${String(surahNum).padStart(3, '0')}.mp3`;
-                
                 audioEl.src = audioUrl;
                 audioEl.play().catch(e => console.log("خطأ في التشغيل التلقائي:", e));
-                
                 const selectedOption = select.options[select.selectedIndex];
                 titleEl.textContent = selectedOption.text;
-                
                 btn.innerHTML = '⏹️ إخفاء المشغل';
                 btn.style.background = '#ef4444';
             } else {
@@ -1170,11 +1251,9 @@
             const playerBox = document.getElementById('audioPlayerBox');
             const audioEl = document.getElementById('quranAudio');
             const btn = document.getElementById('audioToggleBtn');
-            
             audioEl.pause();
             audioEl.currentTime = 0;
             playerBox.style.display = 'none';
-            
             btn.innerHTML = '🎧 تشغيل التلاوة (المعيقلي)';
             btn.style.background = '#198754';
         }
@@ -1193,7 +1272,7 @@
             window.open(`https://www.youtube.com/results?search_query=${searchQuery}`, '_blank');
         }
 
-        /* ============ منطق المسبحة ============ */
+        // ============ المسبحة ============
         let count = 0;
         function incrementTasbih() {
             count++;
@@ -1205,62 +1284,46 @@
             document.getElementById('tasbihCount').textContent = 0;
         }
 
-        /* ============ منطق الأدعية ============ */
+        // ============ الأدعية ============
         const adhkarData = [
-            {
-                category: "🌅 أذكار الصباح والمساء",
-                items: [
-                    { text: "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ.", source: "رواه مسلم" },
-                    { text: "اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ الْمَصِيرُ.", source: "رواه الترمذي" },
-                    { text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ، عَدَدَ خَلْقِهِ، وَرِضَا نَفْسِهِ، وَزِنَةَ عَرْشِهِ، وَمِدَادَ كَلِمَاتِهِ.", source: "رواه مسلم" },
-                    { text: "اللَّهُمَّ عَافِنِي فِي بَدَنِي، اللَّهُمَّ عَافِنِي فِي سَمْعِي، اللَّهُمَّ عَافِنِي فِي بَصَرِي، لَا إِلَهَ إِلَّا أَنْتَ.", source: "رواه أبو داود" },
-                    { text: "بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ، وَهُوَ السَّمِيعُ الْعَلِيمُ.", source: "رواه أبو داود والترمذي" }
-                ]
-            },
-            {
-                category: "🌙 أذكار النوم والاستيقاظ",
-                items: [
-                    { text: "بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا.", source: "رواه البخاري" },
-                    { text: "اللَّهُمَّ قِنِي عَذَابَكَ يَوْمَ تَبْعَثُ عِبَادَكَ.", source: "رواه أبو داود والترمذي" },
-                    { text: "سُبْحَانَ اللَّهِ (33)، وَالْحَمْدُ لِلَّهِ (33)، وَاللَّهُ أَكْبَرُ (34).", source: "متفق عليه" },
-                    { text: "آيَةُ الْكُرْسِيِّ: اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ...", source: "رواه البخاري" },
-                    { text: "الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ.", source: "رواه البخاري" }
-                ]
-            },
-            {
-                category: "🤲 أدعية الهم والحزن",
-                items: [
-                    { text: "اللَّهُمَّ إِنِّي عَبْدُكَ، ابْنُ عَبْدِكَ، ابْنُ أَمَتِكَ، أَصْغَرَ رَأْسِي، وَاضْطَرَّ ذَنْبِي، وَانْقَطَعَ حَبْلِي، فَاقْضِ عَنِّي دَيْنِي، وَاغْنِنِي مِنْ فَقْرِي، وَأَعْطِنِي حَاجَتِي.", source: "رواه أحمد" },
-                    { text: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ، وَالْعَجْزِ وَالْكَسَلِ، وَالْبُخْلِ وَالْجُبْنِ، وَضَلَعِ الدَّيْنِ وَغَلَبَةِ الرِّجَالِ.", source: "رواه البخاري" },
-                    { text: "لَا إِلَهَ إِلَّا اللَّهُ الْعَظِيمُ الْحَلِيمُ، لَا إِلَهَ إِلَّا اللَّهُ رَبُّ الْعَرْشِ الْعَظِيمِ، لَا إِلَهَ إِلَّا اللَّهُ رَبُّ السَّمَاوَاتِ وَرَبُّ الْأَرْضِ وَرَبُّ الْعَرْشِ الْكَرِيمِ.", source: "متفق عليه" },
-                    { text: "اللَّهُمَّ رَحْمَتَكَ أَرْجُو، فَلَا تَكِلْنِي إِلَى نَفْسِي طَرْفَةَ عَيْنٍ، وَأَصْلِحْ لِي شَأْنِي كُلَّهُ، لَا إِلَهَ إِلَّا أَنْتَ.", source: "رواه أبو داود" }
-                ]
-            },
-            {
-                category: "🕊️ أدعية الاستغفار والتوبة",
-                items: [
-                    { text: "أَسْتَغْفِرُ اللَّهَ الَّذِي لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ وَأَتُوبُ إِلَيْهِ.", source: "رواه أبو داود والترمذي" },
-                    { text: "اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ...", source: "سيد الاستغفار - رواه البخاري" },
-                    { text: "رَبِّ اغْفِرْ لِي وَتُبْ عَلَيَّ، إِنَّكَ أَنْتَ التَّوَّابُ الرَّحِيمُ.", source: "رواه الترمذي" },
-                    { text: "اللَّهُمَّ اغْفِرْ لِي ذَنْبِي كُلَّهُ، دِقَّهُ وَجِلَّهُ، وَأَوَّلَهُ وَآخِرَهُ، وَعَلَانِيَتَهُ وَسِرَّهُ.", source: "رواه مسلم" }
-                ]
-            },
-            {
-                category: "✨ أدعية مأثورة جامعة",
-                items: [
-                    { text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْهُدَى وَالتُّقَى وَالْعَفَافَ وَالْغِنَى.", source: "رواه مسلم" },
-                    { text: "اللَّهُمَّ أَصْلِحْ لِي دِينِي الَّذِي هُوَ عِصْمَةُ أَمْرِي، وَأَصْلِحْ لِي دُنْيَايَ الَّتِي فِيهَا مَعَاشِي، وَأَصْلِحْ لِي آخِرَتِي الَّتِي فِيهَا مَعَادِي.", source: "رواه مسلم" },
-                    { text: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ زَوَالِ نِعْمَتِكَ، وَتَحَوُّلِ عَافِيَتِكَ، وَفُجَاءَةِ نِقْمَتِكَ، وَجَمِيعِ سَخَطِكَ.", source: "رواه مسلم" },
-                    { text: "يَا حَيُّ يَا قَيُّومُ بِرَحْمَتِكَ أَسْتَغِيثُ، أَصْلِحْ لِي شَأْنِي كُلَّهُ وَلَا تَكِلْنِي إِلَى نَفْسِي.", source: "رواه الترمذي" },
-                    { text: "لَا إِلَهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ.", source: "دعوة ذي النون - رواه الترمذي" }
-                ]
-            }
+            { category: "🌅 أذكار الصباح والمساء", items: [
+                { text: "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ.", source: "رواه مسلم" },
+                { text: "اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ الْمَصِيرُ.", source: "رواه الترمذي" },
+                { text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ، عَدَدَ خَلْقِهِ، وَرِضَا نَفْسِهِ، وَزِنَةَ عَرْشِهِ، وَمِدَادَ كَلِمَاتِهِ.", source: "رواه مسلم" },
+                { text: "اللَّهُمَّ عَافِنِي فِي بَدَنِي، اللَّهُمَّ عَافِنِي فِي سَمْعِي، اللَّهُمَّ عَافِنِي فِي بَصَرِي، لَا إِلَهَ إِلَّا أَنْتَ.", source: "رواه أبو داود" },
+                { text: "بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ، وَهُوَ السَّمِيعُ الْعَلِيمُ.", source: "رواه أبو داود والترمذي" }
+            ]},
+            { category: "🌙 أذكار النوم والاستيقاظ", items: [
+                { text: "بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا.", source: "رواه البخاري" },
+                { text: "اللَّهُمَّ قِنِي عَذَابَكَ يَوْمَ تَبْعَثُ عِبَادَكَ.", source: "رواه أبو داود والترمذي" },
+                { text: "سُبْحَانَ اللَّهِ (33)، وَالْحَمْدُ لِلَّهِ (33)، وَاللَّهُ أَكْبَرُ (34).", source: "متفق عليه" },
+                { text: "آيَةُ الْكُرْسِيِّ: اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ...", source: "رواه البخاري" },
+                { text: "الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ.", source: "رواه البخاري" }
+            ]},
+            { category: "🤲 أدعية الهم والحزن", items: [
+                { text: "اللَّهُمَّ إِنِّي عَبْدُكَ، ابْنُ عَبْدِكَ، ابْنُ أَمَتِكَ، أَصْغَرَ رَأْسِي، وَاضْطَرَّ ذَنْبِي، وَانْقَطَعَ حَبْلِي، فَاقْضِ عَنِّي دَيْنِي، وَاغْنِنِي مِنْ فَقْرِي، وَأَعْطِنِي حَاجَتِي.", source: "رواه أحمد" },
+                { text: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ، وَالْعَجْزِ وَالْكَسَلِ، وَالْبُخْلِ وَالْجُبْنِ، وَضَلَعِ الدَّيْنِ وَغَلَبَةِ الرِّجَالِ.", source: "رواه البخاري" },
+                { text: "لَا إِلَهَ إِلَّا اللَّهُ الْعَظِيمُ الْحَلِيمُ، لَا إِلَهَ إِلَّا اللَّهُ رَبُّ الْعَرْشِ الْعَظِيمِ، لَا إِلَهَ إِلَّا اللَّهُ رَبُّ السَّمَاوَاتِ وَرَبُّ الْأَرْضِ وَرَبُّ الْعَرْشِ الْكَرِيمِ.", source: "متفق عليه" },
+                { text: "اللَّهُمَّ رَحْمَتَكَ أَرْجُو، فَلَا تَكِلْنِي إِلَى نَفْسِي طَرْفَةَ عَيْنٍ، وَأَصْلِحْ لِي شَأْنِي كُلَّهُ، لَا إِلَهَ إِلَّا أَنْتَ.", source: "رواه أبو داود" }
+            ]},
+            { category: "🕊️ أدعية الاستغفار والتوبة", items: [
+                { text: "أَسْتَغْفِرُ اللَّهَ الَّذِي لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ وَأَتُوبُ إِلَيْهِ.", source: "رواه أبو داود والترمذي" },
+                { text: "اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ...", source: "سيد الاستغفار - رواه البخاري" },
+                { text: "رَبِّ اغْفِرْ لِي وَتُبْ عَلَيَّ، إِنَّكَ أَنْتَ التَّوَّابُ الرَّحِيمُ.", source: "رواه الترمذي" },
+                { text: "اللَّهُمَّ اغْفِرْ لِي ذَنْبِي كُلَّهُ، دِقَّهُ وَجِلَّهُ، وَأَوَّلَهُ وَآخِرَهُ، وَعَلَانِيَتَهُ وَسِرَّهُ.", source: "رواه مسلم" }
+            ]},
+            { category: "✨ أدعية مأثورة جامعة", items: [
+                { text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْهُدَى وَالتُّقَى وَالْعَفَافَ وَالْغِنَى.", source: "رواه مسلم" },
+                { text: "اللَّهُمَّ أَصْلِحْ لِي دِينِي الَّذِي هُوَ عِصْمَةُ أَمْرِي، وَأَصْلِحْ لِي دُنْيَايَ الَّتِي فِيهَا مَعَاشِي، وَأَصْلِحْ لِي آخِرَتِي الَّتِي فِيهَا مَعَادِي.", source: "رواه مسلم" },
+                { text: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ زَوَالِ نِعْمَتِكَ، وَتَحَوُّلِ عَافِيَتِكَ، وَفُجَاءَةِ نِقْمَتِكَ، وَجَمِيعِ سَخَطِكَ.", source: "رواه مسلم" },
+                { text: "يَا حَيُّ يَا قَيُّومُ بِرَحْمَتِكَ أَسْتَغِيثُ، أَصْلِحْ لِي شَأْنِي كُلَّهُ وَلَا تَكِلْنِي إِلَى نَفْسِي.", source: "رواه الترمذي" },
+                { text: "لَا إِلَهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ.", source: "دعوة ذي النون - رواه الترمذي" }
+            ]}
         ];
 
         function renderAdhkar() {
             const container = document.getElementById('duaContainer');
             if (!container) return;
-            
             let html = '';
             adhkarData.forEach((cat, catIdx) => {
                 html += `<h3 class="dua-category-title">${cat.category}</h3>`;
@@ -1290,7 +1353,6 @@
             current++;
             countEl.textContent = current;
             if (navigator.vibrate) navigator.vibrate(20);
-            
             if ([3, 7, 10, 33, 100].includes(current)) {
                 btnEl.classList.add('active');
                 setTimeout(() => btnEl.classList.remove('active'), 1500);
