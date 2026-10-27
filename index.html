@@ -136,7 +136,7 @@
         .prayer-card h4 { color: var(--primary-light); font-size: 1.1rem; margin-bottom: 0.5rem; }
         .prayer-card p { font-size: 1.3rem; font-weight: bold; }
 
-        /* --- تصميم البوصلة المحترف والمطابق للصورة --- */
+        /* --- تصميم البوصلة المطابق للصورة والاحترافي --- */
         .qibla-box { 
             text-align: center; background: #fff; padding: 2rem 1.5rem; 
             border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.08); 
@@ -147,15 +147,16 @@
             background: #fdfdfd; border: 8px solid #e2e8f0; margin: 0 auto 1.5rem;
             position: relative; display: flex; align-items: center; justify-content: center;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1), inset 0 0 15px rgba(0,0,0,0.05);
+            overflow: hidden;
         }
         .compass-top-marker {
-            position: absolute; top: -6px; left: 50%; transform: translateX(-50%);
+            position: absolute; top: -2px; left: 50%; transform: translateX(-50%);
             width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent;
-            border-bottom: 14px solid #e91e63; z-index: 20;
+            border-bottom: 14px solid #e91e63; z-index: 30;
         }
         .compass-dial {
             width: 100%; height: 100%; position: absolute; top: 0; left: 0;
-            border-radius: 50%; transition: transform 0.1s ease-out;
+            border-radius: 50%; will-change: transform;
         }
         .compass-directions {
             position: absolute; width: 100%; height: 100%; top: 0; left: 0; font-weight: bold; color: #4a5568; font-size: 0.9rem;
@@ -170,15 +171,16 @@
         .dir-deg-225 { position: absolute; bottom: 38px; left: 45px; font-size: 0.75rem; color: #718096; }
         .dir-deg-135 { position: absolute; bottom: 38px; right: 45px; font-size: 0.75rem; color: #718096; }
 
+        /* الكعبة المشرفة في المركز مع مؤشر القبلة */
         .kaaba-center {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            font-size: 2.8rem; z-index: 10; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+            font-size: 2.5rem; z-index: 20; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
         }
         .qibla-pointer-indicator {
-            position: absolute; top: 15px; left: 50%; transform: translateX(-50%);
-            width: 14px; height: 75px; background: linear-gradient(to bottom, #3182ce, rgba(49, 130, 206, 0.1));
-            clip-path: polygon(50% 0%, 0% 100%, 100% 100%); z-index: 5;
-            transform-origin: bottom center;
+            position: absolute; top: 50%; left: 50%;
+            width: 14px; height: 100px; background: linear-gradient(to top, transparent 50%, #3182ce 50%);
+            transform-origin: center bottom;
+            z-index: 10;
         }
 
         .moon-box {
@@ -280,12 +282,13 @@
         <div id="prayerResult" class="prayer-grid"></div>
     </section>
 
-    <!-- تبويب بوصلة القبلة بعد تصحيح الحساب الحي والجهات -->
+    <!-- تبويب بوصلة القبلة الاحترافية بعد إصلاح اتجاه القرص والحساسات -->
     <section id="qibla" class="content-section">
         <h2 class="section-title">اتجاه القبلة</h2>
         <div class="qibla-box">
             <div class="compass-outer">
                 <div class="compass-top-marker"></div>
+                <!-- قرص البوصلة الذي يدور بالاتجاه الصحيح تماماً مع الشمال -->
                 <div id="compassDial" class="compass-dial">
                     <div class="compass-directions">
                         <span class="dir-n">N</span>
@@ -297,13 +300,15 @@
                         <span class="dir-deg-135">135</span>
                         <span class="dir-deg-225">225</span>
                     </div>
+                    <!-- مؤشر خط القبلة الموجه نحو زاوية الكعبة -->
                     <div id="qiblaPointer" class="qibla-pointer-indicator"></div>
                 </div>
+                <!-- أيقونة الكعبة المشرفة في المنتصف -->
                 <div class="kaaba-center">🕋</div>
             </div>
-            <p id="qiblaStatus" style="font-weight: bold; margin-bottom: 0.8rem; color: var(--primary); font-size: 1rem;">اضغط الزر أدناه لتفعيل البوصلة الحية بدقة</p>
+            <p id="qiblaStatus" style="font-weight: bold; margin-bottom: 0.8rem; color: var(--primary); font-size: 1rem;">اضغط الزر أدناه لتفعيل البوصلة الحية وإذن الحساسات</p>
             <p style="font-size: 0.85rem; color: #666; margin-bottom: 1rem;">لمعايرة البوصلة حرك جهازك على شكل <span style="font-weight:bold; color:var(--primary);">∞</span> عدة مرات</p>
-            <button onclick="initQibla()" style="padding:10px 22px; background:var(--primary); color:white; border:none; border-radius:20px; cursor:pointer; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">🧭 تفعيل بوصلة القبلة الحية</button>
+            <button onclick="initQibla()" style="padding:10px 22px; background:var(--primary); color:white; border:none; border-radius:20px; cursor:pointer; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">🧭 تفعيل وبدء بوصلة القبلة</button>
         </div>
     </section>
 
@@ -532,69 +537,72 @@
             }
         }
 
-        /* --- الحساب الصحيح لاتجاه القبلة والبوصلة الحية --- */
-        let qiblaCalculatedAngle = 170; // افتراضياً لحلب وما حولها
+        /* --- الكود الصحيح والنهائي للبوصلة وحساب القبلة بدقة --- */
+        let qiblaAngle = 170; // القيمة الافتراضية المقربة لحلب
 
         function initQibla() {
-            if (!navigator.geolocation) {
-                alert('متصفحك لا يدعم تحديد الموقع الجغرافي.');
-                return;
+            const statusEl = document.getElementById('qiblaStatus');
+            statusEl.textContent = "جاري تفعيل الحساسات وطلب إذن الموقع...";
+
+            // طلب إذن حساسات الأجهزة الموجهة (خصوصاً iOS 13+)
+            if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+                DeviceOrientationEvent.requestPermission().then(response => {
+                    if (response === 'granted') {
+                        window.addEventListener('deviceorientation', handleOrientation, true);
+                    } else {
+                        alert('تم رفض إذن حساسات الحركة.');
+                    }
+                }).catch(err => console.error(err));
+            } else {
+                // للأندرويد والمتصفحات العادية
+                window.addEventListener('deviceorientation', handleOrientation, true);
             }
 
-            document.getElementById('qiblaStatus').textContent = "جاري تحديد إحداثيات موقعك عبر الـ GPS وحساب القبلة...";
-
-            navigator.geolocation.getCurrentPosition(pos => {
-                const lat = pos.coords.latitude;  
-                const lng = pos.coords.longitude; 
-                
-                const kaabaLat = 21.4225;
-                const kaabaLng = 39.8262;
-                
-                const phiK = kaabaLat * Math.PI / 180;
-                const lambdaK = kaabaLng * Math.PI / 180;
-                const phi = lat * Math.PI / 180;
-                const lambda = lng * Math.PI / 180;
-                
-                // معادلة حساب اتجاه القبلة من موقع المستخدم بدقة
-                const y = Math.sin(lambdaK - lambda);
-                const x = Math.cos(phi) * Math.tan(phiK) - Math.sin(phi) * Math.cos(lambdaK - lambda);
-                let psi = Math.atan2(y, x) * 180 / Math.PI;
-                qiblaCalculatedAngle = (psi + 360) % 360;
-                
-                // ضبط مؤشر القبلة على زاوية القبلة المحسوبة داخل القرص
-                document.getElementById('qiblaPointer').style.transform = `translateX(-50%) rotate(${qiblaCalculatedAngle}deg)`;
-                
-                document.getElementById('qiblaStatus').innerHTML = `اتجاه القبلة: <span style="color:#3182ce;">${Math.round(qiblaCalculatedAngle)}°</span> - حرك هاتفك`;
-
-                // تفعيل حساسات حركة الجهاز الحقيقية (DeviceOrientation)
-                if (window.DeviceOrientationEvent) {
-                    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-                        DeviceOrientationEvent.requestPermission().then(response => {
-                            if (response === 'granted') {
-                                window.addEventListener('deviceorientation', handleCompassOrientation, true);
-                            }
-                        }).catch(console.error);
-                    } else {
-                        window.addEventListener('deviceorientation', handleCompassOrientation, true);
-                    }
-                }
-                
-            }, (error) => {
-                alert('تعذر تحديد الموقع. يرجى تفعيل الـ GPS والسماح للمتصفح بالوصول للموقع.');
-                document.getElementById('qiblaStatus').textContent = "فشل تحديد الموقع، استخدم القيمة الافتراضية.";
-            }, { enableHighAccuracy: true });
+            // حساب الإحداثيات الحقيقية عبر الجي بي إس
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(pos => {
+                    const lat = pos.coords.latitude;
+                    const lng = pos.coords.longitude;
+                    
+                    const kaabaLat = 21.4225;
+                    const kaabaLng = 39.8262;
+                    
+                    const phiK = kaabaLat * Math.PI / 180;
+                    const lambdaK = kaabaLng * Math.PI / 180;
+                    const phi = lat * Math.PI / 180;
+                    const lambda = lng * Math.PI / 180;
+                    
+                    const y = Math.sin(lambdaK - lambda);
+                    const x = Math.cos(phi) * Math.tan(phiK) - Math.sin(phi) * Math.cos(lambdaK - lambda);
+                    let psi = Math.atan2(y, x) * 180 / Math.PI;
+                    qiblaAngle = (psi + 360) % 360;
+                    
+                    // توجيه خط سهم القبلة نحو الزاوية المحسوبة داخل القرص
+                    document.getElementById('qiblaPointer').style.transform = `translate(-50%, -100%) rotate(${qiblaAngle}deg)`;
+                    statusEl.innerHTML = `تم ضبط اتجاه القبلة بنجاح: <span style="color:#3182ce;">${Math.round(qiblaAngle)}°</span>`;
+                }, () => {
+                    statusEl.textContent = "تعذر تحديد الموقع عبر الـ GPS، يتم استخدام القيمة الافتراضية.";
+                    document.getElementById('qiblaPointer').style.transform = `translate(-50%, -100%) rotate(${qiblaAngle}deg)`;
+                }, { enableHighAccuracy: true });
+            } else {
+                document.getElementById('qiblaPointer').style.transform = `translate(-50%, -100%) rotate(${qiblaAngle}deg)`;
+            }
         }
 
-        function handleCompassOrientation(event) {
-            let heading = event.alpha; // اتجاه الشمال بالنسبة للجهاز
-            if (event.webkitCompassHeading) {
-                heading = event.webkitCompassHeading; // خاص بأجهزة آبل (iOS)
+        function handleOrientation(event) {
+            let heading = null;
+            if (event.webkitCompassHeading !== undefined) {
+                // أجهزة أפל (آي فون) توفر الاتجاه المغناطيسي المباشر بدقة
+                heading = event.webkitCompassHeading;
+            } else if (event.alpha !== null) {
+                // أجهزة أندرويد القياسية
+                heading = 360 - event.alpha;
             }
 
-            if (heading !== null && heading !== undefined) {
-                // التصحيح الصحيح: تدوير القرص بعكس اتجاه زاوية دوران الهاتف (Heading)
-                let dialRotation = -heading;
-                document.getElementById('compassDial').style.transform = `rotate(${dialRotation}deg)`;
+            if (heading !== null) {
+                // تدوير قرص البوصلة بالكامل عكس اتجاه حركة الهاتف ليتطابق مع الشمال الحقيقي
+                const dial = document.getElementById('compassDial');
+                dial.style.transform = `rotate(${-heading}deg)`;
             }
         }
 
@@ -609,7 +617,7 @@
         }
 
         async function loadSurah() {
-            currentSurah = document.getElementById('surahSelect').value;
+            currentSurah = document.getElementById('surahSelect'].value;
             if(!currentSurah) return;
             const textBox = document.getElementById('quranText');
             textBox.innerHTML = '<p style="text-align:center;">جاري تحميل السورة الكريمة...</p>';
@@ -666,8 +674,8 @@
         window.onload = () => {
             getPrayerTimes(); 
             fetchSurahList(); 
-            // ضبط المؤشر الابتدائي المبدئي على 170 درجة
-            document.getElementById('qiblaPointer').style.transform = `translateX(-50%) rotate(170deg)`;
+            // ضبط المؤشر مبدئياً على زاوية 170 درجة لحين تفعيل الحساسات
+            document.getElementById('qiblaPointer').style.transform = `translate(-50%, -100%) rotate(170deg)`;
 
             const adhkar = ["سبحان الله وبحمده", "أستغفر الله وأتوب إليه", "لا حول ولا قوة إلا بالله", "لا إله إلا الله وحده لا شريك له"];
             document.getElementById('adhkarList').innerHTML = adhkar.map(a => `<div class="dhikr-item"><div class="dhikr-text">${a}</div><div class="dhikr-counter" onclick="this.textContent = parseInt(this.textContent) + 1">+</div></div>`).join('');
