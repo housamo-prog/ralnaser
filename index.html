@@ -325,7 +325,7 @@
         .prayer-card h4 { color: var(--primary-light); font-size: 1.1rem; margin-bottom: 0.5rem; }
         .prayer-card p { font-size: 1.3rem; font-weight: bold; }
 
-        /* ============ إصلاح البوصلة ============ */
+        /* ============ البوصلة ============ */
         .qibla-app {
             max-width: 480px; margin: 0 auto;
             background: linear-gradient(145deg, #ffffff 0%, #f0f7f4 100%);
@@ -337,16 +337,12 @@
         .qibla-header p { color: #6b7280; font-size: 0.85rem; }
         
         .qibla-compass-container { position: relative; width: 100%; max-width: 340px; margin: 0 auto 1.5rem; aspect-ratio: 1; }
-        
-        /* المؤشر الثابت في الأعلى (مكان نظر المستخدم) */
         .heading-marker { 
             position: absolute; top: -10px; left: 50%; transform: translateX(-50%); 
             width: 0; height: 0; border-left: 14px solid transparent; border-right: 14px solid transparent; 
             border-top: 20px solid #dc2626; z-index: 40; 
             filter: drop-shadow(0 3px 5px rgba(220,38,38,0.5)); 
         }
-        
-        /* السهم الأخضر الثابت في الأعلى (يشير دائماً للأمام) */
         .qibla-needle { 
             position: absolute; top: 50%; left: 50%; 
             width: 6px; height: 45%; 
@@ -367,7 +363,6 @@
             border-radius: 3px; box-shadow: 0 0 8px rgba(22,163,74,0.4); 
         }
 
-        /* القرص الدوار (يحتوي على الحروف والكعبة) */
         .compass-dial { 
             position: absolute; inset: 0; border-radius: 50%; 
             background: radial-gradient(circle at 50% 50%, #ffffff 0%, #f8fafb 60%, #e8eef0 100%); 
@@ -390,7 +385,6 @@
         .intercardinal.se { bottom: 55px; right: 55px; }
         .intercardinal.sw { bottom: 55px; left: 55px; }
         
-        /* أيقونة الكعبة */
         .kaaba-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(145deg, #ffffff, #f0f7f4); display: flex; align-items: center; justify-content: center; font-size: 2rem; box-shadow: 0 6px 20px rgba(0,0,0,0.15), inset 0 0 0 3px var(--gold), inset 0 0 0 6px #fff; z-index: 20; }
         
         .qibla-degree-display { display: flex; justify-content: center; align-items: center; gap: 1rem; margin: 1.5rem 0 1rem; padding: 1rem; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); border-radius: 15px; box-shadow: 0 8px 20px rgba(15, 81, 50, 0.25); }
@@ -599,10 +593,7 @@
             </div>
             
             <div class="qibla-compass-container">
-                <!-- المؤشر الثابت في الأعلى -->
                 <div class="heading-marker"></div>
-                
-                <!-- القرص الدوار الذي يحتوي على الحروف وعلامات الدرجات -->
                 <div id="compassDial" class="compass-dial">
                     <div class="compass-ring"></div>
                     <div class="tick-marks" id="tickMarks"></div>
@@ -616,11 +607,7 @@
                     <span class="intercardinal sw">SW</span>
                     <div id="alignedGlow" class="aligned-glow"></div>
                 </div>
-                
-                <!-- السهم الأخضر الثابت (يشير دائماً للأمام تحت المؤشر الأحمر) -->
                 <div id="qiblaNeedle" class="qibla-needle"></div>
-                
-                <!-- أيقونة الكعبة في المنتصف الثابت -->
                 <div class="kaaba-center">🕋</div>
             </div>
 
@@ -734,7 +721,6 @@
             </button>
         </div>
 
-        <!-- مشغل الصوت المدمج -->
         <div id="audioPlayerBox" class="audio-player-box">
             <div class="audio-player-header">
                 <span>🎧 استماع: <span id="nowPlayingTitle">سورة...</span></span>
@@ -941,7 +927,7 @@
             } else window.open(`https://www.google.com/maps/search/أقرب+مسجد`, '_blank');
         }
 
-        /* ============ منطق البوصلة المُصلح ============ */
+        /* ============ منطق البوصلة ============ */
         let compassActive = false;
         let qiblaBearing = 0;
         let currentHeading = 0;
@@ -975,12 +961,8 @@
         function updateCompassUI(heading) {
             currentHeading = heading;
             
-            // 1. تدوير القرص (يحتوي على الحروف N,S,E,W) عكس اتجاه الهاتف
             const dial = document.getElementById('compassDial');
             if (dial) dial.style.transform = `rotate(${-heading}deg)`;
-            
-            // السهم الأخضر يبقى ثابتاً في مكانه (لا يدور) ليشير دائماً للأمام (مكان نظرك)
-            // لكننا نعتمد في تحديد "القبلة" على مكان حرف N عندما يدور القرص تحت السهم.
 
             const qiblaDeg = Math.round(qiblaBearing);
             const headingDeg = Math.round(heading);
@@ -1153,7 +1135,6 @@
 
             if (playerBox.style.display === 'none' || playerBox.style.display === '') {
                 playerBox.style.display = 'block';
-                
                 const serverName = recitersServers[reciter] || 'maher';
                 const audioUrl = `https://server8.mp3quran.net/${serverName}/${String(surahNum).padStart(3, '0')}.mp3`;
                 
@@ -1208,9 +1189,10 @@
             document.getElementById('tasbihCount').textContent = 0;
         }
 
-        /* ============ الأدعية ============ */
+        /* ============ الأدعية والأذكار ============ */
         const adhkarData = [
             { category: "🌅 أذكار الصباح والمساء", items: [
+                { text: "عود نفسك بعد الفجر أن تقول:\n\nاللهم يا فاتح الأبواب، ويا ميسّر الأسباب، ويا من بيده مفاتيح الغيب، أسألك مع هذا الصباح أن تفتح لي فتحًا يليق بكرمك، وأن تسوق إليّ من خيرات الدنيا ما يُصلح حالي، ويُطمئن قلبي، ويُبارك عمري. اللهم اجعل هذا اليوم مختلفًا عن كل يوم، واكتب لي فيه بدايةً تُفرحني، وخطوةً تُقرّبني، ونعمةً تُغنيني، وبشارةً تُنسي قلبي طول الانتظار.\n\nاللهم إني أستيقظ اليوم وأنت ربي، وأملي فيك لا ينقطع، وثقتي برحمتك لا تتبدّل، فاجعلني في جوارك وحفظك، وأحطني بعنايتك التي لا تغفل، واصرف عني ما لا أطيق، ولا تحملني من أعباء الحياة ما يُضعف قلبي أو يُطفئ عزيمتي. اللهم امنحني قوةً أواجه بها مسؤولياتي، وحكمةً أختار بها قراراتي، وصبرًا أحتمل به ما لا أستطيع تغييره، وبصيرةً أرى بها الخير حتى حين يختبئ خلف ما لا أحب.\n\nيا رب، اجعل لي في هذا الصباح نصيبًا من كل رحمة، وحظًا من كل بركة، وسهمًا من كل رزقٍ طيب. اللهم ارزقني رزقًا يأتيني بكرامتك، ويكفيني بفضلك، ويُغنيني عن ذلّ السؤال، وبارك لي فيما أعطيتني، وزدني من فضلك زيادةً تُصلح بها دنياي وآخرتي. اللهم افتح أمامي طرقًا ظننتها مغلقة، ويسّر لي أمورًا حسبتها مستحيلة، وسخّر لي الأسباب التي تعجز يدي عن الوصول إليها.\n\nاللهم طهّر قلبي من القلق الذي يسرق فرحتي، ومن الخوف الذي يُقيّد خطواتي، ومن الحزن الذي يُثقِل روحي. علّمني أن أعيش يومي بقلبٍ حاضر، وأن أُحسن الظن بك في كل ما أجهل، وأن أرى في تأخيرك رحمة، وفي منعك حكمة، وفي عطائك فضلًا، وفي كل قدرٍ تختاره لي خيرًا وإن لم أفهمه الآن.\n\nاللهم احفظني وأهلي ومن أحب من كل سوء، واستر عيوبنا، واغفر ذنوبنا، وأصلح أحوالنا، وأدم علينا نعمة الصحة والعافية والأمان. اللهم أبعد عنا شرّ المفاجآت، ووجع الخذلان، وثقل الديون، وضيق الأرزاق، وسوء الأخبار، واجعل بيوتنا عامرةً بذكرك، وقلوبنا مملوءةً بنورك، وأيامنا محاطةً بلطفك.\n\nاللهم في هذا الصباح، أسألك قلبًا لا تهزمه الابتلاءات، ولا تسرقه الدنيا من قربك. ارزقني من الأقدار أجملها، ومن الألطاف أخفاها، ومن العطايا أوسعها، ومن المسرّات أكثرها. واجعل لي في هذا اليوم دعوةً لا تُرد، ورزقًا لا يُعد، وخيرًا لا ينفد، وراحةً لا تزول. اللهم إذا انتهى هذا اليوم، فاجعلني أحمدك على أمرٍ تحقق، وبلاءٍ اندفع، ورزقٍ وصل، ونعمةٍ بقيت، ولطفٍ أحاط بي دون أن أشعر. آمين يا رب العالمين.", source: "دعاء مستجاب" },
                 { text: "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ.", source: "رواه مسلم" },
                 { text: "اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ الْمَصِيرُ.", source: "رواه الترمذي" },
                 { text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ، عَدَدَ خَلْقِهِ، وَرِضَا نَفْسِهِ، وَزِنَةَ عَرْشِهِ، وَمِدَادَ كَلِمَاتِهِ.", source: "رواه مسلم" },
@@ -1253,9 +1235,11 @@
                 html += `<h3 class="dua-category-title">${cat.category}</h3>`;
                 cat.items.forEach((item, idx) => {
                     const id = `dua-${catIdx}-${idx}`;
+                    // استبدال الأسطر الجديدة بـ <br> لعرض النص بشكل صحيح
+                    const formattedText = item.text.replace(/\n/g, '<br>');
                     html += `
                         <div class="dua-card">
-                            <div class="dua-text">${item.text}</div>
+                            <div class="dua-text">${formattedText}</div>
                             <div class="dua-footer">
                                 <span class="dua-source">📚 ${item.source}</span>
                                 <button class="dua-count-btn" id="btn-${id}" onclick="countDua('${id}')">
