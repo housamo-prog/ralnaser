@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الشيخ الدكتور محمد ربيع الناصر - التطبيق الشامل</title>
-    <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0f5132">
     
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Amiri:wght@400;700&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
@@ -345,21 +344,52 @@
             font-size: 0.75rem; font-weight: bold;
         }
 
-        /* ============ بقية التصميم ============ */
-        .qa-form, .tool-box { background: var(--white); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: 1px solid #eee; }
-        .qa-form input, .qa-form textarea, .tool-box input, .tool-box select, select {
-            width: 100%; padding: 12px; margin-bottom: 1rem; border: 1px solid #ddd;
-            border-radius: 8px; font-family: 'Cairo', sans-serif; font-size: 1rem;
+        /* ============ قسم الخواطر الجديد ============ */
+        .khawatir-container {
+            display: grid;
+            gap: 1.5rem;
         }
-        .qa-form textarea { height: 100px; resize: vertical; }
+        .khawira-card {
+            background: var(--white); border-radius: 15px; padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-right: 5px solid var(--gold);
+            position: relative;
+        }
+        .khawira-text {
+            font-family: 'Amiri', serif; font-size: 1.3rem; line-height: 2;
+            margin-bottom: 1rem; white-space: pre-wrap;
+        }
+        .khawira-media {
+            max-width: 100%; border-radius: 10px; margin-top: 1rem;
+            display: block;
+        }
+        .khawira-link {
+            display: inline-block; background: var(--primary); color: white;
+            padding: 8px 15px; border-radius: 8px; text-decoration: none;
+            margin-top: 1rem; font-size: 0.9rem;
+        }
+        .khawira-date { font-size: 0.8rem; color: #999; margin-top: 1rem; display: block; }
+        .delete-khawira-btn {
+            position: absolute; top: 15px; left: 15px;
+            background: #ef4444; color: white; border: none;
+            padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.8rem;
+            display: none; /* يظهر فقط لوضع التحرير */
+        }
 
-        .prayer-search { display: flex; gap: 10px; margin-bottom: 2rem; justify-content: center; }
-        .prayer-search input { padding: 12px; border: 1px solid #ddd; border-radius: 8px; width: 250px; }
-        .prayer-search button { padding: 12px 25px; background: var(--primary); color: white; border: none; border-radius: 8px; cursor: pointer; }
-        .prayer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1rem; }
-        .prayer-card { background: var(--white); text-align: center; padding: 1.2rem; border-radius: 15px; border-bottom: 4px solid var(--primary); }
-        .prayer-card h4 { color: var(--primary-light); font-size: 1.1rem; margin-bottom: 0.5rem; }
-        .prayer-card p { font-size: 1.3rem; font-weight: bold; }
+        /* ============ لوحة التحكم بالخواطر (تظهر للشيخ) ============ */
+        .admin-panel {
+            background: #fff; padding: 2rem; border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 2rem;
+            display: none; border: 2px solid var(--gold);
+        }
+        .admin-panel h3 { color: var(--primary); margin-bottom: 1rem; border-bottom: 2px solid #eee; padding-bottom: 0.5rem; }
+        .admin-panel input, .admin-panel textarea {
+            width: 100%; padding: 10px; margin-bottom: 1rem;
+            border: 1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif;
+        }
+        .admin-panel textarea { height: 120px; resize: vertical; }
+        .admin-actions { display: flex; gap: 10px; }
+        .btn-save { background: #16a34a; color: white; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; flex: 1; }
+        .btn-cancel { background: #64748b; color: white; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
 
         /* ============ البوصلة ============ */
         .qibla-app {
@@ -415,11 +445,6 @@
         .cardinal.s { bottom: 18px; left: 50%; transform: translateX(-50%); color: #1e40af; font-size: 1.2rem; }
         .cardinal.e { right: 18px; top: 50%; transform: translateY(-50%); color: #059669; font-size: 1.2rem; }
         .cardinal.w { left: 18px; top: 50%; transform: translateY(-50%); color: #7c3aed; font-size: 1.2rem; }
-        .intercardinal { position: absolute; font-size: 0.75rem; color: #94a3b8; font-weight: 700; }
-        .intercardinal.ne { top: 55px; right: 55px; }
-        .intercardinal.nw { top: 55px; left: 55px; }
-        .intercardinal.se { bottom: 55px; right: 55px; }
-        .intercardinal.sw { bottom: 55px; left: 55px; }
         
         .kaaba-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(145deg, #ffffff, #f0f7f4); display: flex; align-items: center; justify-content: center; font-size: 2rem; box-shadow: 0 6px 20px rgba(0,0,0,0.15), inset 0 0 0 3px var(--gold), inset 0 0 0 6px #fff; z-index: 20; }
         
@@ -447,38 +472,16 @@
         
         /* ============ مشغل الصوت ============ */
         .audio-player-box {
-            background: #f0fdf4;
-            border: 2px solid #86efac;
-            border-radius: 15px;
-            padding: 15px;
-            margin-bottom: 20px;
-            display: none;
-            box-shadow: 0 4px 15px rgba(22, 163, 74, 0.1);
-            animation: slideDown 0.3s ease-out;
+            background: #f0fdf4; border: 2px solid #86efac; border-radius: 15px;
+            padding: 15px; margin-bottom: 20px; display: none;
+            box-shadow: 0 4px 15px rgba(22, 163, 74, 0.1); animation: slideDown 0.3s ease-out;
         }
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .audio-player-header {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 10px; color: var(--primary); font-weight: bold;
-        }
-        .audio-controls-wrap {
-            display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
-        }
-        .audio-controls-wrap audio {
-            flex: 1; min-width: 200px; height: 40px; outline: none;
-        }
-        .speed-control {
-            display: flex; gap: 5px; align-items: center;
-            background: white; padding: 4px 8px; border-radius: 8px;
-            border: 1px solid #ccc; font-size: 0.85rem;
-        }
-        .speed-control select {
-            padding: 4px; margin: 0; border: none; font-size: 0.85rem;
-            background: transparent; cursor: pointer; font-weight: bold; color: var(--primary);
-        }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        .audio-player-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; color: var(--primary); font-weight: bold; }
+        .audio-controls-wrap { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+        .audio-controls-wrap audio { flex: 1; min-width: 200px; height: 40px; outline: none; }
+        .speed-control { display: flex; gap: 5px; align-items: center; background: white; padding: 4px 8px; border-radius: 8px; border: 1px solid #ccc; font-size: 0.85rem; }
+        .speed-control select { padding: 4px; margin: 0; border: none; font-size: 0.85rem; background: transparent; cursor: pointer; font-weight: bold; color: var(--primary); }
 
         .quran-controls { display: flex; gap: 10px; margin-bottom: 1.5rem; justify-content: center; flex-wrap: wrap; }
         .quran-controls select, .quran-controls input { max-width: 320px; margin-bottom: 0; font-weight: bold; font-size: 1.1rem; flex: 1; min-width: 200px; }
@@ -505,8 +508,17 @@
             direction: rtl; word-spacing: 2px; font-weight: 700 !important;
         }
 
-        footer { background: var(--primary); color: white; text-align: center; padding: 2rem; border-top: 5px solid var(--gold); margin-top: 2rem; }
+        footer { background: var(--primary); color: white; text-align: center; padding: 2rem; border-top: 5px solid var(--gold); margin-top: 2rem; position: relative; }
         .floating-wa { position: fixed; bottom: 20px; left: 20px; background: #25D366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 1000; text-decoration: none; }
+
+        /* زر سري في التذييل */
+        .secret-admin-btn {
+            position: absolute; bottom: 10px; right: 10px;
+            width: 20px; height: 20px; background: transparent;
+            border: none; cursor: pointer; opacity: 0.1; transition: 0.3s;
+            font-size: 1rem;
+        }
+        .secret-admin-btn:hover { opacity: 1; }
 
         @media (max-width: 768px) {
             header h1 { font-size: 1.7rem; }
@@ -544,17 +556,16 @@
         <div class="tabs">
             <button class="tab-btn active" onclick="openTab(event, 'home')">الرئيسية</button>
             <button class="tab-btn" onclick="openTab(event, 'worship')">🕌 دليل العبادات</button>
-            <button class="tab-btn" onclick="openTab(event, 'calendar')">📅 التقويم الإسلامي</button>
+            <button class="tab-btn" onclick="openTab(event, 'calendar')">📅 التقويم</button>
+            <button class="tab-btn" onclick="openTab(event, 'khawatir')">📝 خواطر</button>
             <button class="tab-btn" onclick="openTab(event, 'qa')">سؤال وجواب</button>
             <button class="tab-btn" onclick="openTab(event, 'prayer')">أوقات الصلاة</button>
             <button class="tab-btn" onclick="openTab(event, 'qibla')">القبلة</button>
-            <button class="tab-btn" onclick="openTab(event, 'moon')">🌙 أطوار القمر</button>
-            <button class="tab-btn" onclick="openTab(event, 'zakat')">💰 حساب الزكاة</button>
-            <button class="tab-btn" onclick="openTab(event, 'inheritance')">⚖️ حساب الميراث</button>
+            <button class="tab-btn" onclick="openTab(event, 'zakat')">💰 الزكاة</button>
+            <button class="tab-btn" onclick="openTab(event, 'inheritance')">⚖️ الميراث</button>
             <button class="tab-btn" onclick="openTab(event, 'mosque')">📍 أقرب مسجد</button>
             <button class="tab-btn" onclick="openTab(event, 'quran')">القرآن الكريم</button>
-            <button class="tab-btn" onclick="openTab(event, 'dua')">الأدعية والتسابيح</button>
-            <button class="tab-btn" onclick="openTab(event, 'hadith')">الأحاديث</button>
+            <button class="tab-btn" onclick="openTab(event, 'dua')">الأدعية</button>
             <button class="tab-btn" onclick="openTab(event, 'ruqyah')">الرقية</button>
         </div>
     </div>
@@ -583,6 +594,28 @@
         </div>
     </section>
 
+    <!-- ============ قسم الخواطر الجديد ============ -->
+    <section id="khawatir" class="content-section">
+        <h2 class="section-title">خواطر الشيخ</h2>
+        
+        <!-- لوحة تحكم مخفية تظهر فقط عند تسجيل الدخول -->
+        <div id="adminPanel" class="admin-panel">
+            <h3>إضافة خاطرة جديدة</h3>
+            <textarea id="newKhawiraText" placeholder="اكتب نص الخاطرة هنا..."></textarea>
+            <input type="text" id="newKhawiraImage" placeholder="رابط الصورة (اختياري)">
+            <input type="text" id="newKhawiraVideo" placeholder="رابط الفيديو (YouTube) (اختياري)">
+            <input type="text" id="newKhawiraLink" placeholder="رابط خارجي (اختياري)">
+            <div class="admin-actions">
+                <button class="btn-save" onclick="saveKhawira()">حفظ ونشر</button>
+                <button class="btn-cancel" onclick="logoutAdmin()">إلغاء الخروج</button>
+            </div>
+        </div>
+
+        <div id="khawatirContainer" class="khawatir-container">
+            <!-- سيتم تحميل الخواطر هنا -->
+        </div>
+    </section>
+
     <section id="worship" class="content-section">
         <div class="worship-guide-container">
             <div class="worship-guide-header">
@@ -592,7 +625,7 @@
             <div class="worship-grid">
                 <div class="worship-item" onclick="openWorshipModal('wudu')"><div class="worship-icon">🚰</div><div class="worship-name">الوضوء</div></div>
                 <div class="worship-item" onclick="openWorshipModal('salah')"><div class="worship-icon">🕌</div><div class="worship-name">الصلاة</div></div>
-                <div class="worship-item" onclick="openWorshipModal('quranW')"><div class="worship-icon">📖</div><div class="worship-name">القرآن الكريم</div></div>
+                <div class="worship-item" onclick="openWorshipModal('quranW')"><div class="worship-icon">📖</div><div class="worship-name">القرآن</div></div>
                 <div class="worship-item" onclick="openWorshipModal('fasting')"><div class="worship-icon">🌴</div><div class="worship-name">الصيام</div></div>
                 <div class="worship-item" onclick="openWorshipModal('zakatW')"><div class="worship-icon">💰</div><div class="worship-name">الزكاة</div></div>
                 <div class="worship-item" onclick="openWorshipModal('hajj')"><div class="worship-icon">🕋</div><div class="worship-name">الحج</div></div>
@@ -702,18 +735,6 @@
         </div>
     </section>
 
-    <section id="moon" class="content-section">
-        <h2 class="section-title">أطوار القمر الهجرية</h2>
-        <div class="moon-box">
-            <div id="moonIcon" class="moon-icon-display">🌕</div>
-            <h3 id="moonPhaseName" style="color: var(--primary); font-size: 1.5rem; margin-bottom: 0.5rem;">جاري حساب طور القمر...</h3>
-            <p id="moonDesc" style="color: #555; font-size: 1.05rem; margin-bottom: 1.5rem;">يرجى الانتظار قليلاً لمعرفة تفاصيل الطور الحالي ومنازل القمر الشرعية.</p>
-            <div id="moonDetails" style="background: var(--bg); padding: 15px; border-radius: 12px; font-weight: bold; color: var(--text); border: 1px solid var(--gold);">
-                التاريخ الهجري: جاري الجلب...
-            </div>
-        </div>
-    </section>
-
     <section id="zakat" class="content-section">
         <h2 class="section-title">حساب زكاة المال</h2>
         <div class="tool-box">
@@ -758,7 +779,6 @@
         </div>
     </section>
 
-    <!-- ============ قسم القرآن الكريم ============ -->
     <section id="quran" class="content-section">
         <h2 class="section-title">القرآن الكريم</h2>
         
@@ -821,12 +841,6 @@
         <div id="duaContainer"></div>
     </section>
 
-    <section id="hadith" class="content-section">
-        <h2 class="section-title">أحاديث نبوية</h2>
-        <div class="card"><p class="quran-text" style="font-size: 1.4rem !important; text-align: center;">«إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى»</p></div>
-    </section>
-
-    <!-- ============ قسم الرقية الشرعية ============ -->
     <section id="ruqyah" class="content-section">
         <h2 class="section-title">الرقية الشرعية</h2>
         
@@ -882,40 +896,20 @@
                 <h4 style="color:var(--primary-light); margin:1rem 0 0.5rem;">سورة الناس:</h4>
                 <p class="ruqyah-text">قُلْ أَعُوذُ بِرَبِّ النَّاسِ <span class="quran-ayah-num">﴿١﴾</span> مَلِكِ النَّاسِ <span class="quran-ayah-num">﴿٢﴾</span> إِلَهِ النَّاسِ <span class="quran-ayah-num">﴿٣﴾</span> مِنْ شَرِّ الْوَسْوَاسِ الْخَنَّاسِ <span class="quran-ayah-num">﴿٤﴾</span> الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ <span class="quran-ayah-num">﴿٥﴾</span> مِنَ الْجِنَّةِ وَالنَّاسِ <span class="quran-ayah-num">﴿٦﴾</span></p>
             </div>
-
-            <div class="ruqyah-section">
-                <h3>4. آيات إبطال السحر (من سورة الأعراف ويونس وطه)</h3>
-                <p class="ruqyah-text">وَأَلْقُوا مَا أَنْتُمْ مُلْقُونَ <span class="quran-ayah-num">﴿٤٣﴾</span> فَأَلْقَوْا حِبَالَهُمْ وَعِصِيَّهُمْ وَقَالُوا بِعِزَّةِ فِرْعَوْنَ إِنَّا لَنَحْنُ الْغَالِبُونَ <span class="quran-ayah-num">﴿٤٤﴾</span> فَأَلْقَى مُوسَى عَصَاهُ فَإِذَا هِيَ تَلْقَفُ مَا يَأْفِكُونَ <span class="quran-ayah-num">﴿٤٥﴾</span> فَوَقَعَ الْحَقُّ وَبَطَلَ مَا كَانُوا يَعْمَلُونَ <span class="quran-ayah-num">﴿٤٦﴾</span> فَغُلِبُوا هُنَالِكَ وَانْقَلَبُوا صَاغِرِينَ <span class="quran-ayah-num">﴿٤٧﴾</span> وَأُلْقِيَ السَّحَرَةُ سَاجِدِينَ <span class="quran-ayah-num">﴿٤٨﴾</span> قَالُوا آمَنَّا بِرَبِّ الْعَالَمِينَ <span class="quran-ayah-num">﴿٤٩﴾</span> رَبِّ مُوسَى وَهَارُونَ <span class="quran-ayah-num">﴿٥٠﴾</span></p>
-                <br>
-                <p class="ruqyah-text">فَلَمَّا أَلْقَوْا قَالَ مُوسَى مَا جِئْتُمْ بِهِ السِّحْرُ ۖ إِنَّ اللَّهَ سَيُبْطِلُهُ ۖ إِنَّ اللَّهَ لَا يُصْلِحُ عَمَلَ الْمُفْسِدِينَ <span class="quran-ayah-num">﴿٨١﴾</span> وَيُحِقُّ اللَّهُ الْحَقَّ بِكَلِمَاتِهِ وَلَوْ كَرِهَ الْمُجْرِمُونَ <span class="quran-ayah-num">﴿٨٢﴾</span></p>
-            </div>
-
-            <div class="ruqyah-section">
-                <h3>5. آيات الحسد والعين (سورة يوسف والقلم)</h3>
-                <p class="ruqyah-text">وَإِذْ قَالَ يُوسُفُ لِأَبِيهِ يَا أَبَتِ إِنِّي رَأَيْتُ أَحَدَ عَشَرَ كَوْكَبًا وَالشَّمْسَ وَالْقَمَرَ رَأَيْتُهُمْ لِي سَاجِدِينَ <span class="quran-ayah-num">﴿٤﴾</span></p>
-                <br>
-                <p class="ruqyah-text">وَإِن يَكَادُ الَّذِينَ كَفَرُوا لَيُزْلِقُونَكَ بِأَبْصَارِهِمْ لَمَّا سَمِعُوا الذِّكْرَ وَيَقُولُونَ إِنَّهُ لَمَجْنُونٌ <span class="quran-ayah-num">﴿٥١﴾</span> وَمَا هُوَ إِلَّا ذِكْرٌ لِّلْعَالَمِينَ <span class="quran-ayah-num">﴿٥٢﴾</span></p>
-            </div>
-
-            <div class="ruqyah-section">
-                <h3>6. الأدعية والرقية النبوية</h3>
-                <p class="ruqyah-text" style="font-size:1.5rem !important; line-height:2.2 !important;">أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ (ثلاث مرات)</p>
-                <br>
-                <p class="ruqyah-text" style="font-size:1.5rem !important; line-height:2.2 !important;">بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ (ثلاث مرات)</p>
-                <br>
-                <p class="ruqyah-text" style="font-size:1.5rem !important; line-height:2.2 !important;">اللَّهُمَّ رَبَّ النَّاسِ، أَذْهِبِ الْبَاسَ، اشْفِ أَنْتَ الشَّافِي، لَا شَافِيَ إِلَّا أَنْتَ، اشْفِهِ شِفَاءً لَا يُغَادِرُ سَقَمًا (سبع مرات)</p>
-            </div>
         </div>
     </section>
 
     <footer>
         <h3>الشيخ الدكتور محمد ربيع الناصر</h3>
         <p>جميع الحقوق محفوظة &copy; 2026</p>
+        <!-- الزر السري للشيخ -->
+        <button class="secret-admin-btn" onclick="adminLogin()">⚙️</button>
     </footer>
 
     <a href="https://wa.me/963944856486" target="_blank" class="floating-wa">💬</a>
 
     <script>
+        // ============ دوال التنقل ============
         function openTab(evt, tabName) {
             document.querySelectorAll(".content-section").forEach(c => c.classList.remove("active"));
             document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
@@ -974,31 +968,19 @@
         }
         renderIslamicEvents();
 
-        // ============ دالة جلب مواقيت الصلاة (مع سيرفر بديل) ============
+        // ============ دالة جلب مواقيت الصلاة ============
         async function getPrayerTimes() {
             const city = "حلب";
             const country = "Syria";
             const method = 3;
             
-            // محاولة السيرفر الأول
             try {
                 const res = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=${country}&method=${method}`);
-                if (!res.ok) throw new Error("Network response was not ok");
-                const data = await res.json();
-                renderPrayerTimes(data.data.timings);
-                return;
-            } catch (e) {
-                console.log("فشل السيرفر الأول (Aladhan)، جاري تجربة السيرفر الاحتياطي...");
-            }
-
-            // محاولة السيرفر الاحتياطي (IslamicFinder)
-            try {
-                const res = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=${country}&method=${method}`); 
-                // (ملاحظة: IslamicFinder لا يوفر API مجاني سهل، لذلك سنستخدم سيرفراً احتياطياً آخر لـ Aladhan كنسخة احتياطية)
                 const data = await res.json();
                 renderPrayerTimes(data.data.timings);
             } catch (e) {
-                document.getElementById('prayerResult').innerHTML = '<p style="text-align:center; color:red;">تعذر جلب بيانات الصلاة (يرجى التحقق من الاتصال بالإنترنت).</p>';
+                // في حال فشل الاتصال، نعرض مواقيت تقريبية أو رسالة خطأ
+                document.getElementById('prayerResult').innerHTML = '<p style="text-align:center; color:red; grid-column: 1/-1;">تعذر جلب بيانات الصلاة (تأكد من الاتصال بالإنترنت).</p>';
             }
         }
 
@@ -1014,27 +996,6 @@
             document.getElementById('prayerResult').innerHTML = html;
             document.getElementById('marqueeContent').innerHTML = marquee + marquee;
         }
-
-        function updateMoonPhase() {
-            try {
-                const dayNumStr = hijriDayFormatter.format(new Date()).replace(/[^0-9]/g, '');
-                let dayNum = parseInt(dayNumStr) || 15;
-                let icon = "🌕", name = "البدر", desc = "يكون القمر في أتم إشراقه ونوره.";
-                if (dayNum >= 1 && dayNum <= 2) { icon = "🌑"; name = "محاق"; desc = "بداية الشهر الهجري."; }
-                else if (dayNum >= 3 && dayNum <= 6) { icon = "🌒"; name = "هلال أول الشهر"; desc = "يظهر الهلال خفيفاً."; }
-                else if (dayNum >= 7 && dayNum <= 9) { icon = "🌓"; name = "تربيع أول"; desc = "يضاء نصف القمر الأيمن."; }
-                else if (dayNum >= 10 && dayNum <= 13) { icon = "🌔"; name = "أحدب متزايد"; desc = "يقترب القمر من الاكتمال."; }
-                else if (dayNum >= 14 && dayNum <= 16) { icon = "🌕"; name = "البدر الكامل"; desc = "اكتمال نور القمر."; }
-                else if (dayNum >= 17 && dayNum <= 21) { icon = "🌖"; name = "أحدب متناقص"; desc = "يبدأ النور بالانحسار."; }
-                else if (dayNum >= 22 && dayNum <= 25) { icon = "🌗"; name = "تربيع ثانٍ"; desc = "يضاء النصف الأيسر."; }
-                else { icon = "🌘"; name = "هلال آخر الشهر"; desc = "يظهر الهلال دقيقاً قبل الفجر."; }
-                document.getElementById('moonIcon').textContent = icon;
-                document.getElementById('moonPhaseName').textContent = name;
-                document.getElementById('moonDesc').textContent = desc;
-                document.getElementById('moonDetails').innerHTML = `📅 التاريخ الهجري: ${hijriString}<br>📍 اليوم: ${dayNum} من الشهر`;
-            } catch(e) {}
-        }
-        updateMoonPhase();
 
         function calculateZakat() {
             const money = parseFloat(document.getElementById('zakatMoney').value) || 0;
@@ -1080,7 +1041,7 @@
             } else window.open(`https://www.google.com/maps/search/أقرب+مسجد`, '_blank');
         }
 
-        /* ============ منطق البوصلة ============ */
+        // ============ منطق البوصلة ============
         let compassActive = false;
         let qiblaBearing = 0;
         let currentHeading = 0;
@@ -1113,10 +1074,8 @@
 
         function updateCompassUI(heading) {
             currentHeading = heading;
-            
             const dial = document.getElementById('compassDial');
             if (dial) dial.style.transform = `rotate(${-heading}deg)`;
-
             const qiblaDeg = Math.round(qiblaBearing);
             const headingDeg = Math.round(heading);
             const diff = Math.abs(((qiblaBearing - heading + 540) % 360) - 180);
@@ -1193,7 +1152,7 @@
             );
         }
 
-        /* ============ دليل العبادات ============ */
+        // ============ دليل العبادات ============
         const worshipData = {
             wudu: {
                 icon: "🚰", title: "خطوات الوضوء",
@@ -1325,7 +1284,7 @@
             document.getElementById('stepDetailsOverlay').classList.remove('active');
         }
 
-        /* ============ القرآن والمشغل (مع سيرفر بديل) ============ */
+        // ============ القرآن والمشغل ============
         let currentSurah = 1;
         
         async function fetchSurahList() {
@@ -1334,9 +1293,7 @@
                 const data = await res.json();
                 const select = document.getElementById('surahSelect');
                 data.data.forEach(s => select.innerHTML += `<option value="${s.number}">${s.number}. سورة ${s.name}</option>`);
-            } catch(e) {
-                console.log("فشل جلب قائمة السور.");
-            }
+            } catch(e) {}
         }
 
         async function loadSurah() {
@@ -1347,46 +1304,25 @@
             const textBox = document.getElementById('quranText');
             textBox.innerHTML = '<p style="text-align:center;">جاري تحميل السورة...</p>';
             try {
-                // المحاولة الأولى (Alquran Cloud)
-                let res = await fetch(`https://api.alquran.cloud/v1/surah/${currentSurah}/quran-simple`);
-                if (!res.ok) throw new Error("Failed");
-                let data = await res.json();
-                renderSurahText(data.data, textBox);
+                const res = await fetch(`https://api.alquran.cloud/v1/surah/${currentSurah}/quran-simple`);
+                const data = await res.json();
+                let html = `<h3 style="text-align:center; color:var(--primary); margin-bottom: 2rem; font-size: 2.3rem; font-family: 'Amiri', serif;">سورة ${data.data.name}</h3>`;
+                if (currentSurah != 1 && currentSurah != 9) {
+                    html += `<div style="text-align:center; font-size:2rem; margin-bottom:1.5rem; color:var(--gold);" class="quran-text">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>`;
+                }
+                data.data.ayahs.forEach(a => {
+                    let text = a.text;
+                    if (a.numberInSurah === 1 && currentSurah != 1 && currentSurah != 9) {
+                        text = text.replace('بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ', '').trim();
+                    }
+                    html += `<span>${text}</span> <span class="quran-ayah-num">﴿${a.numberInSurah}﴾</span> `;
+                });
+                textBox.innerHTML = html;
+                document.getElementById('prevBtn').disabled = (currentSurah == 1);
+                document.getElementById('nextBtn').disabled = (currentSurah == 114);
             } catch(e) {
-                console.log("فشل السيرفر الأول للقرآن، جاري تجربة سيرفر بديل...");
-                try {
-                    // محاولة سيرفر بديل (Quran.com API كنسخة احتياطية)
-                    let resBackup = await fetch(`https://api.quran.com/api/v4/quran/verses/uthmani?chapter_number=${currentSurah}`);
-                    if (!resBackup.ok) throw new Error("Backup failed");
-                    let dataBackup = await resBackup.json();
-                    
-                    // تحويل البيانات لتتناسب مع الدالة
-                    let normalizedData = {
-                        name: "السورة " + currentSurah,
-                        ayahs: dataBackup.verses.map((v, i) => ({ numberInSurah: i + 1, text: v.text_uthmani }))
-                    };
-                    renderSurahText(normalizedData, textBox);
-                } catch(e2) {
-                    textBox.innerHTML = '<p style="text-align:center; color:red;">تعذر تحميل السورة من جميع السيرفرات. تأكد من اتصالك بالإنترنت.</p>';
-                }
+                textBox.innerHTML = '<p style="text-align:center; color:red;">حدث خطأ في التحميل.</p>';
             }
-        }
-
-        function renderSurahText(data, container) {
-            let html = `<h3 style="text-align:center; color:var(--primary); margin-bottom: 2rem; font-size: 2.3rem; font-family: 'Amiri', serif;">سورة ${data.name}</h3>`;
-            if (currentSurah != 1 && currentSurah != 9) {
-                html += `<div style="text-align:center; font-size:2rem; margin-bottom:1.5rem; color:var(--gold);" class="quran-text">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>`;
-            }
-            data.ayahs.forEach(a => {
-                let text = a.text;
-                if (a.numberInSurah === 1 && currentSurah != 1 && currentSurah != 9) {
-                    text = text.replace('بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ', '').trim();
-                }
-                html += `<span>${text}</span> <span class="quran-ayah-num">﴿${a.numberInSurah}﴾</span> `;
-            });
-            container.innerHTML = html;
-            document.getElementById('prevBtn').disabled = (currentSurah == 1);
-            document.getElementById('nextBtn').disabled = (currentSurah == 114);
         }
 
         function changeSurah(dir) {
@@ -1417,18 +1353,10 @@
             if (playerBox.style.display === 'none' || playerBox.style.display === '') {
                 playerBox.style.display = 'block';
                 const serverName = recitersServers[reciter] || 'maher';
+                const audioUrl = `https://server8.mp3quran.net/${serverName}/${String(surahNum).padStart(3, '0')}.mp3`;
                 
-                // رابط الصوت الأساسي
-                let audioUrl = `https://server8.mp3quran.net/${serverName}/${String(surahNum).padStart(3, '0')}.mp3`;
-                
-                // محاولة استخدام السيرفر الأساسي، وإذا فشل يمكنك إضافة رابط بديل هنا
                 audioEl.src = audioUrl;
-                audioEl.play().catch(e => {
-                    console.log("فشل التشغيل من السيرفر الأساسي، جاري تجربة سيرفر بديل...");
-                    // رابط بديل احتياطي (من سيرفر آخر مثلاً)
-                    audioEl.src = `https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/${surahNum}.mp3`;
-                    audioEl.play().catch(e2 => alert("تعذر تشغيل الصوت، قد يكون السيرفر محظوراً في شبكتك."));
-                });
+                audioEl.play().catch(e => console.log("خطأ في التشغيل:", e));
                 
                 const selectedOption = select.options[select.selectedIndex];
                 const reciterName = document.getElementById('reciterSelect').options[document.getElementById('reciterSelect').selectedIndex].text;
@@ -1466,7 +1394,7 @@
             window.open(`https://www.youtube.com/results?search_query=${searchQuery}`, '_blank');
         }
 
-        /* ============ الرقية الشرعية ============ */
+        // ============ الرقية الشرعية ============
         function toggleRuqyahAudio() {
             const playerBox = document.getElementById('ruqyahPlayerBox');
             const audioEl = document.getElementById('ruqyahAudio');
@@ -1485,11 +1413,7 @@
                 const audioUrl = ruqyahUrls[reciter] || ruqyahUrls['maher'];
                 
                 audioEl.src = audioUrl;
-                audioEl.play().catch(e => {
-                    console.log("فشل تشغيل الرقية، جاري تجربة السيرفر الاحتياطي...");
-                    audioEl.src = `https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/1.mp3`;
-                    audioEl.play().catch(e2 => alert("تعذر تشغيل الصوت."));
-                });
+                audioEl.play().catch(e => console.log("خطأ في التشغيل:", e));
                 
                 const reciterName = document.getElementById('ruqyahReciter').options[document.getElementById('ruqyahReciter').selectedIndex].text;
                 titleEl.textContent = `الرقية الشرعية - ${reciterName}`;
@@ -1516,7 +1440,7 @@
             document.getElementById('ruqyahAudio').playbackRate = parseFloat(speed);
         }
 
-        /* ============ المسبحة ============ */
+        // ============ المسبحة ============
         let count = 0;
         function incrementTasbih() {
             count++;
@@ -1528,7 +1452,7 @@
             document.getElementById('tasbihCount').textContent = 0;
         }
 
-        /* ============ الأدعية ============ */
+        // ============ الأدعية ============
         const adhkarData = [
             { category: "🌅 أذكار الصباح والمساء", items: [
                 { text: "عود نفسك بعد الفجر أن تقول:\n\nاللهم يا فاتح الأبواب، ويا ميسّر الأسباب، ويا من بيده مفاتيح الغيب، أسألك مع هذا الصباح أن تفتح لي فتحًا يليق بكرمك، وأن تسوق إليّ من خيرات الدنيا ما يُصلح حالي، ويُطمئن قلبي، ويُبارك عمري. اللهم اجعل هذا اليوم مختلفًا عن كل يوم، واكتب لي فيه بدايةً تُفرحني، وخطوةً تُقرّبني، ونعمةً تُغنيني، وبشارةً تُنسي قلبي طول الانتظار.\n\nاللهم إني أستيقظ اليوم وأنت ربي، وأملي فيك لا ينقطع، وثقتي برحمتك لا تتبدّل، فاجعلني في جوارك وحفظك، وأحطني بعنايتك التي لا تغفل، واصرف عني ما لا أطيق، ولا تحملني من أعباء الحياة ما يُضعف قلبي أو يُطفئ عزيمتي. اللهم امنحني قوةً أواجه بها مسؤولياتي، وحكمةً أختار بها قراراتي، وصبرًا أحتمل به ما لا أستطيع تغييره، وبصيرةً أرى بها الخير حتى حين يختبئ خلف ما لا أحب.\n\nيا رب، اجعل لي في هذا الصباح نصيبًا من كل رحمة، وحظًا من كل بركة، وسهمًا من كل رزقٍ طيب. اللهم ارزقني رزقًا يأتيني بكرامتك، ويكفيني بفضلك، ويُغنيني عن ذلّ السؤال، وبارك لي فيما أعطيتني، وزدني من فضلك زيادةً تُصلح بها دنياي وآخرتي. اللهم افتح أمامي طرقًا ظننتها مغلقة، ويسّر لي أمورًا حسبتها مستحيلة، وسخّر لي الأسباب التي تعجز يدي عن الوصول إليها.\n\nاللهم طهّر قلبي من القلق الذي يسرق فرحتي، ومن الخوف الذي يُقيّد خطواتي، ومن الحزن الذي يُثقِل روحي. علّمني أن أعيش يومي بقلبٍ حاضر، وأن أُحسن الظن بك في كل ما أجهل، وأن أرى في تأخيرك رحمة، وفي منعك حكمة، وفي عطائك فضلًا، وفي كل قدرٍ تختاره لي خيرًا وإن لم أفهمه الآن.\n\nاللهم احفظني وأهلي ومن أحب من كل سوء، واستر عيوبنا، واغفر ذنوبنا، وأصلح أحوالنا، وأدم علينا نعمة الصحة والعافية والأمان. اللهم أبعد عنا شرّ المفاجآت، ووجع الخذلان، وثقل الديون، وضيق الأرزاق، وسوء الأخبار، واجعل بيوتنا عامرةً بذكرك، وقلوبنا مملوءةً بنورك، وأيامنا محاطةً بلطفك.\n\nاللهم في هذا الصباح، أسألك قلبًا لا تهزمه الابتلاءات، ولا تسرقه الدنيا من قربك. ارزقني من الأقدار أجملها، ومن الألطاف أخفاها، ومن العطايا أوسعها، ومن المسرّات أكثرها. واجعل لي في هذا اليوم دعوةً لا تُرد، ورزقًا لا يُعد، وخيرًا لا ينفد، وراحةً لا تزول. اللهم إذا انتهى هذا اليوم، فاجعلني أحمدك على أمرٍ تحقق، وبلاءٍ اندفع، ورزقٍ وصل، ونعمةٍ بقيت، ولطفٍ أحاط بي دون أن أشعر. آمين يا رب العالمين.", source: "دعاء مستجاب" },
@@ -1563,6 +1487,9 @@
                 { text: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ زَوَالِ نِعْمَتِكَ، وَتَحَوُّلِ عَافِيَتِكَ، وَفُجَاءَةِ نِقْمَتِكَ، وَجَمِيعِ سَخَطِكَ.", source: "رواه مسلم" },
                 { text: "يَا حَيُّ يَا قَيُّومُ بِرَحْمَتِكَ أَسْتَغِيثُ، أَصْلِحْ لِي شَأْنِي كُلَّهُ وَلَا تَكِلْنِي إِلَى نَفْسِي.", source: "رواه الترمذي" },
                 { text: "لَا إِلَهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ.", source: "دعوة ذي النون - رواه الترمذي" }
+            ]},
+            { category: "🤲 دعاء بين الظهر والعصر يوم الأربعاء", items: [
+                { text: "عن جابر بن عبدالله رضي الله عنهما أن النبي ﷺ دعا في مسجد الفتح ثلاثاً يوم الاثنين ويوم الثلاثاء ويوم الأربعاء، فاستُجيب له يوم الأربعاء بين الصلاتين، فعُرف البشرُ في وجهه. قال جابر: فلم ينزل بي أمرٌ مهمٌّ غليظٌ إلا توخّيتُ تلك الساعة فأدعو فيها فأعرفُ الإجابة.\n\nوكان من دعاء النبي ﷺ بين الظهر والعصر يوم الأربعاء:\n\nاللهم لك الحمد لا هادي لمن أضللت ولا مضل لمن هديت، ولا معين لمن خذلت ولا خاذل لمن نصيرت، ولا مكرم لمن أهنت، ولا ناصر لمن خذلت، ولا معز لمن أذللت، ولا مذل لمن أعززت، ولا رازق لمن حرمت، ولا حارم لمن رزقت، ولا مانع لمن أعطيت، ولا معطي لمن منعت، ولا رافع لمن خفضت، ولا خافض لمن رفعت، ولا ساتر لمن خرقت، ولا خارق لمن سترت، ولا مقرب لمن باعدت، ولا مباعد لمن قربت.", source: "دعاء مستجاب - من السنة النبوية" }
             ]}
         ];
 
@@ -1614,10 +1541,119 @@
             window.open(`https://wa.me/963944856486?text=${msg}`, '_blank');
         }
 
+        // ============ منطق قسم الخواطر الجديد ============
+        const ADMIN_PASSWORD = "R1234r1234";
+        let isAdmin = false;
+        let khawatirList = JSON.parse(localStorage.getItem('khawatirData')) || [
+            {
+                id: 1,
+                text: "مرحباً بكم في قسم الخواطر. هنا يمكن للشيخ مشاركة تأملاته وأفكاره معكم.",
+                image: "",
+                video: "",
+                link: "",
+                date: new Date().toLocaleDateString('ar-EG')
+            }
+        ];
+
+        function renderKhawatir() {
+            const container = document.getElementById('khawatirContainer');
+            if (!container) return;
+            let html = '';
+            
+            if (khawatirList.length === 0) {
+                html = '<p style="text-align:center; color:#666;">لا توجد خواطر منشورة حالياً.</p>';
+            } else {
+                // عرض الخواطر بترتيب عكسي (الأحدث أولاً)
+                [...khawatirList].reverse().forEach(item => {
+                    html += `
+                        <div class="khawira-card">
+                            <button class="delete-khawira-btn" onclick="deleteKhawira(${item.id})" style="${isAdmin ? 'display:block;' : 'display:none;'}">🗑️ حذف</button>
+                            <div class="khawira-text">${item.text.replace(/\n/g, '<br>')}</div>
+                            ${item.image ? `<img src="${item.image}" class="khawira-media" alt="صورة الخاطرة">` : ''}
+                            ${item.video ? `<div style="margin-top:1rem;"><iframe width="100%" height="250" src="${getYouTubeEmbedUrl(item.video)}" frameborder="0" allowfullscreen style="border-radius:10px;"></iframe></div>` : ''}
+                            ${item.link ? `<a href="${item.link}" target="_blank" class="khawira-link">🔗 رابط خارجي</a>` : ''}
+                            <span class="khawira-date">📅 ${item.date}</span>
+                        </div>
+                    `;
+                });
+            }
+            container.innerHTML = html;
+        }
+
+        function getYouTubeEmbedUrl(url) {
+            if (!url) return '';
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? `https://www.youtube.com/embed/${match[2]}` : url;
+        }
+
+        function adminLogin() {
+            const pass = prompt("أدخل كلمة المرور للدخول كمسؤول:");
+            if (pass === ADMIN_PASSWORD) {
+                isAdmin = true;
+                document.getElementById('adminPanel').style.display = 'block';
+                renderKhawatir(); // لتحديث أزرار الحذف
+                alert("تم تسجيل الدخول بنجاح.");
+            } else if (pass !== null) {
+                alert("كلمة المرور خاطئة!");
+            }
+        }
+
+        function logoutAdmin() {
+            isAdmin = false;
+            document.getElementById('adminPanel').style.display = 'none';
+            renderKhawatir();
+        }
+
+        function saveKhawira() {
+            if (!isAdmin) return;
+            const text = document.getElementById('newKhawiraText').value.trim();
+            const image = document.getElementById('newKhawiraImage').value.trim();
+            const video = document.getElementById('newKhawiraVideo').value.trim();
+            const link = document.getElementById('newKhawiraLink').value.trim();
+
+            if (!text) {
+                alert("الرجاء كتابة نص الخاطرة أولاً.");
+                return;
+            }
+
+            const newKhawira = {
+                id: Date.now(),
+                text: text,
+                image: image,
+                video: video,
+                link: link,
+                date: new Date().toLocaleDateString('ar-EG')
+            };
+
+            khawatirList.push(newKhawira);
+            localStorage.setItem('khawatirData', JSON.stringify(khawatirList));
+            
+            // مسح الحقول
+            document.getElementById('newKhawiraText').value = '';
+            document.getElementById('newKhawiraImage').value = '';
+            document.getElementById('newKhawiraVideo').value = '';
+            document.getElementById('newKhawiraLink').value = '';
+            
+            renderKhawatir();
+            alert("تم نشر الخاطرة بنجاح!");
+        }
+
+        function deleteKhawira(id) {
+            if (!isAdmin) return;
+            if (confirm("هل أنت متأكد من حذف هذه الخاطرة؟")) {
+                khawatirList = khawatirList.filter(item => item.id !== id);
+                localStorage.setItem('khawatirData', JSON.stringify(khawatirList));
+                renderKhawatir();
+            }
+        }
+
+        // ============ التشغيل المبدئي ============
         window.onload = () => {
             getPrayerTimes(); 
             fetchSurahList(); 
             renderAdhkar(); 
+            renderKhawatir(); // تشغيل قسم الخواطر
         };
     </script>
 </body>
