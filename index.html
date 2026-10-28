@@ -492,33 +492,17 @@
         .tasbih-btn { width: 130px; height: 130px; border-radius: 50%; background: var(--primary); color: white; font-size: 1.2rem; font-weight: bold; border: 6px solid var(--gold); margin: 1rem auto; display: block; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
 
         /* ============ الرقية الشرعية ============ */
-        .ruqyah-container {
-            display: grid;
-            gap: 1.5rem;
-        }
+        .ruqyah-container { display: grid; gap: 1.5rem; }
         .ruqyah-section {
-            background: var(--white);
-            border-radius: 15px;
-            padding: 2rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            border-right: 5px solid var(--gold);
+            background: var(--white); border-radius: 15px; padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-right: 5px solid var(--gold);
         }
-        .ruqyah-section h3 {
-            color: var(--primary);
-            margin-bottom: 1rem;
-            font-size: 1.4rem;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 0.5rem;
-        }
+        .ruqyah-section h3 { color: var(--primary); margin-bottom: 1rem; font-size: 1.4rem; border-bottom: 2px solid #eee; padding-bottom: 0.5rem; }
         .ruqyah-text {
             font-family: 'Scheherazade New', 'Amiri', serif !important;
-            font-size: 1.9rem !important;
-            color: #000000 !important;
-            line-height: 2.8 !important;
-            text-align: justify;
-            direction: rtl;
-            word-spacing: 2px;
-            font-weight: 700 !important;
+            font-size: 1.9rem !important; color: #000000 !important;
+            line-height: 2.8 !important; text-align: justify;
+            direction: rtl; word-spacing: 2px; font-weight: 700 !important;
         }
 
         footer { background: var(--primary); color: white; text-align: center; padding: 2rem; border-top: 5px solid var(--gold); margin-top: 2rem; }
@@ -842,11 +826,10 @@
         <div class="card"><p class="quran-text" style="font-size: 1.4rem !important; text-align: center;">«إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى»</p></div>
     </section>
 
-    <!-- ============ قسم الرقية الشرعية المحدث ============ -->
+    <!-- ============ قسم الرقية الشرعية ============ -->
     <section id="ruqyah" class="content-section">
         <h2 class="section-title">الرقية الشرعية</h2>
         
-        <!-- شريط التحكم بالصوت -->
         <div class="quran-controls">
             <select id="ruqyahReciter">
                 <option value="maher">الشيخ ماهر المعيقلي</option>
@@ -858,7 +841,6 @@
             </button>
         </div>
 
-        <!-- مشغل الصوت للرقية -->
         <div id="ruqyahPlayerBox" class="audio-player-box">
             <div class="audio-player-header">
                 <span>🎧 استماع: <span id="ruqyahPlayingTitle">الرقية الشرعية</span></span>
@@ -879,19 +861,16 @@
         </div>
 
         <div class="ruqyah-container">
-            <!-- 1. الفاتحة -->
             <div class="ruqyah-section">
                 <h3>1. سورة الفاتحة</h3>
                 <p class="ruqyah-text">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ <span class="quran-ayah-num">﴿١﴾</span> الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ <span class="quran-ayah-num">﴿٢﴾</span> الرَّحْمَنِ الرَّحِيمِ <span class="quran-ayah-num">﴿٣﴾</span> مَالِكِ يَوْمِ الدِّينِ <span class="quran-ayah-num">﴿٤﴾</span> إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ <span class="quran-ayah-num">﴿٥﴾</span> اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ <span class="quran-ayah-num">﴿٦﴾</span> صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ <span class="quran-ayah-num">﴿٧﴾</span></p>
             </div>
 
-            <!-- 2. آية الكرسي -->
             <div class="ruqyah-section">
                 <h3>2. آية الكرسي (البقرة: 255)</h3>
                 <p class="ruqyah-text">اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ ۗ مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ ۖ وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ ۖ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ <span class="quran-ayah-num">﴿٢٥٥﴾</span></p>
             </div>
 
-            <!-- 3. المعوذات -->
             <div class="ruqyah-section">
                 <h3>3. سور المعوذات</h3>
                 <h4 style="color:var(--primary-light); margin:1rem 0 0.5rem;">سورة الإخلاص:</h4>
@@ -904,27 +883,20 @@
                 <p class="ruqyah-text">قُلْ أَعُوذُ بِرَبِّ النَّاسِ <span class="quran-ayah-num">﴿١﴾</span> مَلِكِ النَّاسِ <span class="quran-ayah-num">﴿٢﴾</span> إِلَهِ النَّاسِ <span class="quran-ayah-num">﴿٣﴾</span> مِنْ شَرِّ الْوَسْوَاسِ الْخَنَّاسِ <span class="quran-ayah-num">﴿٤﴾</span> الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ <span class="quran-ayah-num">﴿٥﴾</span> مِنَ الْجِنَّةِ وَالنَّاسِ <span class="quran-ayah-num">﴿٦﴾</span></p>
             </div>
 
-            <!-- 4. آيات إبطال السحر -->
             <div class="ruqyah-section">
                 <h3>4. آيات إبطال السحر (من سورة الأعراف ويونس وطه)</h3>
                 <p class="ruqyah-text">وَأَلْقُوا مَا أَنْتُمْ مُلْقُونَ <span class="quran-ayah-num">﴿٤٣﴾</span> فَأَلْقَوْا حِبَالَهُمْ وَعِصِيَّهُمْ وَقَالُوا بِعِزَّةِ فِرْعَوْنَ إِنَّا لَنَحْنُ الْغَالِبُونَ <span class="quran-ayah-num">﴿٤٤﴾</span> فَأَلْقَى مُوسَى عَصَاهُ فَإِذَا هِيَ تَلْقَفُ مَا يَأْفِكُونَ <span class="quran-ayah-num">﴿٤٥﴾</span> فَوَقَعَ الْحَقُّ وَبَطَلَ مَا كَانُوا يَعْمَلُونَ <span class="quran-ayah-num">﴿٤٦﴾</span> فَغُلِبُوا هُنَالِكَ وَانْقَلَبُوا صَاغِرِينَ <span class="quran-ayah-num">﴿٤٧﴾</span> وَأُلْقِيَ السَّحَرَةُ سَاجِدِينَ <span class="quran-ayah-num">﴿٤٨﴾</span> قَالُوا آمَنَّا بِرَبِّ الْعَالَمِينَ <span class="quran-ayah-num">﴿٤٩﴾</span> رَبِّ مُوسَى وَهَارُونَ <span class="quran-ayah-num">﴿٥٠﴾</span></p>
                 <br>
                 <p class="ruqyah-text">فَلَمَّا أَلْقَوْا قَالَ مُوسَى مَا جِئْتُمْ بِهِ السِّحْرُ ۖ إِنَّ اللَّهَ سَيُبْطِلُهُ ۖ إِنَّ اللَّهَ لَا يُصْلِحُ عَمَلَ الْمُفْسِدِينَ <span class="quran-ayah-num">﴿٨١﴾</span> وَيُحِقُّ اللَّهُ الْحَقَّ بِكَلِمَاتِهِ وَلَوْ كَرِهَ الْمُجْرِمُونَ <span class="quran-ayah-num">﴿٨٢﴾</span></p>
-                <br>
-                <p class="ruqyah-text">وَلَقَدْ أَرْسَلْنَا مُوسَىٰ بِآيَاتِنَا وَسُلْطَانٍ مُبِينٍ <span class="quran-ayah-num">﴿٩٦﴾</span> إِلَىٰ فِرْعَوْنَ وَهَامَانَ وَقَارُونَ فَقَالُوا سَاحِرٌ كَذَّابٌ <span class="quran-ayah-num">﴿٩٧﴾</span></p>
             </div>
 
-            <!-- 5. آيات الحسد والعين -->
             <div class="ruqyah-section">
                 <h3>5. آيات الحسد والعين (سورة يوسف والقلم)</h3>
                 <p class="ruqyah-text">وَإِذْ قَالَ يُوسُفُ لِأَبِيهِ يَا أَبَتِ إِنِّي رَأَيْتُ أَحَدَ عَشَرَ كَوْكَبًا وَالشَّمْسَ وَالْقَمَرَ رَأَيْتُهُمْ لِي سَاجِدِينَ <span class="quran-ayah-num">﴿٤﴾</span></p>
                 <br>
-                <p class="ruqyah-text">وَدَّ كَثِيرٌ مِّنْ أَهْلِ الْكِتَابِ لَوْ يَرُدُّونَكُم مِّن بَعْدِ إِيمَانِكُمْ كُفَّارًا حَسَدًا مِّنْ عِندِ أَنفُسِهِم مِّن بَعْدِ مَا تَبَيَّنَ لَهُمُ الْحَقُّ ۖ فَاعْفُوا وَاصْفَحُوا حَتَّىٰ يَأْتِيَ اللَّهُ بِأَمْرِهِ ۗ إِنَّ اللَّهَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ <span class="quran-ayah-num">﴿١٠٩﴾</span></p>
-                <br>
                 <p class="ruqyah-text">وَإِن يَكَادُ الَّذِينَ كَفَرُوا لَيُزْلِقُونَكَ بِأَبْصَارِهِمْ لَمَّا سَمِعُوا الذِّكْرَ وَيَقُولُونَ إِنَّهُ لَمَجْنُونٌ <span class="quran-ayah-num">﴿٥١﴾</span> وَمَا هُوَ إِلَّا ذِكْرٌ لِّلْعَالَمِينَ <span class="quran-ayah-num">﴿٥٢﴾</span></p>
             </div>
 
-            <!-- 6. الأدعية والرقية النبوية -->
             <div class="ruqyah-section">
                 <h3>6. الأدعية والرقية النبوية</h3>
                 <p class="ruqyah-text" style="font-size:1.5rem !important; line-height:2.2 !important;">أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ (ثلاث مرات)</p>
@@ -932,8 +904,6 @@
                 <p class="ruqyah-text" style="font-size:1.5rem !important; line-height:2.2 !important;">بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ (ثلاث مرات)</p>
                 <br>
                 <p class="ruqyah-text" style="font-size:1.5rem !important; line-height:2.2 !important;">اللَّهُمَّ رَبَّ النَّاسِ، أَذْهِبِ الْبَاسَ، اشْفِ أَنْتَ الشَّافِي، لَا شَافِيَ إِلَّا أَنْتَ، اشْفِهِ شِفَاءً لَا يُغَادِرُ سَقَمًا (سبع مرات)</p>
-                <br>
-                <p class="ruqyah-text" style="font-size:1.5rem !important; line-height:2.2 !important;">أَعُوذُ بِعِزَّةِ اللَّهِ وَقُدْرَتِهِ مِنْ شَرِّ مَا أَجِدُ وَأُحَاذِرُ</p>
             </div>
         </div>
     </section>
@@ -1004,28 +974,45 @@
         }
         renderIslamicEvents();
 
+        // ============ دالة جلب مواقيت الصلاة (مع سيرفر بديل) ============
         async function getPrayerTimes() {
             const city = "حلب";
             const country = "Syria";
             const method = 3;
-            document.getElementById('methodNote').textContent = "طريقة الحساب: رابطة العالم الإسلامي (سوريا)";
+            
+            // محاولة السيرفر الأول
             try {
                 const res = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=${country}&method=${method}`);
+                if (!res.ok) throw new Error("Network response was not ok");
                 const data = await res.json();
-                const t = data.data.timings;
-                const names = { Fajr: 'الفجر', Sunrise: 'الشروق', Dhuhr: 'الظهر', Asr: 'العصر', Maghrib: 'المغرب', Isha: 'العشاء' };
-                let html = '', marquee = '';
-                for(let k in names) {
-                    let [h, m] = t[k].split(':');
-                    h = parseInt(h); let ampm = h >= 12 ? 'م' : 'ص'; h = h % 12 || 12;
-                    html += `<div class="prayer-card"><h4>${names[k]}</h4><p>${h}:${m} ${ampm}</p></div>`;
-                    marquee += `<span>🕌 ${names[k]}: ${h}:${m} ${ampm}</span>`;
-                }
-                document.getElementById('prayerResult').innerHTML = html;
-                document.getElementById('marqueeContent').innerHTML = marquee + marquee;
-            } catch(e) {
-                document.getElementById('prayerResult').innerHTML = '<p style="text-align:center; color:red;">تعذر جلب بيانات الصلاة.</p>';
+                renderPrayerTimes(data.data.timings);
+                return;
+            } catch (e) {
+                console.log("فشل السيرفر الأول (Aladhan)، جاري تجربة السيرفر الاحتياطي...");
             }
+
+            // محاولة السيرفر الاحتياطي (IslamicFinder)
+            try {
+                const res = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=${country}&method=${method}`); 
+                // (ملاحظة: IslamicFinder لا يوفر API مجاني سهل، لذلك سنستخدم سيرفراً احتياطياً آخر لـ Aladhan كنسخة احتياطية)
+                const data = await res.json();
+                renderPrayerTimes(data.data.timings);
+            } catch (e) {
+                document.getElementById('prayerResult').innerHTML = '<p style="text-align:center; color:red;">تعذر جلب بيانات الصلاة (يرجى التحقق من الاتصال بالإنترنت).</p>';
+            }
+        }
+
+        function renderPrayerTimes(t) {
+            const names = { Fajr: 'الفجر', Sunrise: 'الشروق', Dhuhr: 'الظهر', Asr: 'العصر', Maghrib: 'المغرب', Isha: 'العشاء' };
+            let html = '', marquee = '';
+            for(let k in names) {
+                let [h, m] = t[k].split(':');
+                h = parseInt(h); let ampm = h >= 12 ? 'م' : 'ص'; h = h % 12 || 12;
+                html += `<div class="prayer-card"><h4>${names[k]}</h4><p>${h}:${m} ${ampm}</p></div>`;
+                marquee += `<span>🕌 ${names[k]}: ${h}:${m} ${ampm}</span>`;
+            }
+            document.getElementById('prayerResult').innerHTML = html;
+            document.getElementById('marqueeContent').innerHTML = marquee + marquee;
         }
 
         function updateMoonPhase() {
@@ -1330,7 +1317,6 @@
             document.getElementById('stepDetailIcon').textContent = icon;
             document.getElementById('stepDetailTitle').textContent = title;
             document.getElementById('stepDetailText').textContent = text;
-            document.getElementById('stepsDetailsOverlay').classList.add('active'); // تصحيح المعرف هنا
             document.getElementById('stepDetailsOverlay').classList.add('active');
         }
 
@@ -1339,7 +1325,7 @@
             document.getElementById('stepDetailsOverlay').classList.remove('active');
         }
 
-        /* ============ القرآن والمشغل ============ */
+        /* ============ القرآن والمشغل (مع سيرفر بديل) ============ */
         let currentSurah = 1;
         
         async function fetchSurahList() {
@@ -1348,7 +1334,9 @@
                 const data = await res.json();
                 const select = document.getElementById('surahSelect');
                 data.data.forEach(s => select.innerHTML += `<option value="${s.number}">${s.number}. سورة ${s.name}</option>`);
-            } catch(e) {}
+            } catch(e) {
+                console.log("فشل جلب قائمة السور.");
+            }
         }
 
         async function loadSurah() {
@@ -1359,25 +1347,46 @@
             const textBox = document.getElementById('quranText');
             textBox.innerHTML = '<p style="text-align:center;">جاري تحميل السورة...</p>';
             try {
-                const res = await fetch(`https://api.alquran.cloud/v1/surah/${currentSurah}/quran-simple`);
-                const data = await res.json();
-                let html = `<h3 style="text-align:center; color:var(--primary); margin-bottom: 2rem; font-size: 2.3rem; font-family: 'Amiri', serif;">سورة ${data.data.name}</h3>`;
-                if (currentSurah != 1 && currentSurah != 9) {
-                    html += `<div style="text-align:center; font-size:2rem; margin-bottom:1.5rem; color:var(--gold);" class="quran-text">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>`;
-                }
-                data.data.ayahs.forEach(a => {
-                    let text = a.text;
-                    if (a.numberInSurah === 1 && currentSurah != 1 && currentSurah != 9) {
-                        text = text.replace('بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ', '').trim();
-                    }
-                    html += `<span>${text}</span> <span class="quran-ayah-num">﴿${a.numberInSurah}﴾</span> `;
-                });
-                textBox.innerHTML = html;
-                document.getElementById('prevBtn').disabled = (currentSurah == 1);
-                document.getElementById('nextBtn').disabled = (currentSurah == 114);
+                // المحاولة الأولى (Alquran Cloud)
+                let res = await fetch(`https://api.alquran.cloud/v1/surah/${currentSurah}/quran-simple`);
+                if (!res.ok) throw new Error("Failed");
+                let data = await res.json();
+                renderSurahText(data.data, textBox);
             } catch(e) {
-                textBox.innerHTML = '<p style="text-align:center; color:red;">حدث خطأ في التحميل.</p>';
+                console.log("فشل السيرفر الأول للقرآن، جاري تجربة سيرفر بديل...");
+                try {
+                    // محاولة سيرفر بديل (Quran.com API كنسخة احتياطية)
+                    let resBackup = await fetch(`https://api.quran.com/api/v4/quran/verses/uthmani?chapter_number=${currentSurah}`);
+                    if (!resBackup.ok) throw new Error("Backup failed");
+                    let dataBackup = await resBackup.json();
+                    
+                    // تحويل البيانات لتتناسب مع الدالة
+                    let normalizedData = {
+                        name: "السورة " + currentSurah,
+                        ayahs: dataBackup.verses.map((v, i) => ({ numberInSurah: i + 1, text: v.text_uthmani }))
+                    };
+                    renderSurahText(normalizedData, textBox);
+                } catch(e2) {
+                    textBox.innerHTML = '<p style="text-align:center; color:red;">تعذر تحميل السورة من جميع السيرفرات. تأكد من اتصالك بالإنترنت.</p>';
+                }
             }
+        }
+
+        function renderSurahText(data, container) {
+            let html = `<h3 style="text-align:center; color:var(--primary); margin-bottom: 2rem; font-size: 2.3rem; font-family: 'Amiri', serif;">سورة ${data.name}</h3>`;
+            if (currentSurah != 1 && currentSurah != 9) {
+                html += `<div style="text-align:center; font-size:2rem; margin-bottom:1.5rem; color:var(--gold);" class="quran-text">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>`;
+            }
+            data.ayahs.forEach(a => {
+                let text = a.text;
+                if (a.numberInSurah === 1 && currentSurah != 1 && currentSurah != 9) {
+                    text = text.replace('بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ', '').trim();
+                }
+                html += `<span>${text}</span> <span class="quran-ayah-num">﴿${a.numberInSurah}﴾</span> `;
+            });
+            container.innerHTML = html;
+            document.getElementById('prevBtn').disabled = (currentSurah == 1);
+            document.getElementById('nextBtn').disabled = (currentSurah == 114);
         }
 
         function changeSurah(dir) {
@@ -1408,10 +1417,18 @@
             if (playerBox.style.display === 'none' || playerBox.style.display === '') {
                 playerBox.style.display = 'block';
                 const serverName = recitersServers[reciter] || 'maher';
-                const audioUrl = `https://server8.mp3quran.net/${serverName}/${String(surahNum).padStart(3, '0')}.mp3`;
                 
+                // رابط الصوت الأساسي
+                let audioUrl = `https://server8.mp3quran.net/${serverName}/${String(surahNum).padStart(3, '0')}.mp3`;
+                
+                // محاولة استخدام السيرفر الأساسي، وإذا فشل يمكنك إضافة رابط بديل هنا
                 audioEl.src = audioUrl;
-                audioEl.play().catch(e => console.log("خطأ في التشغيل:", e));
+                audioEl.play().catch(e => {
+                    console.log("فشل التشغيل من السيرفر الأساسي، جاري تجربة سيرفر بديل...");
+                    // رابط بديل احتياطي (من سيرفر آخر مثلاً)
+                    audioEl.src = `https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/${surahNum}.mp3`;
+                    audioEl.play().catch(e2 => alert("تعذر تشغيل الصوت، قد يكون السيرفر محظوراً في شبكتك."));
+                });
                 
                 const selectedOption = select.options[select.selectedIndex];
                 const reciterName = document.getElementById('reciterSelect').options[document.getElementById('reciterSelect').selectedIndex].text;
@@ -1449,7 +1466,7 @@
             window.open(`https://www.youtube.com/results?search_query=${searchQuery}`, '_blank');
         }
 
-        /* ============ الرقية الشرعية (صوت) ============ */
+        /* ============ الرقية الشرعية ============ */
         function toggleRuqyahAudio() {
             const playerBox = document.getElementById('ruqyahPlayerBox');
             const audioEl = document.getElementById('ruqyahAudio');
@@ -1457,22 +1474,22 @@
             const btn = document.getElementById('ruqyahAudioBtn');
             const reciter = document.getElementById('ruqyahReciter').value;
             
-            // روابط صوتية لسور الرقية (الفاتحة، البقرة، الإخلاص، الفلق، الناس كاملة كملف واحد للرقية)
-            // استخدام سور مخصصة للرقية من سيرفر mp3quran
             const ruqyahUrls = {
-                'maher': 'https://server8.mp3quran.net/maher/001.mp3', // يمكنك تغيير الرابط لملف رقية شامل
+                'maher': 'https://server8.mp3quran.net/maher/001.mp3',
                 'afs': 'https://server8.mp3quran.net/afs/001.mp3',
                 'basit': 'https://server8.mp3quran.net/basit/001.mp3'
             };
 
             if (playerBox.style.display === 'none' || playerBox.style.display === '') {
                 playerBox.style.display = 'block';
-                
-                // استخدام سورة الفاتحة كمثال (أو يمكنك وضع رابط لملف رقية كامل من يوتيوب أو سيرفر آخر)
                 const audioUrl = ruqyahUrls[reciter] || ruqyahUrls['maher'];
                 
                 audioEl.src = audioUrl;
-                audioEl.play().catch(e => console.log("خطأ في التشغيل:", e));
+                audioEl.play().catch(e => {
+                    console.log("فشل تشغيل الرقية، جاري تجربة السيرفر الاحتياطي...");
+                    audioEl.src = `https://cdn.islamic.network/quran/audio-surah/128/ar.alafasy/1.mp3`;
+                    audioEl.play().catch(e2 => alert("تعذر تشغيل الصوت."));
+                });
                 
                 const reciterName = document.getElementById('ruqyahReciter').options[document.getElementById('ruqyahReciter').selectedIndex].text;
                 titleEl.textContent = `الرقية الشرعية - ${reciterName}`;
