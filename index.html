@@ -224,17 +224,53 @@
         }
         .modal-header .modal-icon { font-size: 3rem; }
         .modal-header h3 { color: var(--primary); font-size: 1.5rem; margin: 0; }
+        
+        /* تصميم خطوات العبادات القابلة للضغط */
         .modal-steps { list-style: none; padding: 0; }
         .modal-steps li {
             background: #f8fafc; padding: 12px 15px; border-radius: 10px;
             margin-bottom: 10px; border-right: 4px solid var(--gold);
             font-size: 1rem; color: #334155; line-height: 1.6;
-            display: flex; align-items: flex-start; gap: 10px;
+            display: flex; align-items: center; gap: 10px;
+            cursor: pointer; transition: 0.2s; position: relative;
         }
+        .modal-steps li:hover {
+            background: #fffbeb; border-right-color: var(--primary);
+            transform: translateX(-5px);
+        }
+        .modal-steps li::after {
+            content: '👁️'; font-size: 1rem; margin-right: auto; opacity: 0.5;
+        }
+        .modal-steps li:hover::after { opacity: 1; }
+        
         .step-num {
             background: var(--primary); color: white; width: 24px; height: 24px;
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 0.8rem; font-weight: bold; flex-shrink: 0; margin-top: 2px;
+            font-size: 0.8rem; font-weight: bold; flex-shrink: 0;
+        }
+
+        /* نافذة الشرح (Sub-Modal) */
+        .step-details-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px); z-index: 3000;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden; transition: 0.3s; padding: 1rem;
+        }
+        .step-details-overlay.active { opacity: 1; visibility: visible; }
+        .step-details-card {
+            background: #fff; border-radius: 20px; width: 100%; max-width: 400px;
+            padding: 2rem; box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            position: relative; text-align: center;
+            transform: translateY(20px); transition: 0.3s;
+        }
+        .step-details-overlay.active .step-details-card { transform: translateY(0); }
+        .step-details-icon { font-size: 3rem; margin-bottom: 1rem; }
+        .step-details-title { color: var(--primary); font-size: 1.3rem; font-weight: bold; margin-bottom: 1rem; }
+        .step-details-text { color: #475569; font-size: 1.05rem; line-height: 1.8; text-align: justify; }
+        .step-details-btn {
+            margin-top: 1.5rem; padding: 10px 25px; background: var(--primary);
+            color: white; border: none; border-radius: 25px; font-weight: bold;
+            cursor: pointer; font-family: 'Cairo', sans-serif; width: 100%;
         }
 
         /* ============ تصميم الأدعية والأذكار ============ */
@@ -531,6 +567,7 @@
         </div>
     </section>
 
+    <!-- ============ قسم دليل العبادات ============ -->
     <section id="worship" class="content-section">
         <div class="worship-guide-container">
             <div class="worship-guide-header">
@@ -550,6 +587,7 @@
         </div>
     </section>
 
+    <!-- نافذة تفاصيل العبادات (الرئيسية) -->
     <div class="worship-modal-overlay" id="worshipModalOverlay" onclick="closeWorshipModal(event)">
         <div class="worship-modal" onclick="event.stopPropagation()">
             <button class="close-modal" onclick="closeWorshipModal()">✖</button>
@@ -558,6 +596,16 @@
                 <h3 id="modalTitle">عنوان العبادة</h3>
             </div>
             <ul class="modal-steps" id="modalStepsList"></ul>
+        </div>
+    </div>
+
+    <!-- نافذة شرح الخطوة (Sub-Modal) -->
+    <div class="step-details-overlay" id="stepDetailsOverlay" onclick="closeStepDetails(event)">
+        <div class="step-details-card" onclick="event.stopPropagation()">
+            <div class="step-details-icon" id="stepDetailIcon">🕌</div>
+            <div class="step-details-title" id="stepDetailTitle">عنوان الخطوة</div>
+            <div class="step-details-text" id="stepDetailText">الشرح هنا...</div>
+            <button class="step-details-btn" onclick="closeStepDetails()">فهمت، شكراً</button>
         </div>
     </div>
 
@@ -1040,16 +1088,102 @@
             );
         }
 
-        /* ============ دليل العبادات ============ */
+        /* ============ دليل العبادات المحدث (مع الشرح) ============ */
         const worshipData = {
-            wudu: { icon: "🚰", title: "خطوات الوضوء", steps: ["النية", "غسل الكفين 3 مرات", "المضمضة 3 مرات", "الاستنشاق والاستنثار 3 مرات", "غسل الوجه 3 مرات", "غسل اليدين مع المرفقين 3 مرات", "مسح الرأس مرة واحدة", "مسح الأذنين", "غسل القدمين مع الكعبين 3 مرات"] },
-            salah: { icon: "🕌", title: "أركان الصلاة", steps: ["تكبيرة الإحرام", "قراءة الفاتحة", "الركوع", "الرفع من الركوع", "السجود", "الجلوس بين السجدتين", "السجود الثاني", "التشهد والسلام"] },
-            quranW: { icon: "📖", title: "آداب التلاوة", steps: ["الطهارة", "الاستعاذة", "البسملة", "الترتيل", "التدبر", "السجود عند آيات السجدة"] },
-            fasting: { icon: "🌴", title: "أحكام الصيام", steps: ["النية قبل الفجر", "الإمساك عن الطعام والشراب", "الالتزام بالأخلاق", "السحور", "تعجيل الفطر", "الدعاء عند الإفطار"] },
-            zakatW: { icon: "💰", title: "شروط الزكاة", steps: ["الإسلام", "الحرية", "ملك النصاب", "حولان الحول", "المال النامي", "إخراج 2.5%"] },
-            hajj: { icon: "🕋", title: "أركان الحج", steps: ["الإحرام", "الوقوف بعرفة", "طواف الإفاضة", "السعي", "الحلق أو التقصير", "المبيت بمنى", "رمي الجمرات"] },
-            umrah: { icon: "🕋", title: "أركان العمرة", steps: ["الإحرام من الميقات", "الطواف 7 أشواط", "الصلاة خلف المقام", "السعي 7 أشواط", "الحلق أو التقصير"] },
-            adhkarW: { icon: "📿", title: "أوقات الأذكار", steps: ["أذكار الصباح والمساء", "أذكار بعد الصلوات", "أذكار النوم والاستيقاظ", "أذكار الطعام والشراب", "أذكار دخول وخروج المنزل", "أذكار الهم والحزن", "الاستغفار والتسبيح"] }
+            wudu: {
+                icon: "🚰", title: "خطوات الوضوء",
+                steps: [
+                    { title: "النية", text: "استحضار النية في القلب للوضوء (رفع الحدث أو استباحة الصلاة)، ولا يُشترط التلفظ بها باللسان." },
+                    { title: "غسل الكفين 3 مرات", text: "غسل كلتا اليدين إلى الرسغين ثلاث مرات، ويُستحب البدء باليمنى، ويتم تخليل الأصابع." },
+                    { title: "المضمضة 3 مرات", text: "إدارة الماء في الفم ثم إخراجه، لتنظيف الفم وإزالة بقايا الطعام." },
+                    { title: "الاستنشاق والاستنثار 3 مرات", text: "جذب الماء إلى الأنف بقوة (دون مبالغة للصائم) ثم إخراجه، ويُستحب المبالغة للصائم." },
+                    { title: "غسل الوجه 3 مرات", text: "من منابت شعر الرأس العادي إلى ما انحدر من اللحية، ومن الأذن إلى الأذن عرضاً." },
+                    { title: "غسل اليدين مع المرفقين 3 مرات", text: "البدء باليد اليمنى ثم اليسرى، مع إدخال المرفقين في الغسل." },
+                    { title: "مسح الرأس مرة واحدة", text: "بلّ اليدين ثم مسح الرأس من مقدمة الرأس إلى مؤخرته، ثم الرجوع إلى المقدمة." },
+                    { title: "مسح الأذنين", text: "إدخال السبابتين في صماخ الأذنين، ومسح ظاهرهما بالإبهامين، مرة واحدة." },
+                    { title: "غسل القدمين مع الكعبين 3 مرات", text: "البدء باليمنى ثم اليسرى، مع تخليل أصابع القدمين، وإدخال الكعبين في الغسل." }
+                ]
+            },
+            salah: {
+                icon: "🕌", title: "أركان الصلاة",
+                steps: [
+                    { title: "تكبيرة الإحرام", text: "قول 'الله أكبر' في بداية الصلاة، وهي ركن لا تصح الصلاة بدونها، مع رفع اليدين." },
+                    { title: "قراءة الفاتحة", text: "قراءة سورة الفاتحة كاملة في كل ركعة، ولا تصح الصلاة بدونها." },
+                    { title: "الركوع", text: "الانحناء بحيث يستقر الكفان على الركبتين، ويُسن قول 'سبحان ربي العظيم' ثلاثاً." },
+                    { title: "الرفع من الركوع", text: "الاعتدال قائماً، ويُسن قول 'سمع الله لمن حمده، ربنا ولك الحمد'." },
+                    { title: "السجود", text: "السجود على الأعضاء السبعة (الجبهة والأنف، الكفين، الركبتين، أطراف القدمين)، ويُسن قول 'سبحان ربي الأعلى' ثلاثاً." },
+                    { title: "الجلوس بين السجدتين", text: "الجلوس مطمئناً بين السجدتين، ويُسن الدعاء بـ 'رب اغفر لي وارحمني'." },
+                    { title: "السجود الثاني", text: "السجود مرة أخرى بنفس الهيئة والأذكار." },
+                    { title: "التشهد والسلام", text: "الجلوس الأخير للتشهد، ثم السلام عن اليمين وعن الشمال." }
+                ]
+            },
+            quranW: {
+                icon: "📖", title: "آداب التلاوة",
+                steps: [
+                    { title: "الطهارة", text: "يُستحب الوضوء قبل تلاوة القرآن، ويحرم مس المصحف للمحدث حدثاً أصغر." },
+                    { title: "الاستعاذة", text: "قول 'أعوذ بالله من الشيطان الرجيم' قبل البدء في القراءة." },
+                    { title: "البسملة", text: "قول 'بسم الله الرحمن الرحيم' في بداية كل سورة (ما عدا التوبة)." },
+                    { title: "الترتيل", text: "قراءة القرآن بتأنٍ وتجويد، كما قال تعالى 'ورتل القرآن ترتيلاً'." },
+                    { title: "التدبر", text: "التفكر في معاني الآيات والعمل بها، والبكاء والخشوع عند آيات الرحمة والعذاب." },
+                    { title: "السجود عند آيات السجدة", text: "السجود عند قراءة آية سجدة (في مواضعها المحددة)، ويُسن الدعاء في السجود." }
+                ]
+            },
+            fasting: {
+                icon: "🌴", title: "أحكام الصيام",
+                steps: [
+                    { title: "النية قبل الفجر", text: "استحضار نية الصيام من الليل (قبل طلوع الفجر) لكل يوم من أيام رمضان." },
+                    { title: "الإمساك عن الطعام والشراب", text: "الامتناع عن الطعام والشراب والشهوات (كالتدخين والجماع) من طلوع الفجر إلى غروب الشمس." },
+                    { title: "الالتزام بالأخلاق", text: "الابتعاد عن الغيبة والنميمة والكلام البذيء، فالرسول ﷺ قال: 'إن لم يدع قول الزور والعمل به فليس لله حاجة في أن يدع طعامه وشرابه'." },
+                    { title: "السحور", text: "تناول وجبة السحور قبل الفجر، ويُستحب تأخيرها، فهي بركة." },
+                    { title: "تعجيل الفطر", text: "الإفطار فور التأكد من غروب الشمس، ويُسن البدء بالرطب أو التمر أو الماء." },
+                    { title: "الدعاء عند الإفطار", text: "الدعاء عند الفطر مستجاب، ويمكن قول 'ذهب الظمأ وابتلت العروق وثبت الأجر إن شاء الله'." }
+                ]
+            },
+            zakatW: {
+                icon: "💰", title: "شروط الزكاة",
+                steps: [
+                    { title: "الإسلام", text: "لا تجب الزكاة على غير المسلم، فهي عبادة مالية للمسلمين." },
+                    { title: "الحرية", text: "لا تجب الزكاة على المملوك (وهذا في زمن العبودية)، فالحكم لغير المملوك مطلقاً." },
+                    { title: "ملك النصاب", text: "بلوغ المال الحد الأدنى (نصاب الذهب 85 جراماً، أو الفضة 595 جراماً، أو ما يعادلهما من النقود)." },
+                    { title: "حولان الحول", text: "مرور سنة قمرية كاملة (354 يوماً تقريباً) على المال، مع بقاء النصاب في أول الحول وآخره." },
+                    { title: "المال النامي", text: "أن يكون المال نامياً أو قابلاً للنماء (كالذهب والفضة والنقود والأنعام وعروض التجارة)." },
+                    { title: "إخراج 2.5%", text: "مقدار الواجب إخراجه هو ربع العشر (2.5%) من إجمالي المال لكل من بلغ نصابه وحال عليه الحول." }
+                ]
+            },
+            hajj: {
+                icon: "🕋", title: "أركان الحج",
+                steps: [
+                    { title: "الإحرام", text: "النية للدخول في مناسك الحج، ويبدأ من الميقات الزماني (شوال، ذو القعدة، وعشر من ذي الحجة) والمكاني المحدد." },
+                    { title: "الوقوف بعرفة", text: "الركن الأعظم للحج، من زوال شمس يوم 9 ذي الحجة إلى فجر يوم 10، ومن فاته فقد فاتّه الحج." },
+                    { title: "طواف الإفاضة", text: "الطواف حول الكعبة (7 أشواط) يوم النحر أو بعده، وهو ركن لا يُجبر بدم." },
+                    { title: "السعي بين الصفا والمروة", text: "السعي 7 أشواط ذهاباً وإياباً بين الصفا والمروة." },
+                    { title: "الحلق أو التقصير", text: "حلق شعر الرأس (للرجل) أو تقصيره، وللمرأة التقصير بقدر أنملة من ضفيرتها." },
+                    { title: "المبيت بمنى", text: "المبيت بمنى ليالي أيام التشريق (11، 12، 13 ذي الحجة) للمتعجل أو المتمتع." },
+                    { title: "رمي الجمرات", text: "رمي الجمرات الثلاث (الصغرى، الوسطى، الكبرى) في أيام التشريق بحصيات صغيرة." }
+                ]
+            },
+            umrah: {
+                icon: "🕋", title: "أركان العمرة",
+                steps: [
+                    { title: "الإحرام من الميقات", text: "النية للعمرة، ويُسن الاغتسال والتطيب قبل الإحرام، ولبس إزار ورداء للرجل، وملابس ساترة للمرأة." },
+                    { title: "الطواف 7 أشواط", text: "الطواف حول الكعبة 7 أشواط يبدأ من الحجر الأسود وينتهي به، ويُسن استلام الحجر وتقبيله إن أمكن." },
+                    { title: "الصلاة خلف المقام", text: "صلاة ركعتين بعد الطواف خلف مقام إبراهيم إن تيسر، وإلا ففي أي مكان في المسجد." },
+                    { title: "السعي 7 أشواط", text: "السعي بين الصفا والمروة 7 أشواط، يبدأ بالصفا وينتهي بالمروة، مع الذكر والدعاء." },
+                    { title: "الحلق أو التقصير", text: "حلق شعر الرأس للرجل أو تقصيره، وللمرأة التقصير بقدر أنملة، وبذلك تتم العمرة." }
+                ]
+            },
+            adhkarW: {
+                icon: "📿", title: "أوقات الأذكار",
+                steps: [
+                    { title: "أذكار الصباح والمساء", text: "تُقال بعد صلاة الفجر وبعد صلاة العصر، وهي حصن للمسلم وحماية من الشيطان." },
+                    { title: "أذكار بعد الصلوات", text: "تُقال بعد كل صلاة مفروضة (التسبيح 33، التحميد 33، التكبير 34، آية الكرسي، إلخ)." },
+                    { title: "أذكار النوم والاستيقاظ", text: "تُقال عند الاستعداد للنوم (آية الكرسي، التسبيح)، وعند الاستيقاظ (الحمد لله الذي أحيانا...)." },
+                    { title: "أذكار الطعام والشراب", text: "البسملة قبل الأكل، والحمد عند الانتهاء، والدعاء إذا نسي البسملة في البداية." },
+                    { title: "أذكار الدخول والخروج", text: "أدعية دخول وخروج المنزل، والمسجد، والخلاء، والسفر، والركوب." },
+                    { title: "أذكار الهم والحزن", text: "الأدعية المأثورة لتفريج الكرب والهموم، مثل: 'اللهم إني عبدك..'." },
+                    { title: "الاستغفار والتسبيح", text: "المداومة على الاستغفار والذكر في كل وقت وحين، فهو زاد المؤمن." }
+                ]
+            }
         };
 
         function openWorshipModal(key) {
@@ -1057,14 +1191,35 @@
             if(!data) return;
             document.getElementById('modalIcon').textContent = data.icon;
             document.getElementById('modalTitle').textContent = data.title;
+            
             const stepsList = document.getElementById('modalStepsList');
-            stepsList.innerHTML = data.steps.map((step, idx) => `<li><span class="step-num">${idx + 1}</span><span>${step}</span></li>`).join('');
+            // بناء القائمة مع إضافة حدث الضغط (onclick) لكل بند
+            stepsList.innerHTML = data.steps.map((step, idx) => `
+                <li onclick="openStepDetails('${data.icon}', '${step.title}', '${step.text}')">
+                    <span class="step-num">${idx + 1}</span>
+                    <span>${step.title}</span>
+                </li>
+            `).join('');
+            
             document.getElementById('worshipModalOverlay').classList.add('active');
         }
 
         function closeWorshipModal(e) {
             if (e && e.target !== e.currentTarget && e.target.className !== 'close-modal') return;
             document.getElementById('worshipModalOverlay').classList.remove('active');
+        }
+
+        // دوال نافذة التفاصيل الفرعية (Sub-Modal)
+        function openStepDetails(icon, title, text) {
+            document.getElementById('stepDetailIcon').textContent = icon;
+            document.getElementById('stepDetailTitle').textContent = title;
+            document.getElementById('stepDetailText').textContent = text;
+            document.getElementById('stepDetailsOverlay').classList.add('active');
+        }
+
+        function closeStepDetails(e) {
+            if (e && e.target !== e.currentTarget) return;
+            document.getElementById('stepDetailsOverlay').classList.remove('active');
         }
 
         /* ============ القرآن والمشغل ============ */
@@ -1189,7 +1344,7 @@
             document.getElementById('tasbihCount').textContent = 0;
         }
 
-        /* ============ الأدعية والأذكار ============ */
+        /* ============ الأدعية ============ */
         const adhkarData = [
             { category: "🌅 أذكار الصباح والمساء", items: [
                 { text: "عود نفسك بعد الفجر أن تقول:\n\nاللهم يا فاتح الأبواب، ويا ميسّر الأسباب، ويا من بيده مفاتيح الغيب، أسألك مع هذا الصباح أن تفتح لي فتحًا يليق بكرمك، وأن تسوق إليّ من خيرات الدنيا ما يُصلح حالي، ويُطمئن قلبي، ويُبارك عمري. اللهم اجعل هذا اليوم مختلفًا عن كل يوم، واكتب لي فيه بدايةً تُفرحني، وخطوةً تُقرّبني، ونعمةً تُغنيني، وبشارةً تُنسي قلبي طول الانتظار.\n\nاللهم إني أستيقظ اليوم وأنت ربي، وأملي فيك لا ينقطع، وثقتي برحمتك لا تتبدّل، فاجعلني في جوارك وحفظك، وأحطني بعنايتك التي لا تغفل، واصرف عني ما لا أطيق، ولا تحملني من أعباء الحياة ما يُضعف قلبي أو يُطفئ عزيمتي. اللهم امنحني قوةً أواجه بها مسؤولياتي، وحكمةً أختار بها قراراتي، وصبرًا أحتمل به ما لا أستطيع تغييره، وبصيرةً أرى بها الخير حتى حين يختبئ خلف ما لا أحب.\n\nيا رب، اجعل لي في هذا الصباح نصيبًا من كل رحمة، وحظًا من كل بركة، وسهمًا من كل رزقٍ طيب. اللهم ارزقني رزقًا يأتيني بكرامتك، ويكفيني بفضلك، ويُغنيني عن ذلّ السؤال، وبارك لي فيما أعطيتني، وزدني من فضلك زيادةً تُصلح بها دنياي وآخرتي. اللهم افتح أمامي طرقًا ظننتها مغلقة، ويسّر لي أمورًا حسبتها مستحيلة، وسخّر لي الأسباب التي تعجز يدي عن الوصول إليها.\n\nاللهم طهّر قلبي من القلق الذي يسرق فرحتي، ومن الخوف الذي يُقيّد خطواتي، ومن الحزن الذي يُثقِل روحي. علّمني أن أعيش يومي بقلبٍ حاضر، وأن أُحسن الظن بك في كل ما أجهل، وأن أرى في تأخيرك رحمة، وفي منعك حكمة، وفي عطائك فضلًا، وفي كل قدرٍ تختاره لي خيرًا وإن لم أفهمه الآن.\n\nاللهم احفظني وأهلي ومن أحب من كل سوء، واستر عيوبنا، واغفر ذنوبنا، وأصلح أحوالنا، وأدم علينا نعمة الصحة والعافية والأمان. اللهم أبعد عنا شرّ المفاجآت، ووجع الخذلان، وثقل الديون، وضيق الأرزاق، وسوء الأخبار، واجعل بيوتنا عامرةً بذكرك، وقلوبنا مملوءةً بنورك، وأيامنا محاطةً بلطفك.\n\nاللهم في هذا الصباح، أسألك قلبًا لا تهزمه الابتلاءات، ولا تسرقه الدنيا من قربك. ارزقني من الأقدار أجملها، ومن الألطاف أخفاها، ومن العطايا أوسعها، ومن المسرّات أكثرها. واجعل لي في هذا اليوم دعوةً لا تُرد، ورزقًا لا يُعد، وخيرًا لا ينفد، وراحةً لا تزول. اللهم إذا انتهى هذا اليوم، فاجعلني أحمدك على أمرٍ تحقق، وبلاءٍ اندفع، ورزقٍ وصل، ونعمةٍ بقيت، ولطفٍ أحاط بي دون أن أشعر. آمين يا رب العالمين.", source: "دعاء مستجاب" },
@@ -1235,7 +1390,6 @@
                 html += `<h3 class="dua-category-title">${cat.category}</h3>`;
                 cat.items.forEach((item, idx) => {
                     const id = `dua-${catIdx}-${idx}`;
-                    // استبدال الأسطر الجديدة بـ <br> لعرض النص بشكل صحيح
                     const formattedText = item.text.replace(/\n/g, '<br>');
                     html += `
                         <div class="dua-card">
