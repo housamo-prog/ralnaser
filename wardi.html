@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f5132">
+  <meta name="description" content="وردي اليوم: آية قرآنية وذكر ودعاء وتأمل يومي من موقع الشيخ الدكتور محمد ربيع الناصر.">
+  <title>وردي اليوم | الشيخ الدكتور محمد ربيع الناصر</title>
+  <style>
+    :root {
+      --green: #0f5132;
+      --green-2: #198754;
+      --gold: #d4af37;
+      --gold-soft: #fff5d6;
+      --paper: #fffdf7;
+      --ink: #24352d;
+      --muted: #65756c;
+      --line: #e5e9e4;
+      --white: #fff;
+      --shadow: 0 12px 32px rgba(15, 81, 50, .09);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: #f4f7f4; color: var(--ink);
+      font-family: Tahoma, Arial, sans-serif; line-height: 1.8;
+    }
+    a { color: inherit; }
+    .topline { height: 7px; background: linear-gradient(90deg, var(--gold), #f7e7a3, var(--gold)); }
+    header {
+      color: white; text-align: center; padding: 28px 16px 30px;
+      background: radial-gradient(circle at top, #22764e 0, var(--green) 68%);
+      border-bottom: 4px solid var(--gold);
+    }
+    .brand { font-size: .92rem; color: #f6e7a5; margin-bottom: 5px; }
+    h1 { font-size: clamp(1.8rem, 6vw, 2.6rem); margin: 0; line-height: 1.4; }
+    header p { margin: 7px 0 0; color: #e3eee7; }
+    .date-pill {
+      display: inline-block; margin-top: 16px; padding: 5px 14px;
+      border: 1px solid rgba(255,255,255,.35); border-radius: 999px;
+      background: rgba(0,0,0,.12); color: #fff4c6; font-size: .9rem;
+    }
+    main { max-width: 850px; margin: 22px auto 42px; padding: 0 14px; }
+    .intro {
+      text-align: center; padding: 0 8px 14px; color: var(--muted);
+    }
+    .progress-wrap {
+      background: white; border: 1px solid var(--line); border-radius: 16px;
+      padding: 14px 16px; margin: 14px 0 18px; box-shadow: var(--shadow);
+    }
+    .progress-top { display: flex; justify-content: space-between; gap: 12px; align-items: center; flex-wrap: wrap; }
+    .progress-top strong { color: var(--green); }
+    .progress-track { height: 9px; background: #e8eee9; border-radius: 99px; overflow: hidden; margin-top: 10px; }
+    .progress-bar { width: 0; height: 100%; background: linear-gradient(90deg, var(--green-2), var(--gold)); transition: width .25s; }
+    .card {
+      background: white; border: 1px solid var(--line); border-radius: 18px;
+      padding: 20px; margin: 15px 0; box-shadow: var(--shadow);
+      border-top: 4px solid var(--gold);
+    }
+    .card-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .icon {
+      width: 42px; height: 42px; flex: 0 0 42px; display: grid; place-items: center;
+      background: var(--gold-soft); border-radius: 13px; font-size: 1.35rem;
+    }
+    h2 { color: var(--green); font-size: 1.22rem; margin: 0; }
+    .tag { font-size: .78rem; color: var(--muted); margin-top: 2px; }
+    .main-text {
+      font-family: "Traditional Arabic", "Amiri", "Times New Roman", serif;
+      font-size: clamp(1.55rem, 4.8vw, 2rem); line-height: 2.05; text-align: center;
+      padding: 8px 2px; color: #182b20;
+    }
+    .source { color: var(--muted); font-size: .88rem; text-align: center; margin-top: 4px; }
+    .reflection { background: #f5faf6; border-right: 4px solid var(--green-2); padding: 14px 16px; border-radius: 10px; }
+    .reflection p { margin: 0; }
+    .actions { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 16px; }
+    button, .button-link {
+      border: 0; border-radius: 11px; padding: 10px 14px; font: inherit; font-size: .92rem;
+      font-weight: bold; cursor: pointer; text-decoration: none; display: inline-flex;
+      justify-content: center; align-items: center; gap: 7px; min-height: 43px;
+    }
+    .primary { background: var(--green); color: white; }
+    .secondary { background: #edf4ef; color: var(--green); border: 1px solid #d8e5dc; }
+    .gold { background: var(--gold-soft); color: #5c4a1f; border: 1px solid #eadb9b; }
+    button:focus-visible, a:focus-visible { outline: 3px solid #e1b82c; outline-offset: 3px; }
+    .complete-btn { margin-right: auto; }
+    .complete-btn.done { background: #e5f5e9; color: #176337; border: 1px solid #b7dfc2; }
+    .notice { font-size: .86rem; color: var(--muted); background: #fffdf5; border: 1px dashed #e4d48c; padding: 12px 14px; border-radius: 12px; }
+    footer { text-align: center; padding: 20px 12px 30px; color: var(--muted); font-size: .88rem; }
+    footer a { color: var(--green); font-weight: bold; }
+    .toast {
+      position: fixed; bottom: 18px; right: 50%; transform: translateX(50%);
+      background: #183e2a; color: white; padding: 10px 16px; border-radius: 12px;
+      box-shadow: 0 8px 25px #0002; opacity: 0; pointer-events: none; transition: opacity .2s;
+      max-width: calc(100% - 28px); text-align: center; z-index: 20;
+    }
+    .toast.show { opacity: 1; }
+    @media (max-width: 520px) {
+      .card { padding: 16px; }
+      .actions button, .actions .button-link { flex: 1 1 calc(50% - 8px); }
+      .complete-btn { margin-right: 0; }
+    }
+    @media print {
+      body { background: white; }
+      .topline, .actions, .progress-wrap, footer .back-link, .toast { display: none !important; }
+      header { background: white; color: var(--green); border-bottom: 2px solid var(--gold); }
+      header p, .brand, .date-pill { color: var(--green); }
+      .card { box-shadow: none; break-inside: avoid; }
+      main { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topline"></div>
+  <header>
+    <div class="brand">موقع الشيخ الدكتور محمد ربيع الناصر</div>
+    <h1>📿 وردي اليوم</h1>
+    <p>لحظات قصيرة مع القرآن والذكر والدعاء</p>
+    <div class="date-pill" id="todayDate">يتم تحديد تاريخ اليوم…</div>
+  </header>
+
+  <main>
+    <div class="intro">
+      اجعل لنفسك وقتاً يومياً للذكر والتدبر، ولو دقائق قليلة.
+      <br>يتجدد المحتوى بحسب تاريخ اليوم، ويمكنك حفظ إنجازك على هذا الجهاز.
+    </div>
+
+    <section class="progress-wrap" aria-label="تقدم الورد">
+      <div class="progress-top">
+        <strong>إنجاز ورد اليوم</strong>
+        <span id="progressLabel">0 من 4 مكتمل</span>
+      </div>
+      <div class="progress-track" role="progressbar" aria-label="نسبة إنجاز الورد" aria-valuemin="0" aria-valuemax="4" aria-valuenow="0" id="progressTrack">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+    </section>
+
+    <section class="card" id="verseCard">
+      <div class="card-head">
+        <div class="icon">📖</div>
+        <div><h2>آية اليوم</h2><div class="tag">اقرأها بتدبر</div></div>
+      </div>
+      <div class="main-text" id="verseText"></div>
+      <div class="source" id="verseSource"></div>
+      <div class="actions">
+        <button class="secondary" onclick="copyItem('verse')">📋 نسخ الآية</button>
+        <button class="complete-btn primary" data-item="verse" onclick="toggleDone('verse')">○ أنجزت القراءة</button>
+      </div>
+    </section>
+
+    <section class="card" id="dhikrCard">
+      <div class="card-head">
+        <div class="icon">📿</div>
+        <div><h2>ذكر اليوم</h2><div class="tag">ردّد الذكر بحضور القلب</div></div>
+      </div>
+      <div class="main-text" id="dhikrText"></div>
+      <div class="source" id="dhikrSource"></div>
+      <div class="actions">
+        <button class="secondary" onclick="copyItem('dhikr')">📋 نسخ الذكر</button>
+        <button class="complete-btn primary" data-item="dhikr" onclick="toggleDone('dhikr')">○ أنجزت الذكر</button>
+      </div>
+    </section>
+
+    <section class="card" id="duaCard">
+      <div class="card-head">
+        <div class="icon">🤲</div>
+        <div><h2>دعاء اليوم</h2><div class="tag">ادعُ الله بيقين ورجاء</div></div>
+      </div>
+      <div class="main-text" id="duaText"></div>
+      <div class="source" id="duaSource"></div>
+      <div class="actions">
+        <button class="secondary" onclick="copyItem('dua')">📋 نسخ الدعاء</button>
+        <button class="complete-btn primary" data-item="dua" onclick="toggleDone('dua')">○ قرأت الدعاء</button>
+      </div>
+    </section>
+
+    <section class="card" id="reflectionCard">
+      <div class="card-head">
+        <div class="icon">🌿</div>
+        <div><h2>تأمل اليوم</h2><div class="tag">معنى عملي نتوقف عنده</div></div>
+      </div>
+      <div class="reflection"><p id="reflectionText"></p></div>
+      <div class="source">تأمل تربوي عام، وليس اقتباساً منسوباً إلى الشيخ.</div>
+      <div class="actions">
+        <button class="secondary" onclick="copyItem('reflection')">📋 نسخ التأمل</button>
+        <button class="complete-btn primary" data-item="reflection" onclick="toggleDone('reflection')">○ تأملت فيه</button>
+      </div>
+    </section>
+
+    <div class="notice">
+      <strong>تنبيه:</strong> الآيات والأذكار والأدعية مرفقة بمراجعها قدر الإمكان. هذا الورد للتذكير والتدبر، ولا يُعد فتوى أو بديلاً عن سؤال أهل العلم.
+    </div>
+
+    <div class="actions" style="justify-content:center; margin-top:18px">
+      <button class="primary" onclick="shareWird()">📲 مشاركة ورد اليوم</button>
+      <button class="secondary" onclick="window.print()">🖨️ طباعة الورد</button>
+      <button class="gold" onclick="resetProgress()">↺ إعادة ضبط الإنجاز</button>
+    </div>
+  </main>
+
+  <footer>
+    <div>نسأل الله أن ينفع به ويجعله خالصاً لوجهه الكريم.</div>
+    <div class="back-link" style="margin-top:10px"><a href="./index.html">← العودة إلى الموقع الرئيسي</a></div>
+    <div style="margin-top:8px">يُحفظ إنجاز الورد على هذا الجهاز فقط، ولا يُرسل إلى أي جهة.</div>
+  </footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+  // محتوى مختار بمراجع ظاهرة. التأملات صياغة عامة وليست منسوبة للشيخ.
+  const wirds = [
+    {
+      verse: "فَإِنَّ مَعَ الْعُسْرِ يُسْرًا ۝ إِنَّ مَعَ الْعُسْرِ يُسْرًا",
+      verseSource: "سورة الشرح، الآيتان 5–6",
+      dhikr: "لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ",
+      dhikrSource: "من كنوز الجنة — صحيح البخاري وصحيح مسلم",
+      dua: "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ",
+      duaSource: "سورة البقرة، الآية 201",
+      reflection: "لا تجعل صعوبة اليوم دليلاً على انغلاق الأبواب. خذ بالأسباب المتاحة، واطلب العون من الله، ولا تستعجل النتائج."
+    },
+    {
+      verse: "أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ",
+      verseSource: "سورة الرعد، الآية 28",
+      dhikr: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ",
+      dhikrSource: "ورد فضل الإكثار منها في صحيح البخاري وصحيح مسلم",
+      dua: "رَبِّ اشْرَحْ لِي صَدْرِي ۝ وَيَسِّرْ لِي أَمْرِي",
+      duaSource: "سورة طه، الآيتان 25–26",
+      reflection: "ليس المقصود أن تختفي كل مشكلاتك حتى تطمئن؛ بل أن تجد في ذكر الله ما يعينك على مواجهتها بقلب أهدأ وعمل أحكم."
+    },
+    {
+      verse: "وَمَنْ يَتَوَكَّلْ عَلَى اللَّهِ فَهُوَ حَسْبُهُ",
+      verseSource: "سورة الطلاق، الآية 3",
+      dhikr: "سُبْحَانَ اللَّهِ، وَالْحَمْدُ لِلَّهِ، وَلَا إِلَهَ إِلَّا اللَّهُ، وَاللَّهُ أَكْبَرُ",
+      dhikrSource: "من أحب الكلام إلى الله — صحيح مسلم",
+      dua: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْهُدَى وَالتُّقَى وَالْعَفَافَ وَالْغِنَى",
+      duaSource: "صحيح مسلم، حديث 2721",
+      reflection: "التوكل لا يعني ترك العمل؛ بل أن تبذل جهدك فيما تستطيع، ثم لا تجعل قلبك أسيراً للخوف من النتائج."
+    },
+    {
+      verse: "فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُوا لِي وَلَا تَكْفُرُونِ",
+      verseSource: "سورة البقرة، الآية 152",
+      dhikr: "أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ",
+      dhikrSource: "ثبتت مشروعية الاستغفار والتوبة في القرآن والسنة",
+      dua: "رَبِّ زِدْنِي عِلْمًا",
+      duaSource: "سورة طه، الآية 114",
+      reflection: "النعمة لا تُحفظ بمجرد امتلاكها، بل بشكر الله عليها واستعمالها فيما ينفع. ابدأ اليوم بملاحظة نعمة واحدة واشكر الله عليها."
+    },
+    {
+      verse: "لَا تَقْنَطُوا مِنْ رَحْمَةِ اللَّهِ",
+      verseSource: "سورة الزمر، الآية 53",
+      dhikr: "لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ",
+      dhikrSource: "ذكر ثابت في الصحيحين بألفاظ وأعداد واردة في أحاديث متعددة",
+      dua: "رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا وَهَبْ لَنَا مِنْ لَدُنْكَ رَحْمَةً إِنَّكَ أَنْتَ الْوَهَّابُ",
+      duaSource: "سورة آل عمران، الآية 8",
+      reflection: "باب التوبة مفتوح، لكن الرجاء الصادق يدفع إلى إصلاح الخطأ ورد الحقوق، لا إلى تأجيل التوبة."
+    },
+    {
+      verse: "إِنَّ اللَّهَ مَعَ الصَّابِرِينَ",
+      verseSource: "سورة البقرة، الآية 153",
+      dhikr: "اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ",
+      dhikrSource: "الصلاة على النبي ﷺ مأمور بها في سورة الأحزاب، الآية 56",
+      dua: "اللَّهُمَّ أَعِنِّي عَلَى ذِكْرِكَ وَشُكْرِكَ وَحُسْنِ عِبَادَتِكَ",
+      duaSource: "سنن أبي داود، حديث 1522؛ والنسائي، حديث 1303",
+      reflection: "الصبر ليس استسلاماً للخطأ أو الظلم؛ هو ثبات على الحق، مع السعي إلى الإصلاح واختيار الوسيلة الحكيمة."
+    },
+    {
+      verse: "وَقُلْ رَبِّ زِدْنِي عِلْمًا",
+      verseSource: "سورة طه، الآية 114",
+      dhikr: "أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ وَأَتُوبُ إِلَيْهِ",
+      dhikrSource: "صيغة استغفار جائزة المعنى؛ لا يُقصد هنا تخصيص عدد أو وقت",
+      dua: "رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ وَاجْعَلْنَا لِلْمُتَّقِينَ إِمَامًا",
+      duaSource: "سورة الفرقان، الآية 74",
+      reflection: "اجعل نهاية يومك مراجعة هادئة: ما الخير الذي فعلته؟ وما الخطأ الذي تستطيع إصلاحه غداً؟ المحاسبة باب للتحسن لا لليأس."
+    }
+  ];
+
+  const itemKeys = ["verse", "dhikr", "dua", "reflection"];
+  const labels = { verse: "آية اليوم", dhikr: "ذكر اليوم", dua: "دعاء اليوم", reflection: "تأمل اليوم" };
+  const now = new Date();
+  const localDateKey = [
+    now.getFullYear(),
+    String(now.getMonth() + 1).padStart(2, "0"),
+    String(now.getDate()).padStart(2, "0")
+  ].join("-");
+  const dayIndex = Math.floor(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()) / 86400000) % wirds.length;
+  const currentWird = wirds[(dayIndex + wirds.length) % wirds.length];
+  const storageKey = "ralnaser-wird-progress-" + localDateKey;
+  let progress = loadProgress();
+
+  function loadProgress() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(storageKey) || "{}");
+      return saved && typeof saved === "object" ? saved : {};
+    } catch (_) { return {}; }
+  }
+  function saveProgress() {
+    try { localStorage.setItem(storageKey, JSON.stringify(progress)); } catch (_) {}
+    renderProgress();
+  }
+  function renderProgress() {
+    const count = itemKeys.filter(key => progress[key]).length;
+    document.getElementById("progressLabel").textContent = count + " من 4 مكتمل";
+    document.getElementById("progressBar").style.width = (count / 4 * 100) + "%";
+    document.getElementById("progressTrack").setAttribute("aria-valuenow", String(count));
+    document.querySelectorAll("[data-item]").forEach(button => {
+      const key = button.getAttribute("data-item");
+      const done = !!progress[key];
+      button.classList.toggle("done", done);
+      button.textContent = done ? "✓ تم الإنجاز" : (key === "reflection" ? "○ تأملت فيه" : key === "dua" ? "○ قرأت الدعاء" : key === "dhikr" ? "○ أنجزت الذكر" : "○ أنجزت القراءة");
+    });
+  }
+  function toggleDone(key) {
+    progress[key] = !progress[key];
+    saveProgress();
+    if (itemKeys.every(item => progress[item])) showToast("تقبّل الله منك، أتممت ورد اليوم 🌿");
+  }
+  function resetProgress() {
+    if (!confirm("هل تريد إعادة ضبط إنجاز ورد اليوم؟")) return;
+    progress = {};
+    saveProgress();
+    showToast("تمت إعادة ضبط الإنجاز لهذا اليوم.");
+  }
+  function fillContent() {
+    document.getElementById("todayDate").textContent = new Intl.DateTimeFormat("ar-SY", {
+      weekday: "long", year: "numeric", month: "long", day: "numeric"
+    }).format(now);
+    document.getElementById("verseText").textContent = currentWird.verse;
+    document.getElementById("verseSource").textContent = currentWird.verseSource;
+    document.getElementById("dhikrText").textContent = currentWird.dhikr;
+    document.getElementById("dhikrSource").textContent = currentWird.dhikrSource;
+    document.getElementById("duaText").textContent = currentWird.dua;
+    document.getElementById("duaSource").textContent = currentWird.duaSource;
+    document.getElementById("reflectionText").textContent = currentWird.reflection;
+    renderProgress();
+  }
+  function getItemText(key) {
+    if (key === "reflection") return labels[key] + "\\n" + currentWird.reflection;
+    return labels[key] + "\\n" + currentWird[key] + "\\n" + currentWird[key + "Source"];
+  }
+  async function copyItem(key) {
+    const text = getItemText(key);
+    try {
+      await navigator.clipboard.writeText(text);
+      showToast("تم نسخ " + labels[key]);
+    } catch (_) {
+      const field = document.createElement("textarea");
+      field.value = text; field.style.position = "fixed"; field.style.opacity = "0";
+      document.body.appendChild(field); field.select();
+      const ok = document.execCommand("copy"); field.remove();
+      showToast(ok ? "تم النسخ" : "تعذر النسخ؛ يمكنك استخدام مشاركة الورد.");
+    }
+  }
+  function fullWirdText() {
+    return "📿 وردي اليوم — " + document.getElementById("todayDate").textContent + "\\n\\n" +
+      "📖 آية اليوم\\n" + currentWird.verse + "\\n(" + currentWird.verseSource + ")\\n\\n" +
+      "📿 ذكر اليوم\\n" + currentWird.dhikr + "\\n(" + currentWird.dhikrSource + ")\\n\\n" +
+      "🤲 دعاء اليوم\\n" + currentWird.dua + "\\n(" + currentWird.duaSource + ")\\n\\n" +
+      "🌿 تأمل اليوم\\n" + currentWird.reflection + "\\n\\n" +
+      "من موقع الشيخ الدكتور محمد ربيع الناصر: " + location.href;
+  }
+  async function shareWird() {
+    const text = fullWirdText();
+    if (navigator.share) {
+      try { await navigator.share({ title: "وردي اليوم", text }); return; } catch (e) {
+        if (e && e.name === "AbortError") return;
+      }
+    }
+    window.open("https://wa.me/?text=" + encodeURIComponent(text), "_blank", "noopener");
+  }
+  let toastTimer;
+  function showToast(message) {
+    const toast = document.getElementById("toast");
+    toast.textContent = message;
+    toast.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove("show"), 2600);
+  }
+  fillContent();
+</script>
+</body>
+</html>
