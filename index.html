@@ -199,13 +199,21 @@
         .khawira-link { display: inline-block; background: var(--primary); color: white; padding: 8px 15px; border-radius: 8px; text-decoration: none; margin-top: 1rem; font-size: 0.9rem; }
         .khawira-date { font-size: 0.8rem; color: #999; margin-top: 1rem; display: block; }
         .delete-khawira-btn { position: absolute; top: 15px; left: 15px; background: #ef4444; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.8rem; display: none; }
+        
         .admin-panel { background: #fff; padding: 2rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 2rem; display: none; border: 2px solid var(--gold); }
         .admin-panel h3 { color: var(--primary); margin-bottom: 1rem; border-bottom: 2px solid #eee; padding-bottom: 0.5rem; }
-        .admin-panel input, .admin-panel textarea { width: 100%; padding: 10px; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif; }
+        .admin-panel input, .admin-panel textarea, .admin-panel select { width: 100%; padding: 10px; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 8px; font-family: 'Cairo', sans-serif; }
         .admin-panel textarea { height: 120px; resize: vertical; }
-        .admin-actions { display: flex; gap: 10px; }
+        .admin-actions { display: flex; gap: 10px; flex-wrap: wrap; }
         .btn-save { background: #16a34a; color: white; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; flex: 1; }
         .btn-cancel { background: #64748b; color: white; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .btn-export { background: #d97706; color: white; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; display: none; }
+        
+        #exportCodeBox {
+            display: none; width: 100%; height: 150px; margin-top: 10px;
+            background: #f1f5f9; border: 2px dashed #d97706; color: #000;
+            padding: 10px; border-radius: 8px; font-family: monospace;
+        }
 
         /* ============ أوقات الصلاة ============ */
         .prayer-search { display: flex; gap: 10px; margin-bottom: 1rem; justify-content: center; flex-wrap: wrap; }
@@ -362,13 +370,22 @@
         <div id="adminPanel" class="admin-panel">
             <h3>إضافة خاطرة جديدة</h3>
             <textarea id="newKhawiraText" placeholder="اكتب نص الخاطرة هنا..."></textarea>
-            <input type="text" id="newKhawiraImage" placeholder="رابط الصورة (اختياري)">
+            
+            <!-- رفع الصورة من الجهاز مباشرة -->
+            <label style="display:block; margin-bottom:5px; font-weight:bold; font-size:0.9rem;">إرفاق صورة من الجهاز (اختياري):</label>
+            <input type="file" id="newKhawiraImageFile" accept="image/*" style="padding: 8px; background: #f8f9fa;">
+            
             <input type="text" id="newKhawiraVideo" placeholder="رابط الفيديو (YouTube) (اختياري)">
             <input type="text" id="newKhawiraLink" placeholder="رابط خارجي (اختياري)">
+            
             <div class="admin-actions">
                 <button class="btn-save" onclick="saveKhawira()">حفظ ونشر</button>
                 <button class="btn-cancel" onclick="logoutAdmin()">إلغاء الخروج</button>
             </div>
+            
+            <!-- زر استخراج الكود ليحفظه في الملف الأساسي -->
+            <button class="btn-export" id="exportBtn" onclick="exportData()">استخراج الكود لتثبيت البيانات (اضغط هنا وانسخ النص)</button>
+            <textarea id="exportCodeBox" readonly></textarea>
         </div>
         <div id="khawatirContainer" class="khawatir-container"></div>
     </section>
@@ -884,7 +901,7 @@
             );
         }
 
-        // ============ دليل العبادات (البيانات الكاملة) ============
+        // ============ دليل العبادات ============
         const worshipData = {
             wudu: {
                 icon: "🚰", title: "خطوات الوضوء",
@@ -1169,7 +1186,7 @@
             document.getElementById('tasbihCount').textContent = 0;
         }
 
-        // ============ الأدعية (البيانات الكاملة) ============
+        // ============ الأدعية ============
         const adhkarData = [
             { category: "🌅 أذكار الصباح والمساء", items: [
                 { text: "عود نفسك بعد الفجر أن تقول:\n\nاللهم يا فاتح الأبواب، ويا ميسّر الأسباب، ويا من بيده مفاتيح الغيب، أسألك مع هذا الصباح أن تفتح لي فتحًا يليق بكرمك، وأن تسوق إليّ من خيرات الدنيا ما يُصلح حالي، ويُطمئن قلبي، ويُبارك عمري. اللهم اجعل هذا اليوم مختلفًا عن كل يوم، واكتب لي فيه بدايةً تُفرحني، وخطوةً تُقرّبني، ونعمةً تُغنيني، وبشارةً تُنسي قلبي طول الانتظار.\n\nاللهم إني أستيقظ اليوم وأنت ربي، وأملي فيك لا ينقطع، وثقتي برحمتك لا تتبدّل، فاجعلني في جوارك وحفظك، وأحطني بعنايتك التي لا تغفل، واصرف عني ما لا أطيق، ولا تحملني من أعباء الحياة ما يُضعف قلبي أو يُطفئ عزيمتي. اللهم امنحني قوةً أواجه بها مسؤولياتي، وحكمةً أختار بها قراراتي، وصبرًا أحتمل به ما لا أستطيع تغييره، وبصيرةً أرى بها الخير حتى حين يختبئ خلف ما لا أحب.\n\nيا رب، اجعل لي في هذا الصباح نصيبًا من كل رحمة، وحظًا من كل بركة، وسهمًا من كل رزقٍ طيب. اللهم ارزقني رزقًا يأتيني بكرامتك، ويكفيني بفضلك، ويُغنيني عن ذلّ السؤال، وبارك لي فيما أعطيتني، وزدني من فضلك زيادةً تُصلح بها دنياي وآخرتي. اللهم افتح أمامي طرقًا ظننتها مغلقة، ويسّر لي أمورًا حسبتها مستحيلة، وسخّر لي الأسباب التي تعجز يدي عن الوصول إليها.\n\nاللهم طهّر قلبي من القلق الذي يسرق فرحتي، ومن الخوف الذي يُقيّد خطواتي، ومن الحزن الذي يُثقِل روحي. علّمني أن أعيش يومي بقلبٍ حاضر، وأن أُحسن الظن بك في كل ما أجهل، وأن أرى في تأخيرك رحمة، وفي منعك حكمة، وفي عطائك فضلًا، وفي كل قدرٍ تختاره لي خيرًا وإن لم أفهمه الآن.\n\nاللهم احفظني وأهلي ومن أحب من كل سوء، واستر عيوبنا، واغفر ذنوبنا، وأصلح أحوالنا، وأدم علينا نعمة الصحة والعافية والأمان. اللهم أبعد عنا شرّ المفاجآت، ووجع الخذلان، وثقل الديون، وضيق الأرزاق، وسوء الأخبار، واجعل بيوتنا عامرةً بذكرك، وقلوبنا مملوءةً بنورك، وأيامنا محاطةً بلطفك.\n\nاللهم في هذا الصباح، أسألك قلبًا لا تهزمه الابتلاءات، ولا تسرقه الدنيا من قربك. ارزقني من الأقدار أجملها، ومن الألطاف أخفاها، ومن العطايا أوسعها، ومن المسرّات أكثرها. واجعل لي في هذا اليوم دعوةً لا تُرد، ورزقًا لا يُعد، وخيرًا لا ينفد، وراحةً لا تزول. اللهم إذا انتهى هذا اليوم، فاجعلني أحمدك على أمرٍ تحقق، وبلاءٍ اندفع، ورزقٍ وصل، ونعمةٍ بقيت، ولطفٍ أحاط بي دون أن أشعر. آمين يا رب العالمين.", source: "دعاء مستجاب" },
@@ -1258,12 +1275,17 @@
             window.open(`https://wa.me/963944856486?text=${msg}`, '_blank');
         }
 
-        // ============ قسم الخواطر ============
+        // ============ قسم الخواطر (النسخة المطورة للحفظ التلقائي) ============
         const ADMIN_PASSWORD = "R1234r1234";
         let isAdmin = false;
-        let khawatirList = JSON.parse(localStorage.getItem('khawatirData')) || [
+        
+        // البيانات الافتراضية الأساسية
+        const defaultKhawatir = [
             { id: 1, text: "مرحباً بكم في قسم الخواطر. هنا يمكن للشيخ مشاركة تأملاته وأفكاره معكم.", image: "", video: "", link: "", date: new Date().toLocaleDateString('ar-EG') }
         ];
+
+        // قراءة البيانات من الذاكرة أو استخدام الافتراضية
+        let khawatirList = JSON.parse(localStorage.getItem('khawatirData_v2')) || defaultKhawatir;
 
         function renderKhawatir() {
             const container = document.getElementById('khawatirContainer');
@@ -1300,8 +1322,9 @@
             if (pass === ADMIN_PASSWORD) {
                 isAdmin = true;
                 document.getElementById('adminPanel').style.display = 'block';
+                document.getElementById('exportBtn').style.display = 'block'; // إظهار زر تصدير الكود
                 renderKhawatir();
-                alert("تم تسجيل الدخول بنجاح.");
+                alert("تم تسجيل الدخول بنجاح. يمكنك إضافة خواطر ورفع صور.");
             } else if (pass !== null) {
                 alert("كلمة المرور خاطئة!");
             }
@@ -1310,37 +1333,87 @@
         function logoutAdmin() {
             isAdmin = false;
             document.getElementById('adminPanel').style.display = 'none';
+            document.getElementById('exportBtn').style.display = 'none'; // إخفاء زر تصدير الكود
+            document.getElementById('exportCodeBox').style.display = 'none';
             renderKhawatir();
+        }
+
+        // دالة معالجة رفع الصورة وتحويلها إلى Base64
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                // هنا يتم حفظ الصورة كـ Base64 داخل الذاكرة
+                window.uploadedImageBase64 = e.target.result;
+                alert("تم تجهيز الصورة بنجاح، اضغط على 'حفظ ونشر' لتثبيت الخاطرة.");
+            };
+            reader.readAsDataURL(file);
         }
 
         function saveKhawira() {
             if (!isAdmin) return;
+            
             const text = document.getElementById('newKhawiraText').value.trim();
-            const image = document.getElementById('newKhawiraImage').value.trim();
+            // نستخدم الصورة المرفوعة إذا وجدت، وإلا نتركها فارغة
+            const image = window.uploadedImageBase64 || ""; 
             const video = document.getElementById('newKhawiraVideo').value.trim();
             const link = document.getElementById('newKhawiraLink').value.trim();
-            if (!text) { alert("الرجاء كتابة نص الخاطرة أولاً."); return; }
-
-            const newKhawira = { id: Date.now(), text, image, video, link, date: new Date().toLocaleDateString('ar-EG') };
-            khawatirList.push(newKhawira);
-            localStorage.setItem('khawatirData', JSON.stringify(khawatirList));
             
+            if (!text && !image && !video && !link) { 
+                alert("الرجاء كتابة نص أو إرفاق صورة أو رابط."); 
+                return; 
+            }
+
+            const newKhawira = { 
+                id: Date.now(), 
+                text: text || "خاطرة مصورة", 
+                image: image, 
+                video: video, 
+                link: link, 
+                date: new Date().toLocaleDateString('ar-EG') 
+            };
+            
+            khawatirList.push(newKhawira);
+            
+            // الحفظ التلقائي في ذاكرة المتصفح (لن يمسح أبداً إذا لم يمسح المتصفح)
+            localStorage.setItem('khawatirData_v2', JSON.stringify(khawatirList));
+            
+            // تصفير الحقول
             document.getElementById('newKhawiraText').value = '';
-            document.getElementById('newKhawiraImage').value = '';
+            document.getElementById('newKhawiraImageFile').value = ''; // تصفير حقل الملف
             document.getElementById('newKhawiraVideo').value = '';
             document.getElementById('newKhawiraLink').value = '';
+            window.uploadedImageBase64 = null; // مسح الصورة المؤقتة
             
             renderKhawatir();
-            alert("تم نشر الخاطرة بنجاح!");
+            alert("تم نشر الخاطرة بنجاح! (محفوظة حالياً في متصفحك)");
         }
 
         function deleteKhawira(id) {
             if (!isAdmin) return;
             if (confirm("هل أنت متأكد من حذف هذه الخاطرة؟")) {
                 khawatirList = khawatirList.filter(item => item.id !== id);
-                localStorage.setItem('khawatirData', JSON.stringify(khawatirList));
+                localStorage.setItem('khawatirData_v2', JSON.stringify(khawatirList));
                 renderKhawatir();
             }
+        }
+
+        // دالة استخراج الكود لكي يضعه الشيخ في الملف الأساسي
+        function exportData() {
+            const codeBox = document.getElementById('exportCodeBox');
+            const jsonStr = JSON.stringify(khawatirList, null, 4);
+            
+            // تجهيز النص البرمجي ليتم نسخه
+            const codeToCopy = `const khawatirList = ${jsonStr};`;
+            
+            codeBox.value = codeToCopy;
+            codeBox.style.display = 'block';
+            codeBox.select();
+            document.execCommand('copy'); // نسخ النص تلقائياً
+            
+            alert("تم نسخ الكود! قم بلصقه في ملف HTML مكان السطر الذي يبدأ بـ 'let khawatirList = ...'");
         }
 
         // ============ التشغيل المبدئي ============
@@ -1349,6 +1422,12 @@
             fetchSurahList(); 
             renderAdhkar(); 
             renderKhawatir(); 
+            
+            // تفعيل مستمع رفع الصورة
+            const imageInput = document.getElementById('newKhawiraImageFile');
+            if (imageInput) {
+                imageInput.addEventListener('change', handleImageUpload);
+            }
         };
     </script>
 </body>
