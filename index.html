@@ -62,8 +62,18 @@
             color: var(--white); text-align: center; padding: 2rem 1rem;
             border-bottom: 5px solid var(--gold); box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-        header h1 { font-size: 2.2rem; margin-bottom: 0.2rem; color: var(--gold-light); }
-        header p { font-size: 1rem; opacity: 0.9; }
+        header h1 { font-size: 2.2rem; margin-bottom: 0.5rem; color: var(--gold-light); }
+        
+        /* تنسيق الألقاب تحت الاسم في الهيدر */
+        .header-titles {
+            font-size: 1rem;
+            color: #e2e8f0;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+        .header-titles span { display: block; }
+        .header-titles .highlight { color: var(--gold); font-weight: bold; }
+
         .hijri-date {
             background: rgba(0,0,0,0.2); display: inline-block;
             padding: 4px 15px; border-radius: 20px; margin-top: 10px;
@@ -270,13 +280,24 @@
         .ruqyah-section h3 { color: var(--primary); margin-bottom: 1rem; font-size: 1.4rem; border-bottom: 2px solid #eee; padding-bottom: 0.5rem; }
         .ruqyah-text { font-family: 'Scheherazade New', 'Amiri', serif !important; font-size: 1.9rem !important; line-height: 2.8 !important; text-align: justify; }
 
+        /* تنسيق التذييل */
         footer { background: var(--primary); color: white; text-align: center; padding: 2rem; border-top: 5px solid var(--gold); margin-top: 2rem; position: relative; }
+        footer h3 { color: var(--gold-light); margin-bottom: 0.5rem; font-size: 1.4rem; }
+        .footer-titles {
+            font-size: 0.9rem;
+            color: #cbd5e1;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        .footer-titles span { display: block; }
+
         .floating-wa { position: fixed; bottom: 20px; left: 20px; background: #25D366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 30px; text-decoration: none; z-index: 1000; }
         .secret-admin-btn { position: absolute; bottom: 10px; right: 10px; width: 20px; height: 20px; background: transparent; border: none; cursor: pointer; opacity: 0.1; transition: 0.3s; font-size: 1rem; }
         .secret-admin-btn:hover { opacity: 1; }
 
         @media (max-width: 768px) {
             header h1 { font-size: 1.7rem; }
+            .header-titles { font-size: 0.85rem; }
             .tab-btn { padding: 0.8rem; font-size: 0.9rem; }
             .quran-text { font-size: 1.7rem !important; }
             .ruqyah-text { font-size: 1.5rem !important; }
@@ -294,9 +315,13 @@
         </div>
     </div>
 
+    <!-- الهيدر مع إضافة الألقاب -->
     <header>
         <h1>الشيخ الدكتور محمد ربيع الناصر</h1>
-        <p>الفتوى | الرقية الشرعية | أمور الدين الإسلامي</p>
+        <div class="header-titles">
+            <span>دكتوراه في الشريعة الإسلامية</span>
+            <span>نائب عميد كلية الشريعة بـ <span class="highlight">جامعة نور الهدى الطبية الدولية الإسلامية - أمريكا</span></span>
+        </div>
         <div class="hijri-date" id="hijriDate">جاري جلب التاريخ الهجري...</div>
     </header>
 
@@ -616,9 +641,14 @@
         </div>
     </section>
 
+    <!-- التذييل مع إضافة الألقاب -->
     <footer>
         <h3>الشيخ الدكتور محمد ربيع الناصر</h3>
-        <p>جميع الحقوق محفوظة &copy; 2026</p>
+        <div class="footer-titles">
+            <span>دكتوراه في الشريعة الإسلامية</span>
+            <span>نائب عميد كلية الشريعة بجامعة نور الهدى الطبية الدولية الإسلامية - أمريكا</span>
+        </div>
+        <p style="font-size: 0.9rem; opacity: 0.8;">جميع الحقوق محفوظة &copy; 2026</p>
         <button class="secret-admin-btn" onclick="adminLogin()">⚙️</button>
     </footer>
 
